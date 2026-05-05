@@ -4,6 +4,7 @@ import Navbar from '@/components/common/Navbar';
 import Footer from '@/components/common/Footer';
 import SmoothScroll from '@/components/common/SmoothScroll';
 import LoadingBar from '@/components/common/LoadingBar';
+import ScrollToTop from '@/components/common/ScrollToTop';
 import { Suspense } from 'react';
 
 const inter = Inter({
@@ -90,6 +91,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="antialiased">
+        <ScrollToTop />
         <Suspense fallback={null}>
           <LoadingBar />
         </Suspense>

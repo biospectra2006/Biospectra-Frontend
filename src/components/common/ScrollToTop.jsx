@@ -6,7 +6,11 @@ export default function ScrollToTop() {
   const pathname = usePathname();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // Small timeout to ensure the DOM has updated and Lenis/Browser can reset
+    const timer = setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 10);
+    return () => clearTimeout(timer);
   }, [pathname]);
 
   return null;

@@ -18,8 +18,8 @@ const NAV_LINKS = [
 
 const P = {
   deepGreen:  '#064e3b',
-  emerald:    '#059669',
-  richPurple: '#6d28d9',
+  emerald:    '#19674b',
+  richPurple: '#9e9eff',
   violet:     '#7c3aed',
   textBody:   '#1e293b',
   textMuted:  '#64748b',
@@ -82,7 +82,7 @@ const Navbar = () => {
           <Link href="/" className="flex items-center gap-2 shrink-0 group outline-none">
             <motion.div
               whileHover={{ scale: 1.05 }}
-              className="relative w-10 h-10 sm:w-[48px] sm:h-[48px] flex-shrink-0"
+              className="relative w-10 h-10 sm:w-[54px] sm:h-[54px] flex-shrink-0"
               style={{
                 borderRadius: 0,
                 padding: 0,
@@ -91,10 +91,10 @@ const Navbar = () => {
               }}
             >
               <Image
-                src="/assets/mset-logo-png-removebg-preview.png"
+                src="/logo/MSET LOGO PNG.png"
                 alt="MSET Logo"
                 fill
-                className="object-contain p-0.5 transition-all duration-500"
+                className="object-contain transition-all duration-500"
                 priority
               />
             </motion.div>
@@ -189,7 +189,7 @@ const Navbar = () => {
             className="lg:hidden flex items-center justify-center outline-none"
             style={{
               width: 42, height: 42, borderRadius: 12,
-              background: isOpen ? `linear-gradient(135deg, ${P.richPurple}, ${P.magenta})` : 'transparent',
+              background: isOpen ? `linear-gradient(135deg, ${P.emerald}, #3eb489)` : 'transparent',
               border: 'none',
               cursor: 'pointer',
               transition: 'all 0.25s ease',
@@ -224,7 +224,7 @@ const Navbar = () => {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
               className="lg:hidden fixed inset-0 z-[90]"
-              style={{ background: 'rgba(20,0,50,0.7)' }}
+              style={{ background: 'rgba(6,78,59,0.7)' }}
               onClick={() => setIsOpen(false)}
             />
 
@@ -239,15 +239,15 @@ const Navbar = () => {
               style={{
                 width: 'min(320px, 85vw)',
                 background: 'rgba(255,255,255,1)',
-                boxShadow: '-12px 0 60px rgba(90,0,150,0.2)',
-                borderLeft: '1px solid rgba(139,0,204,0.12)',
+                boxShadow: '-12px 0 60px rgba(25,103,75,0.15)',
+                borderLeft: '1px solid rgba(25,103,75,0.12)',
               }}
             >
               {/* Drawer top accent */}
-              <div style={{ height: 3, background: `linear-gradient(90deg, ${P.deepPurple}, ${P.magenta})` }} />
+              <div style={{ height: 3, background: `linear-gradient(90deg, ${P.deepGreen}, #3eb489)` }} />
 
               {/* Drawer header */}
-              <div className="flex items-center justify-between px-6 pt-5 pb-4" style={{ borderBottom: '1px solid rgba(139,0,204,0.08)' }}>
+              <div className="flex items-center justify-between px-6 pt-5 pb-4" style={{ borderBottom: '1px solid rgba(25,103,75,0.08)' }}>
                 <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: '0.2em', textTransform: 'uppercase', color: P.textMuted }}>
                   Navigation
                 </span>
@@ -255,11 +255,11 @@ const Navbar = () => {
                   whileTap={{ scale: 0.9 }}
                   onClick={() => setIsOpen(false)}
                   style={{
-                    width: 34, height: 34, borderRadius: 8, background: 'rgba(139,0,204,0.07)',
-                    border: '1px solid rgba(139,0,204,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+                    width: 34, height: 34, borderRadius: 8, background: 'rgba(25,103,75,0.07)',
+                    border: '1px solid rgba(25,103,75,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
                   }}
                 >
-                  <X size={15} color={P.richPurple} />
+                  <X size={15} color={P.emerald} />
                 </motion.button>
               </div>
 
@@ -280,8 +280,8 @@ const Navbar = () => {
                         style={{
                           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                           padding: '13px 16px', borderRadius: 12, textDecoration: 'none',
-                          background: isActive ? `linear-gradient(135deg, rgba(45,0,87,0.07), rgba(190,0,190,0.05))` : 'transparent',
-                          border: isActive ? `1px solid rgba(139,0,204,0.15)` : '1px solid transparent',
+                          background: isActive ? `linear-gradient(135deg, rgba(6,78,59,0.07), rgba(62,180,137,0.05))` : 'transparent',
+                          border: isActive ? `1px solid rgba(25,103,75,0.15)` : '1px solid transparent',
                           transition: 'all 0.2s ease',
                         }}
                       >
@@ -289,13 +289,13 @@ const Navbar = () => {
                           fontSize: 15,
                           fontFamily: 'var(--font-crimson-pro), serif',
                           fontWeight: isActive ? 900 : 700,
-                          color: isActive ? P.deepPurple : P.textBody,
+                          color: isActive ? P.deepGreen : P.textBody,
                           letterSpacing: '0.01em',
                         }}>
                           {link.name}
                         </span>
                         {isActive && (
-                          <div style={{ width: 7, height: 7, borderRadius: '50%', background: `linear-gradient(135deg, ${P.richPurple}, ${P.magenta})`, flexShrink: 0 }} />
+                          <div style={{ width: 7, height: 7, borderRadius: '50%', background: `linear-gradient(135deg, ${P.emerald}, #3eb489)`, flexShrink: 0 }} />
                         )}
                       </Link>
                     </motion.div>
@@ -304,7 +304,7 @@ const Navbar = () => {
               </nav>
 
               {/* Drawer footer */}
-              <div className="px-4 pb-8 pt-4" style={{ borderTop: '1px solid rgba(139,0,204,0.08)' }}>
+              <div className="px-4 pb-8 pt-4" style={{ borderTop: '1px solid rgba(25,103,75,0.08)' }}>
                 <motion.div
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}

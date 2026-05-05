@@ -2,17 +2,16 @@
 
 :root {
   --text: #1e293b;           /* slate-900 */
-  --text-h: #0f172a;         /* slate-950 */
-  --bg: #f8fafc;             /* slate-50 */
+  --text-h: #064e3b;         /* Deep Emerald Header */
+  --bg: #fdfcff;             /* Very light lavender tint */
   --border: #e2e8f0;         /* slate-200 */
-  --accent: #7c3aed;         /* violet-600 */
-  --accent-mid: #6d28d9;     /* violet-700 */
-  --accent-dark: #4c1d95;    /* violet-900 */
-  --accent-green: #059669;    /* emerald-600 */
-  --accent-green-dark: #064e3b; /* emerald-900 */
-  --accent-magenta: #be185d; /* pink-700 */
-  --accent-soft: rgba(124, 58, 237, 0.06);
-  --purple-light: #f5f3ff;   /* violet-50 */
+  --accent: #9e9eff;         /* Primary Lavender */
+  --accent-mid: #7c3aed;     /* Keeping a bit of violet for depth */
+  --accent-green: #19674b;    /* Deep Emerald Green */
+  --accent-green-light: #3eb489; /* Mint Green */
+  --accent-magenta: #9e9eff;  /* Switching magenta accents to Lavender */
+  --accent-soft: rgba(158, 158, 255, 0.08);
+  --purple-light: #e6e6fa;   /* Lavender tint */
   --green-light: #f0fdf4;    /* emerald-50 */
 
   /* Typography Tokens */
@@ -182,13 +181,13 @@ code {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(139, 0, 204, 0.4); /* Vibrant but translucent */
+  background: rgba(25, 103, 75, 0.35); /* Emerald, translucent */
   border-radius: 100px;
   transition: all 0.4s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, var(--accent-mid), var(--accent-magenta));
+  background: linear-gradient(to bottom, #19674b, #9e9eff);
 }
 
 /* Hide scrollbar buttons (arrows) for a modern look */
@@ -199,7 +198,7 @@ code {
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(139, 0, 204, 0.4) transparent;
+  scrollbar-color: rgba(25, 103, 75, 0.35) transparent;
 }
 
 .hide-scrollbar::-webkit-scrollbar {

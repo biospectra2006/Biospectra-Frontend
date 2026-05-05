@@ -1,33 +1,28 @@
-import React from 'react';
-import articlesData from '@/data/articles.json';
+// Server Component
+import { getArticleById } from '@/services/api';
 import ArticleClient from './ArticleClient';
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
-  const article = articlesData.find(a => a.id === parseInt(id));
-
-  if (!article) {
+  try {
+    const article = await getArticleById(id);
     return {
-      title: 'Article Not Found',
+      title: article?.title || 'Article Details',
+      description: article?.abstract?.slice(0, 160) || `Read this article in Biospectra Journal.`,
     };
+  } catch (e) {
+    return { title: 'Article Details' };
   }
-
-  return {
-    title: article.title,
-    description: article.abstract.substring(0, 160) + '...',
-    openGraph: {
-      title: article.title,
-      description: article.abstract.substring(0, 160) + '...',
-      type: 'article',
-      publishedTime: article.date,
-      authors: article.authors,
-    },
-  };
 }
 
-export default async function ArticlePage({ params }) {
+export default async function Page({ params }) {
   const { id } = await params;
-  const article = articlesData.find(a => a.id === parseInt(id));
+  let article = null;
+  try {
+    article = await getArticleById(id);
+  } catch (error) {
+    console.error('Error fetching article:', error);
+  }
 
   return <ArticleClient article={article} />;
 }

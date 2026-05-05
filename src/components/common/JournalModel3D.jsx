@@ -99,7 +99,7 @@ export default function JournalModel3D({ className = '' }) {
         >
           <ambientLight intensity={1.5} />
           <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={2} castShadow />
-          <pointLight position={[-10, -10, -10]} intensity={1} color="#be00be" />
+          <pointLight position={[-10, -10, -10]} intensity={1} color="#3eb489" />
 
           <Suspense fallback={<LoadingMesh />}>
             <PresentationControls
@@ -121,7 +121,7 @@ export default function JournalModel3D({ className = '' }) {
               scale={10}
               blur={2.5}
               far={1.5}
-              color="#2d0057"
+              color="#064e3b"
             />
             <Environment preset="city" />
           </Suspense>
