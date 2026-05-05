@@ -29,6 +29,7 @@ export const metadata = {
     template: '%s | BIOSPECTRA',
   },
   description: 'BIOSPECTRA is an International Biannual Refereed Journal of Life Sciences published by Madhawi Shyam Educational Trust (MSET). Reg. No. 20560/IV-1815/2005.',
+  themeColor: '#0a001a',
   keywords: [
     'Biospectra', 'Life Sciences Journal', 'Biological Research', 'Academic Publication', 
     'MSET', 'Zoology Research', 'Botany Papers', 'Biotechnology Journal', 
@@ -66,7 +67,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${inter.variable} ${crimsonPro.variable}`}>
+    <html lang="en" className={`${inter.variable} ${crimsonPro.variable}`} style={{ background: '#0a001a' }}>
       <head>
         <script
           type="application/ld+json"
@@ -90,13 +91,13 @@ export default function RootLayout({ children }) {
           }}
         />
       </head>
-      <body className="antialiased">
+      <body className="antialiased" style={{ background: '#0a001a' }}>
         <ScrollToTop />
         <Suspense fallback={null}>
           <LoadingBar />
         </Suspense>
         <SmoothScroll>
-          <div className="flex flex-col min-h-screen bg-white">
+          <div className="flex flex-col min-h-screen">
             <Navbar />
             <div className="flex-grow">
               {children}
