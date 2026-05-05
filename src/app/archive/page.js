@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ArchiveClient from '@/components/archive/ArchiveClient';
 
 export const metadata = {
@@ -7,7 +7,15 @@ export const metadata = {
 };
 
 const ArchivePage = () => {
-  return <ArchiveClient />;
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+        <div className="animate-pulse text-slate-400 font-bold tracking-widest">LOADING ARCHIVE...</div>
+      </div>
+    }>
+      <ArchiveClient />
+    </Suspense>
+  );
 };
 
 export default ArchivePage;

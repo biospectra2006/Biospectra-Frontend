@@ -76,7 +76,8 @@ const EditorialBoard = () => {
   React.useEffect(() => {
     const fetchMembers = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/editorial');
+        const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+        const res = await fetch(`${baseUrl}/editorial`);
         if (!res.ok) throw new Error('Network response was not ok');
         const data = await res.json();
         

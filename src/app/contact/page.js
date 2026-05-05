@@ -31,7 +31,8 @@ const Contact = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/contact', {
+      const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+      const response = await fetch(`${baseUrl}/contact`, {
         method: 'POST',
         // Note: Do not set Content-Type header manually when using FormData
         body: formData
