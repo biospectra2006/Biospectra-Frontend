@@ -2,32 +2,36 @@
 import React, { useMemo } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { BookOpen, ArrowLeft, ChevronRight, Loader2, Search } from 'lucide-react';
-import { getJournalTree, getCachedJournalTree } from '@/services/api';
+import { BookOpen, ArrowLeft, Loader2, Search } from 'lucide-react';
+import { getIssueData } from '@/services/api';
 
 const IssueClient = ({ params }) => {
   const unwrappedParams = React.use(params);
   const volume = parseInt(unwrappedParams.volume);
   const issue = parseInt(unwrappedParams.issue);
-  
-  const cachedData = getCachedJournalTree();
+
+  // volume = year - 2005 => year = volume + 2005
+  const targetYear = volume + 2005;
+
   const [localSearch, setLocalSearch] = React.useState('');
-  const [journalData, setJournalData] = React.useState(cachedData);
-  const [loading, setLoading] = React.useState(!cachedData);
+  const [currentIssueData, setCurrentIssueData] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
+    let cancelled = false;
     const fetchData = async () => {
       try {
-        const tree = await getJournalTree();
-        setJournalData(tree);
+        const data = await getIssueData(targetYear, issue);
+        if (!cancelled) setCurrentIssueData(data);
       } catch (error) {
-        console.error('Error fetching journal tree:', error);
+        console.error('Error fetching issue data:', error);
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     };
     fetchData();
-  }, []);
+    return () => { cancelled = true; };
+  }, [targetYear, issue]);
 
   const P = {
     deepPurple: '#064e3b',    // Emerald
@@ -39,16 +43,6 @@ const IssueClient = ({ params }) => {
     border:     'rgba(25, 103, 75, 0.1)',
   };
 
-  // Find the matching year and issue from the tree
-  // volume = year - 2005 => year = volume + 2005
-  const targetYear = volume + 2005;
-  
-  const currentIssueData = useMemo(() => {
-    if (!journalData) return null;
-    const yearNode = journalData.find(y => y.year === targetYear);
-    if (!yearNode) return null;
-    return yearNode.issues.find(i => i.order === issue);
-  }, [journalData, targetYear, issue]);
 
   const filteredCategories = useMemo(() => {
     if (!currentIssueData) return [];
