@@ -76,7 +76,25 @@ const AboutClient = () => {
           {founderSection && (
             <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }} className="flex flex-col items-center mb-14 w-full">
               <div className="p-1.5 bg-white shadow-2xl shadow-emerald-900/10 mb-4" style={{ border: `1px solid ${P.border}` }}>
-                <Image src={founderSection.images?.[0] || madhaviImg} alt="Founders of MSET" width={800} height={400} className="w-full max-w-[600px] h-auto object-cover" priority />
+                {(() => {
+                  const rawSrc = founderSection.images?.[0] || madhaviImg;
+                  const imgSrc = rawSrc.startsWith('http') || rawSrc.startsWith('/') ? rawSrc : `/${rawSrc}`;
+                  console.log('Founder Image Path:', imgSrc);
+                  return (
+                    <Image 
+                      src={imgSrc} 
+                      alt="Founders of MSET" 
+                      width={800} 
+                      height={400} 
+                      className="w-full max-w-[600px] h-auto object-cover" 
+                      priority 
+                      onError={(e) => {
+                        console.error('Image failed to load:', imgSrc);
+                        e.target.src = madhaviImg; // Force fallback to local static asset
+                      }}
+                    />
+                  );
+                })()}
               </div>
               <div className="text-center">
                 <p style={{ color: P.deepPurple, letterSpacing: '0.05em' }} className="font-bold text-xs md:text-sm uppercase">{founderSection.content}</p>
