@@ -61,7 +61,9 @@ const Hero = () => {
             priority
             sizes="100vw"
           />
-
+          {/* Dark overlays for improved text contrast */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/20 to-transparent lg:from-black/50" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent lg:hidden" />
         </div>
 
         <motion.div 
@@ -124,12 +126,12 @@ const Hero = () => {
             <div className="absolute bottom-10 right-10 w-8 h-8 border-b border-r border-white/10 rounded-br-lg pointer-events-none" />
             
             <span className="text-white/60 font-mono tracking-[0.2em] text-[9px] lg:text-[10px] uppercase mb-4 animate-pulse">VOL. 17 / ISS. 2</span>
-            <h1 className="font-medium leading-none mb-4 drop-shadow-2xl" style={{ fontSize: 'clamp(48px, 7vw, 100px)', color: '#ffffff', letterSpacing: '0.05em', textShadow: '0 4px 40px rgba(255,255,255,0.35)', fontFamily: 'var(--font-crimson-pro), Georgia, serif' }}>
+            <h1 className="font-medium leading-none mb-4 drop-shadow-2xl" style={{ fontSize: 'clamp(42px, 8vw, 100px)', color: '#ffffff', letterSpacing: '0.05em', textShadow: '0 4px 60px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.4)', fontFamily: 'var(--font-crimson-pro), Georgia, serif' }}>
               BIOSPECTRA
             </h1>
-            <div className="flex flex-col pl-3 lg:pl-4 border-l border-white/30 ml-1 mb-8">
-              <span className="text-white/60 font-medium tracking-[0.2em] lg:tracking-[0.3em] text-[8.5px] lg:text-[11px] leading-relaxed uppercase block">INTERNATIONAL BIANNUAL REFEREED</span>
-              <span className="text-white font-bold tracking-[0.15em] lg:tracking-[0.2em] text-[10px] lg:text-[13px] leading-tight uppercase mt-1" style={{fontFamily: 'var(--font-inter), sans-serif'}}>JOURNAL OF LIFE SCIENCES</span>
+            <div className="flex flex-col pl-3 lg:pl-4 border-l border-white/40 ml-1 mb-8">
+              <span className="text-white/80 font-medium tracking-[0.2em] lg:tracking-[0.3em] text-[8.5px] lg:text-[11px] leading-relaxed uppercase block" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>INTERNATIONAL BIANNUAL REFEREED</span>
+              <span className="text-white font-bold tracking-[0.15em] lg:tracking-[0.2em] text-[10px] lg:text-[13px] leading-tight uppercase mt-1" style={{fontFamily: 'var(--font-inter), sans-serif', textShadow: '0 2px 10px rgba(0,0,0,0.5)'}}>JOURNAL OF LIFE SCIENCES</span>
             </div>
             <div className="flex flex-row items-center gap-5 lg:gap-6">
               <Link href="/archive">
