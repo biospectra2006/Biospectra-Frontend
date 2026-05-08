@@ -199,8 +199,7 @@ const Gallery = () => {
       </AnimatePresence>
       </div>
     </div>
-  </div>
-);
+  );
 };
 
 export default Gallery;
