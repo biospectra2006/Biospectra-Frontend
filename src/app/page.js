@@ -30,11 +30,11 @@ const P = {
 
 // ── Shared Assets ─────────────────────────────────────────────────────────────
 const assets = {
-  biospectraCover: '/assets/biospectra.jpg',
-  awardImg:        '/assets/award2.jpg',
-  certificateImg:  '/assets/cerificate of indexing.jpg',
-  msetLogo:        '/assets/mset-logo-png-removebg-preview.png',
-  iccbLogo:        '/assets/iccb-logo-removebg-preview.png',
+  biospectraCover: '/assets/content/biospectra.jpg',
+  awardImg:        '/assets/content/award2.jpg',
+  certificateImg:  '/assets/content/certificate_of_indexing.jpg',
+  msetLogo:        '/assets/logo/mset-logo-png-removebg-preview.png',
+  iccbLogo:        '/assets/logo/iccb-logo-removebg-preview.png',
 };
 
 const Home = () => {
