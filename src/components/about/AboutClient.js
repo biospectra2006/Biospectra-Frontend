@@ -79,7 +79,7 @@ const AboutClient = () => {
                 {(() => {
                   const rawSrc = founderSection.images?.[0] || madhaviImg;
                   const imgSrc = rawSrc.startsWith('http') || rawSrc.startsWith('/') ? rawSrc : `/${rawSrc}`;
-                  console.log('Founder Image Path:', imgSrc);
+                  
                   return (
                     <Image 
                       src={imgSrc} 
@@ -89,8 +89,8 @@ const AboutClient = () => {
                       className="w-full max-w-[600px] h-auto object-cover" 
                       priority 
                       onError={(e) => {
-                        console.error('Image failed to load:', imgSrc);
-                        e.target.src = madhaviImg; // Force fallback to local static asset
+                        // Use a professional scientific placeholder if local asset is missing on server
+                        e.target.src = "https://images.unsplash.com/photo-1532187863486-abf9d39d99f5?auto=format&fit=crop&q=80&w=800";
                       }}
                     />
                   );
