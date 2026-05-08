@@ -7,8 +7,17 @@ import Image from 'next/image';
 const EditorialHighlights = ({ colors, assets }) => {
   const P = colors;
   return (
-    <section className="flex flex-col justify-center py-12 lg:py-16" style={{ background: '#fcf8f3', borderTop: `1px solid ${P.borderSoft}`, overflow: 'hidden' }}>
-      <div style={{ maxWidth: 1300, margin: '0 auto', padding: '0 clamp(20px, 5vw, 60px)', width: '100%' }}>
+    <section className="relative overflow-hidden flex flex-col justify-center py-12 lg:py-16" style={{ background: '#fcf8f3', borderTop: `1px solid ${P.borderSoft}` }}>
+      {/* Background Lines */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
+        <div className="absolute inset-0 flex justify-between px-[5%] opacity-[0.03]">
+          {[...Array(12)].map((_, i) => (
+            <div key={i} className="w-px h-full bg-slate-900" />
+          ))}
+        </div>
+      </div>
+
+      <div className="relative z-10" style={{ maxWidth: 1300, margin: '0 auto', padding: '0 clamp(20px, 5vw, 60px)', width: '100%' }}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           <div className="relative w-full max-w-[380px] mx-auto aspect-[4/3.5] order-2 lg:order-1 mt-6 lg:mt-0">
             <div className="absolute top-[5%] right-[5%] w-[85%] h-[85%] bg-emerald-900/[0.02] border border-emerald-900/5 -rotate-2" />

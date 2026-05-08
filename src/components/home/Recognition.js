@@ -6,8 +6,15 @@ import Image from 'next/image';
 const Recognition = ({ colors, assets }) => {
   const P = colors;
   return (
-    <section style={{ background: `linear-gradient(135deg, ${P.deepPurple}, #022c22)`, color: '#fff', borderTop: `1px solid rgba(255,255,255,0.1)`, padding: 'clamp(40px, 6vw, 80px) 0', overflow: 'hidden', position: 'relative' }}>
-      {/* Optimized decorative elements — removed heavy blur and repeated gradients */}
+    <section className="relative overflow-hidden" style={{ background: `linear-gradient(135deg, ${P.deepPurple}, #022c22)`, color: '#fff', borderTop: `1px solid rgba(255,255,255,0.1)`, padding: 'clamp(40px, 6vw, 80px) 0' }}>
+      {/* Background Lines */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
+        <div className="absolute inset-0 flex justify-between px-[5%] opacity-[0.05]">
+          {[...Array(12)].map((_, i) => (
+            <div key={i} className="w-px h-full bg-white" />
+          ))}
+        </div>
+      </div>
       <div style={{ position: 'absolute', bottom: '-10%', left: '5%', width: 400, height: 400, borderRadius: '50%', background: `rgba(25,103,75,0.2)`, pointerEvents: 'none' }} />
 
       <div style={{ maxWidth: 1600, margin: '0 auto', padding: '0 clamp(20px, 5vw, 60px)', position: 'relative', zIndex: 10 }}>

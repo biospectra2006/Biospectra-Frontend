@@ -32,12 +32,17 @@ const EditorialBoard = () => {
   }, []);
 
   const categorized = React.useMemo(() => {
+    const filterBy = (type) => members.filter(m => {
+      if (!m.memberType) return false;
+      return m.memberType.toLowerCase().trim() === type;
+    });
+
     return {
-      core: members.filter(m => m.memberType === 'core'),
-      national_advisory: members.filter(m => m.memberType === 'national_advisory'),
-      national_editor: members.filter(m => m.memberType === 'national_editor'),
-      foreign_editor: members.filter(m => m.memberType === 'foreign_editor'),
-      strategic: members.filter(m => m.memberType === 'strategic')
+      core: filterBy('core'),
+      national_advisory: filterBy('national_advisory'),
+      national_editor: filterBy('national_editor'),
+      foreign_editor: filterBy('foreign_editor'),
+      strategic: filterBy('strategic')
     };
   }, [members]);
 
@@ -52,14 +57,6 @@ const EditorialBoard = () => {
     white:      '#ffffff',
     border:     'rgba(25, 103, 75, 0.08)',
     glass:      'rgba(255, 255, 255, 0.7)',
-  };
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.05 }
-    }
   };
 
   const itemVariants = {
@@ -147,14 +144,12 @@ const EditorialBoard = () => {
                         {member.email}
                       </a>
                     )}
-                    
-                    <div className="absolute bottom-4 right-6 opacity-0 group-hover:opacity-10 transition-opacity">
-                      <span className="text-4xl font-black italic text-emerald-900">{idx + 1}</span>
-                    </div>
                   </motion.div>
                 ))}
               </div>
-            </section>            {/* National Advisory Board Section */}
+            </section>
+
+            {/* National Advisory Board Section */}
             <section className="px-4">
               <div className="flex items-center gap-6 mb-10">
                 <h2 style={{ fontFamily: 'var(--font-crimson-pro), serif', color: P.deepPurple }} className="text-xl font-bold uppercase tracking-widest shrink-0">
@@ -163,17 +158,14 @@ const EditorialBoard = () => {
                 <div className="h-[1px] flex-grow bg-emerald-100/50" />
               </div>
               
-              <motion.div 
-                variants={containerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
-              >
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {categorized.national_advisory?.map((member, idx) => (
                   <motion.div 
                     key={idx}
-                    variants={itemVariants}
+                    initial={{ opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: (idx % 3) * 0.1 }}
                     className="flex flex-col p-5 bg-white rounded-xl border border-emerald-50/50 hover:bg-emerald-50/30 transition-colors group"
                   >
                     <h4 style={{ color: P.deepPurple }} className="font-bold text-sm mb-1 group-hover:text-emerald-700 transition-colors">{member.name}</h4>
@@ -190,7 +182,7 @@ const EditorialBoard = () => {
                     </div>
                   </motion.div>
                 ))}
-              </motion.div>
+              </div>
             </section>
 
             {/* National Editors Section */}
@@ -202,17 +194,14 @@ const EditorialBoard = () => {
                 <div className="h-[1px] flex-grow bg-emerald-100/50" />
               </div>
 
-              <motion.div 
-                variants={containerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
-              >
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {categorized.national_editor?.map((member, idx) => (
                   <motion.div 
                     key={idx}
-                    variants={itemVariants}
+                    initial={{ opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: (idx % 4) * 0.1 }}
                     className="p-4 bg-white/60 backdrop-blur-sm rounded-lg border border-emerald-50/40 hover:border-emerald-200 transition-all group"
                   >
                     <h4 className="text-xs font-bold text-gray-800 mb-1 group-hover:text-emerald-700 transition-colors">{member.name}</h4>
@@ -222,7 +211,7 @@ const EditorialBoard = () => {
                     </p>
                   </motion.div>
                 ))}
-              </motion.div>
+              </div>
             </section>
           </div>
 
@@ -238,7 +227,13 @@ const EditorialBoard = () => {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {categorized.foreign_editor?.map((member, idx) => (
-                    <div key={idx} className="flex items-start gap-4 p-5 bg-emerald-900/5 rounded-xl border border-emerald-100/20">
+                    <motion.div 
+                      key={idx} 
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      className="flex items-start gap-4 p-5 bg-emerald-900/5 rounded-xl border border-emerald-100/20"
+                    >
                       <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center shrink-0 shadow-sm">
                         <span className="text-xs font-bold text-emerald-600">{member.location?.substring(0, 2).toUpperCase() || 'GL'}</span>
                       </div>
@@ -246,7 +241,7 @@ const EditorialBoard = () => {
                         <h4 className="text-xs font-bold text-gray-800 mb-0.5">{member.name}</h4>
                         <p className="text-[10px] text-emerald-500 font-medium uppercase tracking-wider">{member.location || 'International'}</p>
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               </section>
@@ -260,12 +255,18 @@ const EditorialBoard = () => {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {categorized.strategic?.map((member, idx) => (
-                    <div key={idx} className="group p-5 bg-white rounded-xl border border-emerald-50 hover:bg-emerald-900 hover:border-emerald-900 transition-all duration-300">
+                    <motion.div 
+                      key={idx} 
+                      initial={{ opacity: 0, x: 10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      className="group p-5 bg-white rounded-xl border border-emerald-50 hover:bg-emerald-900 hover:border-emerald-900 transition-all duration-300"
+                    >
                       <h4 className="text-sm font-bold text-gray-800 group-hover:text-white transition-colors mb-1">{member.name}</h4>
                       <span className="text-[9px] font-black tracking-widest uppercase text-magenta group-hover:text-emerald-200 transition-colors">
                         {member.role}
                       </span>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               </section>

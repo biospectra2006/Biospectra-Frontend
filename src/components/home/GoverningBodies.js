@@ -6,8 +6,17 @@ import Image from 'next/image';
 const GoverningBodies = ({ colors, assets }) => {
   const P = colors;
   return (
-    <section style={{ background: '#fcf8f3', borderTop: `1px solid ${P.borderSoft}`, padding: 'clamp(40px, 5vw, 60px) 0' }}>
-      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 clamp(20px, 5vw, 60px)' }}>
+    <section className="relative overflow-hidden" style={{ background: '#fcf8f3', borderTop: `1px solid ${P.borderSoft}`, padding: 'clamp(40px, 5vw, 60px) 0' }}>
+      {/* Background Lines */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
+        <div className="absolute inset-0 flex justify-between px-[5%] opacity-[0.03]">
+          {[...Array(12)].map((_, i) => (
+            <div key={i} className="w-px h-full bg-slate-900" />
+          ))}
+        </div>
+      </div>
+
+      <div className="relative z-10" style={{ maxWidth: 1200, margin: '0 auto', padding: '0 clamp(20px, 5vw, 60px)' }}>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: 'clamp(30px, 5vw, 40px)' }}>
           <span className="text-emerald-900/40 font-mono tracking-[0.3em] text-[9px] uppercase mb-3">Official Publication</span>
           <h2 className="heading-section text-center" style={{ fontSize: 'clamp(20px, 3vw, 28px)', color: '#064e3b', letterSpacing: '0.05em' }}>

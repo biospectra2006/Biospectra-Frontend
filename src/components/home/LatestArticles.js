@@ -8,8 +8,17 @@ import ArticleCard from '@/components/common/ArticleCard';
 const LatestArticles = ({ colors, articles, loading, onScroll }) => {
   const P = colors;
   return (
-    <section style={{ background: '#fcf8f3', borderTop: `1px solid ${P.borderSoft}`, padding: 'clamp(40px, 5vw, 60px) 0', overflow: 'hidden' }}>
-      <div style={{ maxWidth: 1400, margin: '0 auto', padding: '0 clamp(20px, 5vw, 60px)' }}>
+    <section className="relative overflow-hidden" style={{ background: '#fcf8f3', borderTop: `1px solid ${P.borderSoft}`, padding: 'clamp(40px, 5vw, 60px) 0' }}>
+      {/* Background Lines */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
+        <div className="absolute inset-0 flex justify-between px-[5%] opacity-[0.03]">
+          {[...Array(12)].map((_, i) => (
+            <div key={i} className="w-px h-full bg-slate-900" />
+          ))}
+        </div>
+      </div>
+
+      <div className="relative z-10" style={{ maxWidth: 1400, margin: '0 auto', padding: '0 clamp(20px, 5vw, 60px)' }}>
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-8 sm:mb-12 gap-6">
           <div style={{ maxWidth: 650 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
