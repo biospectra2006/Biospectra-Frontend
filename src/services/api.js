@@ -60,3 +60,10 @@ export const getCategoriesByIssue = async (issueId) => {
     return response.json();
 };
 
+export const globalSearch = async (query) => {
+    if (!query) return { articles: [], editorial: [] };
+    const response = await fetch(`${API_URL}/search?q=${encodeURIComponent(query)}`);
+    if (!response.ok) throw new Error('Failed to search');
+    return response.json();
+};
+
