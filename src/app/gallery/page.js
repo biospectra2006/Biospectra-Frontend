@@ -197,8 +197,10 @@ const Gallery = () => {
           </motion.div>
         )}
       </AnimatePresence>
+      </div>
     </div>
-  );
+  </div>
+);
 };
 
 export default Gallery;
