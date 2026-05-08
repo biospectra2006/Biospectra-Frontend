@@ -91,6 +91,7 @@ const AboutClient = () => {
                       onError={(e) => {
                         // Use the default Madhavi image if local asset is missing on server
                         e.target.src = madhaviImg;
+                        e.target.srcset = "";
                       }}
                     />
                   );
