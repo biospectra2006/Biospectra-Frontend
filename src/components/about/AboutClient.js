@@ -117,7 +117,16 @@ const AboutClient = () => {
           {publicationSection && (
             <div className="w-full mb-16 px-6 py-10 bg-white border border-dashed border-emerald-200 text-center flex flex-col items-center">
                <div className="relative w-20 h-20 mb-4">
-                 <Image src={publicationSection.images?.[0] || "/assets/logo/biospectra-logo.jpg"} alt="Logo" fill className="object-contain" />
+                 <Image 
+                   src={publicationSection.images?.[0] || "/assets/logo/biospectra-logo.jpg"} 
+                   alt="Logo" 
+                   fill 
+                   className="object-contain"
+                   onError={(e) => {
+                     e.target.src = "/assets/logo/biospectra-logo.jpg";
+                     e.target.srcset = "";
+                   }}
+                 />
                </div>
                <h3 style={{ fontFamily: 'var(--font-crimson-pro), serif', color: P.deepPurple }} className="text-xl font-bold mb-4">{publicationSection.title}</h3>
                <p className="text-sm italic opacity-80 mb-2">{publicationSection.content}</p>
