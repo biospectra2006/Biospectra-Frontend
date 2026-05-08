@@ -25,9 +25,19 @@ const Submit = () => {
   if (submitted) {
     return (
       <div 
-        className="pt-40 pb-20 min-h-screen flex items-center justify-center"
-        style={{ background: '#fdfcff' }}
+        className="relative pt-40 pb-20 min-h-screen flex items-center justify-center overflow-hidden"
+        style={{ background: '#fdfbf7' }}
       >
+        {/* Background Lines */}
+        <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
+          <div className="absolute inset-0 flex justify-between px-[5%] opacity-[0.03]">
+             {[...Array(12)].map((_, i) => (
+               <div key={i} className="w-px h-full bg-slate-900" />
+             ))}
+          </div>
+        </div>
+        
+        <div className="relative z-10 w-full px-4 flex justify-center">
         <motion.div
           initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -58,9 +68,19 @@ const Submit = () => {
 
   return (
     <div 
-      className="pt-40 pb-20 min-h-screen"
-      style={{ background: '#fdfcff' }}
+      className="relative min-h-screen selection:bg-emerald-200 overflow-hidden" 
+      style={{ background: '#fdfbf7' }}
     >
+      {/* Background Lines */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
+        <div className="absolute inset-0 flex justify-between px-[5%] opacity-[0.03]">
+           {[...Array(12)].map((_, i) => (
+             <div key={i} className="w-px h-full bg-slate-900" />
+           ))}
+        </div>
+      </div>
+
+      <div className="relative z-10 pt-40 pb-20">
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col lg:flex-row gap-16 max-w-7xl mx-auto">
           {/* Form Side */}

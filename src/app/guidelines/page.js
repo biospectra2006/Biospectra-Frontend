@@ -4,10 +4,23 @@ import { motion } from 'framer-motion';
 
 const Guidelines = () => {
   return (
-    <div className="pt-32 pb-12 bg-slate-50 min-h-screen">
-      <div className="container mx-auto px-4 md:px-6">
-        
-        <div className="max-w-4xl mx-auto bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-200">
+    <div className="relative min-h-screen selection:bg-emerald-200 overflow-hidden" style={{ background: '#fdfbf7' }}>
+      {/* Background Lines */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
+        <div className="absolute inset-0 flex justify-between px-[5%] opacity-[0.03]">
+           {[...Array(12)].map((_, i) => (
+             <div key={i} className="w-px h-full bg-slate-900" />
+           ))}
+        </div>
+      </div>
+
+      <div className="relative z-10 pt-32 pb-16 md:pb-24">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="max-w-4xl mx-auto bg-white p-6 md:p-12 rounded-2xl shadow-xl shadow-emerald-900/[0.03] border border-emerald-50 relative">
+            {/* Corner Accent */}
+            <div className="absolute top-0 right-0 w-24 h-24 overflow-hidden rounded-tr-2xl pointer-events-none">
+              <div className="absolute top-[-50%] right-[-50%] w-full h-full bg-emerald-500/5 rotate-45 transform" />
+            </div>
           
           <div className="border-b border-emerald-100 pb-5 mb-6 text-center">
             <motion.h1 
@@ -131,6 +144,7 @@ const Guidelines = () => {
               </p>
             </div>
 
+          </div>
           </div>
         </div>
       </div>
