@@ -62,6 +62,7 @@ const Submit = () => {
             Submit Another Article
           </button>
         </motion.div>
+        </div>
       </div>
     );
   }
@@ -203,6 +204,7 @@ const Submit = () => {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
