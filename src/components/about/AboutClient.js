@@ -89,8 +89,8 @@ const AboutClient = () => {
                       className="w-full max-w-[600px] h-auto object-cover" 
                       priority 
                       onError={(e) => {
-                        // Use a professional scientific placeholder if local asset is missing on server
-                        e.target.src = "https://images.unsplash.com/photo-1532187863486-abf9d39d99f5?auto=format&fit=crop&q=80&w=800";
+                        // Use the default Madhavi image if local asset is missing on server
+                        e.target.src = madhaviImg;
                       }}
                     />
                   );
