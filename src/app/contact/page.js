@@ -61,7 +61,16 @@ const Contact = () => {
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden pt-20 pb-12 px-4 md:px-8 bg-slate-50 flex flex-col justify-center">
+    <div className="relative min-h-screen overflow-hidden pt-20 pb-12 px-4 md:px-8 flex flex-col justify-center" style={{ background: '#fdfbf7' }}>
+      {/* Background Lines */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
+        <div className="absolute inset-0 flex justify-between px-[5%] opacity-[0.03]">
+           {[...Array(12)].map((_, i) => (
+             <div key={i} className="w-px h-full bg-slate-900" />
+           ))}
+        </div>
+      </div>
+
       <div className="relative z-10 max-w-5xl w-full mx-auto">
         <motion.div 
           initial={{ opacity: 0, y: 30 }}

@@ -31,51 +31,42 @@ const IssueCard = ({ issue, volume, year }) => {
     <Link
       href={href}
       prefetch={true}
-      className="group relative bg-white border border-slate-100 shadow-md shadow-slate-900/5 rounded-xl p-5 transition-all duration-200 overflow-hidden flex flex-col active:scale-[0.98] touch-manipulation"
-      style={{ WebkitTapHighlightColor: 'transparent' }}
+      className="group relative bg-white border border-slate-100 shadow-xl shadow-slate-900/5 rounded-[1.25rem] p-5 transition-all duration-300 flex flex-col hover:-translate-y-1"
     >
-      <div className="absolute top-0 right-0 p-8 opacity-0 group-hover:opacity-5 transition-opacity pointer-events-none">
-        <Book size={80} className="text-emerald-600 rotate-12" />
+      <div className={`absolute top-0 right-0 py-1 px-4 text-[7px] font-black uppercase tracking-[0.2em] rounded-bl-xl border-l border-b border-slate-100 ${issue.order === 2 ? 'bg-[#1e293b] text-white' : 'bg-slate-50 text-slate-400'}`}>
+         {monthLabel} Release
       </div>
-      <div className="flex items-start justify-between mb-5 relative z-10">
-        <div className="flex flex-col">
-          <span className="text-[9px] font-black text-emerald-600 uppercase tracking-[0.2em] mb-1.5">Regular Issue</span>
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600 text-xs font-black group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300">
-              {issue.order}
-            </div>
-            <h3 className="text-base md:text-lg font-black text-slate-900" style={{ fontFamily: 'var(--font-crimson-pro), serif' }}>
-              {monthLabel} Issue
-            </h3>
-          </div>
+
+      <div className="flex items-center gap-4 mb-4">
+        <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-sm font-black transition-all duration-500 ${issue.order === 2 ? 'bg-[#1e293b] text-white' : 'bg-slate-50 text-slate-900 group-hover:bg-[#1e293b] group-hover:text-white'}`}>
+          {issue.order}
         </div>
-        <div className="bg-slate-50 text-slate-400 p-1.5 rounded-md group-hover:scale-110 group-hover:bg-emerald-50 group-hover:text-emerald-600 transition-all">
-          <Book size={14} />
+        <div>
+          <span className="text-[7px] font-black text-slate-300 uppercase tracking-[0.3em] mb-0.5 block">Issue Portfolio</span>
+          <h3 className="text-sm font-black text-slate-900 uppercase tracking-tighter" style={{ fontFamily: 'var(--font-crimson-pro), serif' }}>
+            Vol. {volume}, Issue {issue.order}
+          </h3>
         </div>
       </div>
-      <div className="mb-4 relative z-10">
-        <p className="text-slate-500 text-xs font-medium mb-3 leading-relaxed line-clamp-2">
-          {articleCount === null
-            ? 'Loading article count…'
-            : `This issue contains ${articleCount} peer-reviewed scientific papers covering various fields of biological research.`}
-        </p>
-        <div className="flex items-center space-x-4">
-          <div className="flex items-center space-x-1.5 text-slate-600 font-black text-[9px] uppercase tracking-widest">
-            <FileText size={10} className="text-emerald-900" />
-            <span>{articleCount === null ? '—' : articleCount} Papers</span>
-          </div>
-          <div className="flex items-center space-x-1.5 text-slate-600 font-black text-[9px] uppercase tracking-widest">
-            <Calendar size={10} className="text-emerald-900" />
-            <span>{monthLabel} {year}</span>
-          </div>
+
+      <div className="space-y-2 mb-6">
+        <div className="flex items-center gap-2 text-slate-500">
+           <div className="w-1 h-1 rounded-full bg-slate-200" />
+           <span className="text-[10px] font-bold">{monthLabel} {year} Edition</span>
+        </div>
+        <div className="flex items-center gap-2 text-slate-600">
+           <FileText size={12} className="text-slate-300" />
+           <span className="text-[10px] font-black">{articleCount === null ? '—' : articleCount} Peer-Reviewed Papers</span>
         </div>
       </div>
-      <div className="mt-auto pt-4 border-t border-slate-50 flex items-center justify-between relative z-10">
-        <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600 group-hover:text-emerald-700 transition-colors">
-          View Contents
-        </span>
-        <div className="w-6 h-6 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-all group-hover:translate-x-1">
-          <ChevronRight size={12} />
+
+      <div className="mt-auto flex items-center justify-between">
+        <div className="flex items-center gap-3">
+           <span className="text-[8px] font-black uppercase tracking-[0.2em] text-slate-900">Open Archive</span>
+           <div className="w-6 h-px bg-slate-200 group-hover:w-10 group-hover:bg-slate-900 transition-all duration-500" />
+        </div>
+        <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-[#1e293b] group-hover:text-white transition-all duration-500">
+          <ChevronRight size={14} />
         </div>
       </div>
     </Link>
@@ -175,7 +166,30 @@ const ArchiveClient = () => {
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden" style={{ background: '#f8fafc' }}>
+    <div className="relative min-h-screen overflow-hidden" style={{ background: '#fdfbf7' }}>
+      {/* Background Lines & Watermark */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
+        {/* Dynamic Watermark */}
+        <div className="absolute top-[70%] left-[58%] -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-full">
+           <motion.h2 
+             key={activeVolume}
+             initial={{ opacity: 0, scale: 0.8 }}
+             animate={{ opacity: 0.03, scale: 1 }}
+             className="text-[18vw] font-black text-slate-900 leading-none whitespace-nowrap"
+             style={{ fontFamily: 'var(--font-crimson-pro), serif' }}
+           >
+             VOL.{activeVolume}
+           </motion.h2>
+        </div>
+
+        {/* Dynamic Lines (Subtle Grid) */}
+        <div className="absolute inset-0 flex justify-between px-[5%] opacity-[0.03]">
+           {[...Array(12)].map((_, i) => (
+             <div key={i} className="w-px h-full bg-slate-900" />
+           ))}
+        </div>
+      </div>
+
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute -top-[10%] -left-[5%] w-[40%] h-[40%] rounded-full opacity-10 blur-[120px]" style={{ background: P.emerald }} />
         <div className="absolute top-[20%] -right-[10%] w-[35%] h-[35%] rounded-full opacity-10 blur-[100px]" style={{ background: P.violet }} />
@@ -183,52 +197,39 @@ const ArchiveClient = () => {
       </div>
 
       <div className="relative z-10 pt-24 pb-12">
-        <div className="w-full px-6 md:px-12 lg:px-24">
-          <header className="max-w-2xl mx-auto mb-12">
-            <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="w-full flex flex-col items-center text-center">
-              <h1
-                className="text-3xl md:text-5xl font-black tracking-tight bg-clip-text text-transparent mb-4"
-                style={{ fontFamily: 'var(--font-crimson-pro), serif', backgroundImage: `linear-gradient(135deg, ${P.deepGreen}, ${P.richPurple})` }}
-              >
-                Journal Issues
-              </h1>
-              <p className="text-sm md:text-base text-textBody leading-relaxed opacity-70 font-medium">
-                A legacy of scientific excellence. Browse our complete collection of peer-reviewed biological research, spanning over three decades of discovery.
-              </p>
+        <div className="w-full px-4 md:px-12 lg:px-24">
+          <header className="max-w-4xl mb-12">
+            <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="w-full flex flex-col items-start text-left">
+              <div className="mb-2">
+                <h1
+                  className="text-3xl md:text-5xl font-black text-slate-900 mb-2"
+                  style={{ fontFamily: 'var(--font-crimson-pro), serif' }}
+                >
+                  Journal Archive
+                </h1>
+              </div>
             </motion.div>
           </header>
 
           <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 w-full">
             {/* Sidebar — year picker */}
-            <aside className="lg:w-1/3 xl:w-1/4 shrink-0">
-              <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4, delay: 0.1 }} className="sticky top-20">
-                <div className="bg-white/80 backdrop-blur-xl border border-white p-4 shadow-xl shadow-slate-900/5 rounded-2xl overflow-hidden relative group">
-                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-900 to-violet-400 opacity-30" />
-                  <div className="flex items-center justify-between mb-5">
-                    <div className="flex items-center space-x-3">
-                      <div className="p-2 rounded-lg bg-emerald-50 text-emerald-900"><Calendar size={18} /></div>
-                      <h3 className="text-xs font-black uppercase tracking-widest text-emerald-900">Volumes</h3>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-[10px] font-bold text-emerald-900 bg-emerald-50 px-2 py-0.5 rounded-full">{years.length} Yrs</span>
-                      <Link href="/archive/index">
-                        <button className="flex items-center gap-1.5 px-3 py-1 bg-emerald-900 text-white rounded-full text-[9px] font-black uppercase tracking-widest hover:bg-emerald-700 transition-all shadow-sm active:scale-95">
-                          More <ChevronRight size={10} />
-                        </button>
-                      </Link>
-                    </div>
+            <aside className="w-full lg:w-1/4 xl:w-1/5 shrink-0">
+              <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4, delay: 0.1 }} className="lg:sticky lg:top-24 w-full">
+                <div className="bg-white border border-slate-100 p-4 md:p-5 shadow-2xl shadow-slate-900/5 rounded-2xl md:rounded-[1.5rem] overflow-hidden relative">
+                  <div className="flex flex-col mb-4 md:mb-6">
+                    <h3 className="text-lg md:text-xl font-black uppercase tracking-tighter text-slate-900 mb-1" style={{ fontFamily: 'var(--font-crimson-pro), serif' }}>Archives Index</h3>
                   </div>
                   <div className="relative mb-4">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={14} />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-300" size={12} />
                     <input
                       type="text"
                       placeholder="Filter by year..."
                       value={yearQuery}
                       onChange={(e) => setYearQuery(e.target.value)}
-                      className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-100 focus:border-emerald-900/20 focus:bg-white focus:ring-4 focus:ring-emerald-900/5 rounded-xl text-xs font-bold transition-all outline-none"
+                      className="w-full pl-9 pr-4 py-2 bg-slate-50/70 border border-slate-100 focus:border-emerald-600/20 focus:bg-white rounded-lg text-[10px] font-bold transition-all outline-none"
                     />
                   </div>
-                  <div className="flex lg:flex-col gap-1.5 overflow-x-auto lg:overflow-y-auto lg:max-h-[350px] pr-2 pb-2 lg:pb-0 custom-scrollbar" style={{ scrollbarWidth: 'thin' }} data-lenis-prevent>
+                  <div className="flex lg:flex-col gap-1 overflow-x-auto lg:overflow-y-auto lg:max-h-[320px] pr-1 custom-scrollbar" data-lenis-prevent>
                     {filteredYears.length > 0 ? (
                       filteredYears.map((year) => {
                         const vol = year - 2005;
@@ -237,16 +238,17 @@ const ArchiveClient = () => {
                           <button
                             key={year}
                             onClick={() => handleYearChange(year)}
-                            className={`group relative flex items-center justify-between px-3 py-2.5 rounded-xl transition-all duration-200 text-left whitespace-nowrap touch-manipulation ${isActive ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-900/20' : 'hover:bg-emerald-50 text-slate-600 hover:text-emerald-700'}`}
-                            style={{ WebkitTapHighlightColor: 'transparent' }}
+                            className={`group relative flex items-center px-2 py-2 md:py-1.5 rounded-lg transition-all duration-200 text-left whitespace-nowrap`}
                           >
-                            <div className="flex items-center space-x-3">
-                              <span className={`text-[10px] font-black tracking-tighter ${isActive ? 'text-white/80' : 'text-slate-400 group-hover:text-emerald-700/60'}`}>
-                                VOL.{vol.toString().padStart(2, '0')}
-                              </span>
-                              <span className="text-xs font-black tracking-wider uppercase">{year}</span>
-                            </div>
-                            {isActive && <ChevronRight size={14} className="opacity-80" />}
+                            <span className={`text-[11px] font-black ${isActive ? 'text-emerald-700' : 'text-slate-600 group-hover:text-emerald-600'}`}>
+                              Vol. {vol.toString().padStart(2, '0')}
+                            </span>
+                            <span className={`ml-2 text-[10px] font-bold ${isActive ? 'text-emerald-700/40' : 'text-slate-400 group-hover:text-slate-500'}`}>
+                              ({year})
+                            </span>
+                            {isActive && (
+                              <motion.div layoutId="activeYear" className="absolute bottom-0 left-2 right-2 h-1 bg-emerald-600 rounded-full md:hidden" />
+                            )}
                           </button>
                         );
                       })
@@ -259,24 +261,16 @@ const ArchiveClient = () => {
             </aside>
 
             {/* Main — issue cards */}
-            <main className="lg:w-2/3 xl:w-3/4 flex-grow">
-              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.15 }} className="flex flex-col md:flex-row gap-3 mb-6 items-stretch md:items-center">
-                <div className="relative flex-grow group">
-                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-600 transition-colors"><Search size={16} /></div>
-                  <input
-                    type="text"
-                    placeholder={`Search in Vol. ${activeVolume} (${activeYear})...`}
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 bg-white/80 backdrop-blur-md border border-white shadow-md shadow-slate-900/5 rounded-xl focus:ring-4 focus:ring-emerald-900/5 transition-all outline-none text-xs font-bold placeholder:text-slate-400 text-slate-700"
-                  />
-                </div>
-                <div className="flex items-center space-x-3 bg-white/50 backdrop-blur-md border border-white px-4 py-3 rounded-xl shadow-md shadow-slate-900/5">
-                  <div className="p-1.5 rounded-lg bg-emerald-900 text-white"><Layers size={14} /></div>
-                  <div>
-                    <h4 className="text-[9px] font-black uppercase tracking-widest text-slate-500 leading-none mb-1">Active Volume</h4>
-                    <p className="text-xs font-black text-emerald-900 leading-none">Vol. {activeVolume} ({activeYear})</p>
-                  </div>
+            <main className="w-full lg:w-3/4 xl:w-4/5 flex-grow">
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.15 }} className="flex flex-col md:flex-row gap-6 mb-6 items-stretch md:items-end justify-between">
+                <div>
+                   <div className="flex items-center gap-2 mb-1">
+                      <div className="w-3 h-px bg-slate-900" />
+                      <span className="text-[8px] font-black uppercase tracking-[0.2em] text-slate-400">Current Selection</span>
+                   </div>
+                   <h2 className="text-2xl md:text-3xl font-black text-slate-900" style={{ fontFamily: 'var(--font-crimson-pro), serif' }}>
+                     Volume {activeVolume} <span className="text-slate-200 ml-1 font-light">/{activeYear}</span>
+                   </h2>
                 </div>
               </motion.div>
 
@@ -292,7 +286,7 @@ const ArchiveClient = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {filteredIssues.length > 0 ? (
                       filteredIssues.map((issue) => (
                         <IssueCard

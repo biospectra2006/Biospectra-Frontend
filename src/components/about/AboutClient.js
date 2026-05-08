@@ -3,10 +3,10 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
-const madhaviImg = '/assets/madhavi.jpg';
-const award1Img = '/assets/award2.jpg';
-const award2Img = '/assets/award2(2).jpg';
-const award3Img = '/assets/award1.jpg';
+const madhaviImg = '/assets/logo/madhavi.jpg';
+const award1Img = '/assets/content/award2.jpg';
+const award2Img = '/assets/content/award2(2).jpg';
+const award3Img = '/assets/content/award1.jpg';
 
 const AboutClient = () => {
   const [sections, setSections] = React.useState([]);
@@ -55,7 +55,16 @@ const AboutClient = () => {
   }
 
   return (
-    <div className="pt-32 pb-20 min-h-screen" style={{ background: '#fdfcff' }}>
+    <div className="relative pt-32 pb-20 min-h-screen overflow-hidden" style={{ background: '#fdfbf7' }}>
+      {/* Background Lines */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
+        <div className="absolute inset-0 flex justify-between px-[5%] opacity-[0.03]">
+           {[...Array(12)].map((_, i) => (
+             <div key={i} className="w-px h-full bg-slate-900" />
+           ))}
+        </div>
+      </div>
+
       <section className="relative px-4 sm:px-6">
         <div className="max-w-4xl mx-auto flex flex-col items-center">
           <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col items-center mb-12 text-center">
@@ -89,7 +98,7 @@ const AboutClient = () => {
           {publicationSection && (
             <div className="w-full mb-16 px-6 py-10 bg-white border border-dashed border-emerald-200 text-center flex flex-col items-center">
                <div className="relative w-20 h-20 mb-4">
-                 <Image src={publicationSection.images?.[0] || "/logo/Biospectra-logo.jpg.jpeg"} alt="Logo" fill className="object-contain" />
+                 <Image src={publicationSection.images?.[0] || "/assets/logo/biospectra-logo.jpg"} alt="Logo" fill className="object-contain" />
                </div>
                <h3 style={{ fontFamily: 'var(--font-crimson-pro), serif', color: P.deepPurple }} className="text-xl font-bold mb-4">{publicationSection.title}</h3>
                <p className="text-sm italic opacity-80 mb-2">{publicationSection.content}</p>

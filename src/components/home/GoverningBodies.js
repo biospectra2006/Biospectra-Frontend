@@ -6,19 +6,20 @@ import Image from 'next/image';
 const GoverningBodies = ({ colors, assets }) => {
   const P = colors;
   return (
-    <section style={{ background: P.neutral, borderTop: `1px solid ${P.borderSoft}`, padding: 'clamp(40px, 5vw, 60px) 0' }}>
-      <div style={{ maxWidth: 1600, margin: '0 auto', padding: '0 clamp(20px, 5vw, 60px)' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: 'clamp(20px, 4vw, 30px)' }}>
-          <h2 className="heading-section text-center" style={{ fontSize: 'var(--font-lg)', color: P.deepPurple }}>
+    <section style={{ background: '#fcf8f3', borderTop: `1px solid ${P.borderSoft}`, padding: 'clamp(40px, 5vw, 60px) 0' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 clamp(20px, 5vw, 60px)' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: 'clamp(30px, 5vw, 40px)' }}>
+          <span className="text-emerald-900/40 font-mono tracking-[0.3em] text-[9px] uppercase mb-3">Official Publication</span>
+          <h2 className="heading-section text-center" style={{ fontSize: 'clamp(20px, 3vw, 28px)', color: '#064e3b', letterSpacing: '0.05em' }}>
             OUR GOVERNING BODIES
           </h2>
-          <div className="h-[2px] w-12 bg-gradient-to-r from-richPurple to-magenta my-6 mx-auto" />
-          <p className="text-editorial text-center max-w-[500px] mx-auto text-base opacity-80">
+          <div className="h-[1.5px] w-10 bg-emerald-900/20 my-4 mx-auto" />
+          <p className="text-editorial text-center max-w-[500px] mx-auto text-sm text-emerald-900/70 leading-relaxed">
             Biospectra is officially published under the stewardship of these distinguished academic organizations.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 max-w-[1000px] mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-8 max-w-[900px] mx-auto">
           {[
             { name: 'Madhawi Shyam Educational Trust', acronym: 'MSET', desc: 'A dedicated foundation committed to advancing higher education and scientific research across the biological sciences.', logo: assets.msetLogo },
             { name: 'International Consortium of Contemporary Biologists', acronym: 'ICCB', desc: 'An international fellowship of scientists and researchers fostering global collaboration and innovation in modern biology.', logo: assets.iccbLogo },
@@ -30,28 +31,24 @@ const GoverningBodies = ({ colors, assets }) => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.15 }}
               style={{
-                background: P.white,
-                border: `1px solid ${P.borderSoft}`,
-                padding: 'clamp(20px, 3vw, 32px) clamp(16px, 3vw, 24px)',
+                background: '#ffffff',
+                border: `1px solid rgba(6, 78, 59, 0.08)`,
+                padding: 'clamp(24px, 4vw, 36px)',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 textAlign: 'center',
-                position: 'relative',
+                borderRadius: '4px',
               }}
-              className="group hover:bg-white transition-all duration-500 hover:shadow-xl hover:shadow-emerald-900/5"
+              className="group hover:shadow-xl hover:shadow-emerald-900/5 transition-all duration-500"
             >
-              <div
-                style={{ position: 'absolute', top: -1, left: -1, right: -1, height: 3, background: `linear-gradient(90deg, ${P.deepPurple}, ${P.magenta})`, transformOrigin: 'left', transform: 'scaleX(0)', transition: 'transform 0.5s ease' }}
-                className="group-hover:scale-x-100"
-              />
-              <div className="h-20 sm:h-24 flex items-center justify-center mb-6 sm:mb-8">
-                <Image src={body.logo} alt={body.name} width={100} height={100} style={{ objectFit: 'contain', maxHeight: '100%', maxWidth: '100%' }} className="group-hover:scale-105 transition-transform duration-500" />
+              <div className="h-20 sm:h-24 flex items-center justify-center mb-6">
+                <Image src={body.logo} alt={body.name} width={100} height={100} style={{ objectFit: 'contain', maxHeight: '100%', maxWidth: '100%' }} className="group-hover:scale-105 transition-transform duration-500 ease-out" />
               </div>
-              <div className="text-label mb-4">{body.acronym}</div>
-              <h3 className="heading-section text-black mb-4" style={{ fontSize: 'var(--font-md)' }}>{body.name}</h3>
-              <div className="w-6 h-[1.5px] bg-border-soft mb-5 group-hover:w-16 transition-all duration-500" />
-              <p className="text-editorial text-sm opacity-90">{body.desc}</p>
+              <span className="text-emerald-900/40 font-mono tracking-[0.2em] text-[9px] uppercase mb-3">{body.acronym}</span>
+              <h3 className="heading-section text-[#064e3b] mb-3" style={{ fontSize: 'clamp(16px, 1.8vw, 20px)', fontWeight: 700 }}>{body.name}</h3>
+              <div className="w-6 h-[1px] bg-emerald-900/10 mb-4 group-hover:w-16 group-hover:bg-emerald-900/30 transition-all duration-500" />
+              <p className="text-emerald-900/60 text-[13px] leading-relaxed max-w-[280px]">{body.desc}</p>
             </motion.div>
           ))}
         </div>

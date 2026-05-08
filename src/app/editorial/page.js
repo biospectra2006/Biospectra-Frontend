@@ -3,71 +3,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Mail } from 'lucide-react';
 
-const coreTeam = [
-  { role: 'Editor-in-Chief', name: 'Prof. Jyoti Kumar', email: 'jyotikumar1ru@gmail.com' },
-  { role: 'Managing Editor', name: 'Prof. Arun Kumar', email: 'prf.arunkumar@gmail.com' },
-  { role: 'Executive Editor', name: 'Dr. Nayni Saxena', email: 'naynisaxena@gmail.com' },
-  { role: 'Editor', name: 'Mr. Rahul Ranjan', email: 'rahulranjan.03@gmail.com' }
-];
-
-const nationalAdvisory = [
-  "Prof. Neelima Gupta (Zoology) Bareilly", "Prof. Kamini Kumar (Botany) P.V.C., K.U.",
-  "Prof. N. Banerjee (Botany) Santiniketan", "Dr. R. Ramani (IINRG) Ranchi",
-  "Dr. Janardan Jee (Zool./PS, ICAR) Patna", "Prof. Amarjeet Singh (Botany) Patiala",
-  "Prof. A. Nagpal (Botany) Amritsar", "Prof. K.L.Tiwari (Botany) Raipur",
-  "Prof. Partha P. Barua (Botany) Gauhati", "Dr. Ajit Kr. Sinha (Zoology) V.C., R.U.",
-  "Prof. M. C. Dash (Zoology) Bhubaneshwar", "Prof. N.K.Dubey (Botany) Varanasi",
-  "Prof.H.P.Puttaraju (Zoology) Bangalore", "Prof. P. Nath (Zoology) Patna",
-  "Dr. C.S.Gururaj (Sericulture) Bangalore", "Dr. P. K. Mahapatra (Botany) Cuttack",
-  "Prof. R. K. Pandey (Botany) Ex-V.C., R.U.", "Dr. R. K. Gambhir Singh (Zoology) Manipur",
-  "Prof. Prahlad Dubey (Zoology) Kota", "Dr. R.C. Mohanty (Botany) Bhubaneshwar"
-];
-
-const nationalEditors = [
-  "Dr. Uma Shanker Singh D.Sc, IFS", "Dr. Noor Alam (Zoology) Giridih",
-  "Dr. Jatinder Kaur (Botany) Amritsar", "Dr. S. M. Shamim (Zoology) Ranchi",
-  "Dr. Satyendra Kumar (Zoology) Hajipur", "Dr. Rani Srivastava (Zoology) Patna",
-  "Prof. Chandrawati Jee (Biotech.) Patna", "Dr. D. K. Paul (Zoology) Patna",
-  "Prof. Arun Kumar Mitra (Microbiology) Kolkata", "Prof. Amritesh Shukla (Botany) Lucknow",
-  "Prof. A. Hore (Zoology) Ranchi", "Prof. Kunul Kandir (Botany) Ranchi",
-  "Dr. S. Nehar (Zoology) Ranchi", "Dr. Arbind Kumar (Zoology) Patna",
-  "Prof. P. K. Mohanthy (Zoology) Bhubaneshwar", "Dr. Seema Keshari (Zoology) R.U., Ranchi",
-  "Prof. S. C. Mandal (Pharmacognosy) Kolkata", "Prof. T. C. Narendran (Zoology) Calicut",
-  "Dr. A. K. Panigrahi (Zoology), Kalyani", "Dr. A. D. Jadhav (Sericulture) Nagpur",
-  "Dr. Shashi P. Agarwal (Zoology) Kanpur", "Prof. H. P. Sharma (Botany) R.U., Ranchi",
-  "Dr. Abha Prasad (Zoology) R.W.C. Ranchi", "Dr. Anand Kumar Thakur (Zoology) R.U., Ranchi",
-  "Prof. Habibur Rahman (Botany) Santiniketan", "Dr. Anupam Dikshit (Botany) Allahabad",
-  "Dr. Sushma Das Guru (Botany) Ranchi", "Dr. A. K. Srivastava (Botany) Ranchi",
-  "Dr. Vinod Kumar (Agri.) Sr. Sci., Dharwad", "Dr. R.D. Raviya (Life Sci.) Gujarat",
-  "Dr. Prasanjit Mukherjee (Botany) Gumla", "Dr. Ashok Kumar Nag (Botany) Ranchi"
-];
-
-const foreignEditors = [
-  "Prof. (Dr.) G.H.R. Rao UM, Minneapolis, USA", "Prof. S. I. Shalaby Cairo, Egypt",
-  "Prof. Narendra Pd. Singh Columbia, USA", "Dr. Pascalis Harizanis Athens, Greece",
-  "Dr. Ajit Bharti (Zoology) Boston", "Dr. V.R.P. Sinha Pittsberg, USA",
-  "Dr. V.K. Gupta UG, Ireland", "Dr. Jerry L. Kaster UW, Milwaukee, USA"
-];
-
-const strategicTeam = [
-  { name: "Dr. Astha Kiran", role: "President, MSET-ICCB" },
-  { name: "Mrs. Pali Vasudha", role: "Secretary, MSET-ICCB" },
-  { name: "Mr. P. Prabudh", role: "Corporate Planner, USA" },
-  { name: "Mrs. B. Nanjudaiah", role: "Corporate Adviser, USA" },
-  { name: "Mr. R. Ranjan", role: "Corporate Planner, USA" },
-  { name: "Mrs. R. Narayan", role: "Corporate Adviser, USA" },
-  { name: "Dr. Ranjit Ranjan", role: "Expert, Language & Lit." },
-  { name: "Mr. Ravi Rahul Singh", role: "Office Admin. Editor" }
-];
-
-const parseNameInfo = (str) => {
-  if (typeof str !== 'string') return str;
-  const match = str.match(/(.*?)\s*\((.*?)\)\s*(.*)/);
-  if (match) {
-    return { name: match[1].trim(), department: match[2].trim(), location: match[3].trim() };
-  }
-  return { name: str.trim(), department: null, location: null };
-};
 
 const EditorialBoard = () => {
   const [members, setMembers] = React.useState([]);
@@ -84,24 +19,11 @@ const EditorialBoard = () => {
         if (data && data.length > 0) {
           setMembers(data);
         } else {
-          // Fallback with proper mapping
-          const mappedCore = coreTeam.map(m => ({ ...m, memberType: 'core' }));
-          const mappedAdvisory = nationalAdvisory.map(s => ({ ...parseNameInfo(s), memberType: 'national_advisory' }));
-          const mappedEditors = nationalEditors.map(s => ({ ...parseNameInfo(s), memberType: 'national_editor' }));
-          const mappedForeign = foreignEditors.map(s => ({ ...parseNameInfo(s), memberType: 'foreign_editor' }));
-          const mappedStrategic = strategicTeam.map(m => ({ ...m, memberType: 'strategic' }));
-          
-          setMembers([...mappedCore, ...mappedAdvisory, ...mappedEditors, ...mappedForeign, ...mappedStrategic]);
+          setMembers([]);
         }
       } catch (err) {
         console.error('Fetch error:', err);
-        // Fallback on error too
-        const mappedCore = coreTeam.map(m => ({ ...m, memberType: 'core' }));
-        const mappedAdvisory = nationalAdvisory.map(s => ({ ...parseNameInfo(s), memberType: 'national_advisory' }));
-        const mappedEditors = nationalEditors.map(s => ({ ...parseNameInfo(s), memberType: 'national_editor' }));
-        const mappedForeign = foreignEditors.map(s => ({ ...parseNameInfo(s), memberType: 'foreign_editor' }));
-        const mappedStrategic = strategicTeam.map(m => ({ ...m, memberType: 'strategic' }));
-        setMembers([...mappedCore, ...mappedAdvisory, ...mappedEditors, ...mappedForeign, ...mappedStrategic]);
+        setMembers([]);
       } finally {
         setLoading(false);
       }
@@ -146,14 +68,17 @@ const EditorialBoard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#faf9fe] selection:bg-emerald-200">
-      {/* Dynamic Background Elements */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-emerald-100/40 blur-[120px]" />
-        <div className="absolute bottom-[-5%] left-[-5%] w-[400px] h-[400px] rounded-full bg-magenta/5 blur-[100px]" />
+    <div className="relative min-h-screen selection:bg-emerald-200 overflow-hidden" style={{ background: '#fdfbf7' }}>
+      {/* Background Lines */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
+        <div className="absolute inset-0 flex justify-between px-[5%] opacity-[0.03]">
+           {[...Array(12)].map((_, i) => (
+             <div key={i} className="w-px h-full bg-slate-900" />
+           ))}
+        </div>
       </div>
 
-      <div className="relative z-10 pt-32 pb-24">
+      <div className="relative z-10 pt-24 md:pt-32 pb-16 md:pb-24">
         <div className="container mx-auto px-4 md:px-6">
           
           {/* Header Section */}
@@ -183,7 +108,7 @@ const EditorialBoard = () => {
             </motion.div>
           </div>
 
-          <div className="max-w-7xl mx-auto space-y-24">
+          <div className="max-w-7xl mx-auto space-y-16 md:space-y-24">
             
             {/* Executive Editorial Team */}
             <section>
@@ -229,83 +154,80 @@ const EditorialBoard = () => {
                   </motion.div>
                 ))}
               </div>
+            </section>            {/* National Advisory Board Section */}
+            <section className="px-4">
+              <div className="flex items-center gap-6 mb-10">
+                <h2 style={{ fontFamily: 'var(--font-crimson-pro), serif', color: P.deepPurple }} className="text-xl font-bold uppercase tracking-widest shrink-0">
+                  National Advisory Board
+                </h2>
+                <div className="h-[1px] flex-grow bg-emerald-100/50" />
+              </div>
+              
+              <motion.div 
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+              >
+                {categorized.national_advisory?.map((member, idx) => (
+                  <motion.div 
+                    key={idx}
+                    variants={itemVariants}
+                    className="flex flex-col p-5 bg-white rounded-xl border border-emerald-50/50 hover:bg-emerald-50/30 transition-colors group"
+                  >
+                    <h4 style={{ color: P.deepPurple }} className="font-bold text-sm mb-1 group-hover:text-emerald-700 transition-colors">{member.name}</h4>
+                    <div className="flex items-center gap-2">
+                      {member.department && (
+                        <span className="text-[10px] font-bold text-magenta uppercase tracking-tight">{member.department}</span>
+                      )}
+                      {member.location && (
+                        <>
+                          <span className="w-1 h-1 rounded-full bg-gray-300" />
+                          <span className="text-[10px] text-gray-400 italic">{member.location}</span>
+                        </>
+                      )}
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
             </section>
 
-            {/* National Advisory & Editors Grid */}
-            <div className="grid grid-cols-1 xl:grid-cols-3 gap-16">
-              
-              {/* National Advisory Editors (Span 2) */}
-              <section className="xl:col-span-2">
-                <div className="flex items-center gap-6 mb-10">
-                  <h2 style={{ fontFamily: 'var(--font-crimson-pro), serif', color: P.deepPurple }} className="text-xl font-bold uppercase tracking-widest shrink-0">
-                    National Advisory Board
-                  </h2>
-                  <div className="h-[1px] flex-grow bg-emerald-100/50" />
-                </div>
-                
-                <motion.div 
-                  variants={containerVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  className="grid grid-cols-1 sm:grid-cols-2 gap-4"
-                >
-                  {categorized.national_advisory?.map((member, idx) => (
-                    <motion.div 
-                      key={idx}
-                      variants={itemVariants}
-                      className="flex flex-col p-5 bg-white rounded-xl border border-emerald-50/50 hover:bg-emerald-50/30 transition-colors group"
-                    >
-                      <h4 style={{ color: P.deepPurple }} className="font-bold text-sm mb-1 group-hover:text-emerald-700 transition-colors">{member.name}</h4>
-                      <div className="flex items-center gap-2">
-                        {member.department && (
-                          <span className="text-[10px] font-bold text-magenta uppercase tracking-tight">{member.department}</span>
-                        )}
-                        {member.location && (
-                          <>
-                            <span className="w-1 h-1 rounded-full bg-gray-300" />
-                            <span className="text-[10px] text-gray-400 italic">{member.location}</span>
-                          </>
-                        )}
-                      </div>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              </section>
+            {/* National Editors Section */}
+            <section className="px-4">
+              <div className="flex items-center gap-6 mb-10">
+                <h2 style={{ fontFamily: 'var(--font-crimson-pro), serif', color: P.deepPurple }} className="text-xl font-bold uppercase tracking-widest shrink-0">
+                  National Editorial Panel
+                </h2>
+                <div className="h-[1px] flex-grow bg-emerald-100/50" />
+              </div>
 
-              {/* National Editors Sidebar */}
-              <section>
-                <div className="flex items-center gap-6 mb-10">
-                  <h2 style={{ fontFamily: 'var(--font-crimson-pro), serif', color: P.deepPurple }} className="text-xl font-bold uppercase tracking-widest shrink-0">
-                    Editorial Panel
-                  </h2>
-                  <div className="h-[1px] flex-grow bg-emerald-100/50" />
-                </div>
-
-                <div className="space-y-3 max-h-[1000px] overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-emerald-100">
-                  {categorized.national_editor?.map((member, idx) => (
-                    <motion.div 
-                      key={idx}
-                      initial={{ opacity: 0, x: 20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: idx * 0.02 }}
-                      className="p-4 bg-white/60 backdrop-blur-sm rounded-lg border border-emerald-50/40 hover:border-emerald-200 transition-all"
-                    >
-                      <h4 className="text-xs font-bold text-gray-800 mb-1">{member.name}</h4>
-                      <p className="text-[10px] text-gray-400 leading-tight">
-                        {member.department && <span className="text-emerald-400 font-semibold">{member.department}</span>}
-                        {member.location && <span> • {member.location}</span>}
-                      </p>
-                    </motion.div>
-                  ))}
-                </div>
-              </section>
-
-            </div>
+              <motion.div 
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+              >
+                {categorized.national_editor?.map((member, idx) => (
+                  <motion.div 
+                    key={idx}
+                    variants={itemVariants}
+                    className="p-4 bg-white/60 backdrop-blur-sm rounded-lg border border-emerald-50/40 hover:border-emerald-200 transition-all group"
+                  >
+                    <h4 className="text-xs font-bold text-gray-800 mb-1 group-hover:text-emerald-700 transition-colors">{member.name}</h4>
+                    <p className="text-[10px] text-gray-400 leading-tight">
+                      {member.department && <span className="text-emerald-400 font-semibold">{member.department}</span>}
+                      {member.location && <span> • {member.location}</span>}
+                    </p>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </section>
+          </div>
 
             {/* Bottom Row: Foreign & Strategic */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 pt-12 border-t border-emerald-100">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 pt-10 lg:pt-12 border-t border-emerald-100 px-4">
               
               {/* Foreign Editors */}
               <section>
@@ -350,7 +272,6 @@ const EditorialBoard = () => {
 
             </div>
 
-          </div>
         </div>
       </div>
       

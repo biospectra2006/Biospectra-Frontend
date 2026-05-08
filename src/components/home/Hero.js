@@ -54,7 +54,7 @@ const Hero = () => {
       <div className="relative w-full h-full flex-grow overflow-hidden flex flex-col justify-center">
         <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
           <Image
-            src="/assets/new-Landing/og-green.png"
+            src="/assets/landing-bg/og-green.png"
             alt="Green DNA"
             fill
             style={{ objectFit: 'cover' }}
@@ -69,7 +69,7 @@ const Hero = () => {
           style={{ WebkitMaskImage: maskImage, maskImage: maskImage }} 
         >
           <Image
-            src="/assets/new-Landing/just-dna.png"
+            src="/assets/landing-bg/just-dna.png"
             alt="Purple DNA Reveal"
             fill
             style={{ objectFit: 'cover' }}

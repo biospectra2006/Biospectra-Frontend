@@ -6,7 +6,7 @@ import Image from 'next/image';
 const Recognition = ({ colors, assets }) => {
   const P = colors;
   return (
-    <section style={{ background: `linear-gradient(135deg, ${P.deepPurple}, #022c22)`, color: '#fff', borderTop: `1px solid rgba(255,255,255,0.1)`, padding: 'clamp(80px, 12vw, 140px) 0', overflow: 'hidden', position: 'relative' }}>
+    <section style={{ background: `linear-gradient(135deg, ${P.deepPurple}, #022c22)`, color: '#fff', borderTop: `1px solid rgba(255,255,255,0.1)`, padding: 'clamp(40px, 6vw, 80px) 0', overflow: 'hidden', position: 'relative' }}>
       {/* Optimized decorative elements — removed heavy blur and repeated gradients */}
       <div style={{ position: 'absolute', bottom: '-10%', left: '5%', width: 400, height: 400, borderRadius: '50%', background: `rgba(25,103,75,0.2)`, pointerEvents: 'none' }} />
 
@@ -14,12 +14,12 @@ const Recognition = ({ colors, assets }) => {
         <div className="flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-24">
           <div className="w-full lg:w-[55%] text-center lg:text-left">
             <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
-              <div className="flex items-center justify-center lg:justify-start gap-12 mb-6">
+              <div className="flex items-center justify-center lg:justify-start gap-12 mb-4">
                 <div style={{ width: 32, height: 1.5, background: P.magenta }} />
                 <span style={{ fontSize: 9.5, letterSpacing: '0.24em', textTransform: 'uppercase', fontWeight: 700, color: P.magenta }}>Official Accreditation</span>
               </div>
-              <h2 style={{ fontFamily: 'var(--font-crimson-pro), serif', fontSize: 'clamp(34px, 6vw, 56px)', fontWeight: 900, color: '#fff', lineHeight: 1, letterSpacing: '0.01em', margin: '0 0 24px 0' }}>World-Class Scientific Standards</h2>
-              <p style={{ fontSize: 'clamp(14px, 1.8vw, 16px)', color: 'rgba(255,255,255,0.75)', lineHeight: 1.8, margin: '0 0 40px 0', letterSpacing: '0.01em', maxWidth: 600 }} className="mx-auto lg:mx-0">Biospectra is proud to be part of the <strong style={{ color: '#fff', fontWeight: 700 }}>SJIF Journals Master List</strong>, a recognition of our unwavering dedication to scientific quality and research impact.</p>
+              <h2 style={{ fontFamily: 'var(--font-crimson-pro), serif', fontSize: 'clamp(34px, 6vw, 56px)', fontWeight: 900, color: '#fff', lineHeight: 1, letterSpacing: '0.01em', margin: '0 0 16px 0' }}>World-Class Scientific Standards</h2>
+              <p style={{ fontSize: 'clamp(14px, 1.8vw, 16px)', color: 'rgba(255,255,255,0.75)', lineHeight: 1.8, margin: '0 0 24px 0', letterSpacing: '0.01em', maxWidth: 600 }} className="mx-auto lg:mx-0">Biospectra is proud to be part of the <strong style={{ color: '#fff', fontWeight: 700 }}>SJIF Journals Master List</strong>, a recognition of our unwavering dedication to scientific quality and research impact.</p>
               
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-8">
                 <motion.div whileHover={{ scale: 1.05 }} style={{ display: 'inline-flex', flexDirection: 'column', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(62,180,137,0.3)', padding: '24px 40px', borderRadius: '4px' }}>

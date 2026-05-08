@@ -53,7 +53,7 @@ const Navbar = () => {
           width: '100%',
           background: isTransparent
             ? 'transparent'
-            : (scrolled ? 'rgba(255, 255, 255, 0.98)' : 'rgba(255, 255, 255, 0.85)'),
+            : (scrolled ? 'rgba(253, 251, 247, 0.98)' : 'rgba(253, 251, 247, 0.85)'),
           backdropFilter: isTransparent ? 'none' : 'blur(12px)',
           WebkitBackdropFilter: isTransparent ? 'none' : 'blur(12px)',
           borderBottom: isTransparent ? 'none' : '1px solid rgba(5, 150, 105, 0.1)',
@@ -91,7 +91,7 @@ const Navbar = () => {
               }}
             >
               <Image
-                src="/logo/MSET LOGO PNG.png"
+                src="/assets/logo/mset-logo.png"
                 alt="MSET Logo"
                 fill
                 className="object-contain transition-all duration-500"
@@ -102,39 +102,40 @@ const Navbar = () => {
             {/* Vertical divider */}
             <div style={{ 
               width: 1, 
-              height: 32, 
+              height: 28, 
               background: isTransparent 
-                ? 'rgba(255,255,255,0.3)' 
-                : 'linear-gradient(to bottom, transparent, rgba(5, 150, 105, 0.2), transparent)', 
+                ? 'rgba(255,255,255,0.2)' 
+                : 'rgba(0,0,0,0.1)', 
               flexShrink: 0 
-            }} className="block" />
+            }} className="block mx-2 sm:mx-3" />
 
-            <div className="flex flex-col flex-shrink ml-4 min-w-0 pr-2">
-              <span className={`heading-section transition-colors duration-500`}
+            <div className="flex flex-col flex-shrink min-w-0 pr-2">
+              <span className={`transition-colors duration-500`}
                 style={{
-                  fontSize: 'clamp(12px, 2vw, 17px)',
-                  lineHeight: 1.1,
-                  letterSpacing: '0.01em',
+                  fontSize: 'clamp(12px, 1.8vw, 18px)',
+                  lineHeight: 1,
+                  letterSpacing: '-0.02em',
                   fontWeight: 900,
-                  color: isTransparent ? '#fff' : '#1e293b'
+                  color: isTransparent ? '#ffffff' : '#1e293b',
+                  fontFamily: 'var(--font-crimson-pro), serif'
                 }}
               >
                 Madhawi Shyam Educational Trust
               </span>
-              <div className="flex items-center gap-2 mt-0.5">
-                <span className={`text-label transition-colors duration-500 !tracking-[0.1em] !lowercase italic normal-case leading-tight hidden sm:block`} 
+              <div className="flex items-center gap-2 mt-1">
+                <span className={`transition-colors duration-500 tracking-[0.05em] uppercase font-bold leading-tight hidden sm:block`} 
                   style={{ 
-                    fontSize: 'clamp(8.5px, 1.2vw, 10px)',
-                    color: isTransparent ? 'rgba(255,255,255,0.8)' : '#059669'
+                    fontSize: 'clamp(7px, 1vw, 9px)',
+                    color: isTransparent ? 'rgba(255,255,255,0.8)' : '#64748b'
                   }}>
-                  & International Consortium of Contemporary Biologists
+                  International Consortium of Contemporary Biologists
                 </span>
-                <div className={`w-1 h-1 rounded-full hidden sm:block ${isTransparent ? 'bg-white/40' : 'bg-emerald-100'}`} />
-                <span className={`text-label transition-colors duration-500`} 
+                <div className={`w-1 h-1 rounded-full hidden sm:block ${isTransparent ? 'bg-emerald-900/20' : 'bg-slate-200'}`} />
+                <span className={`transition-colors duration-500 font-mono`} 
                   style={{ 
-                    fontSize: 'clamp(8px, 1.1vw, 9px)', 
+                    fontSize: 'clamp(7px, 1vw, 9px)', 
                     letterSpacing: '0.05em',
-                    color: isTransparent ? 'rgba(255,255,255,0.5)' : '#999'
+                    color: isTransparent ? 'rgba(255,255,255,0.6)' : '#94a3b8'
                   }}>
                   ISSN: 0973-7057
                 </span>
@@ -143,7 +144,7 @@ const Navbar = () => {
           </Link>
 
           {/* ── DESKTOP NAV ── */}
-          <div className="hidden lg:flex items-center gap-0.5 ml-4">
+          <div className="hidden lg:flex items-center gap-2 ml-4">
             {NAV_LINKS.map((link) => {
               const isActive = pathname === link.path;
               const isHov = hovered === link.name;
@@ -162,9 +163,9 @@ const Navbar = () => {
                     whiteSpace: 'nowrap',
                     borderRadius: 10,
                     color: isTransparent 
-                      ? (isActive || isHov ? '#fff' : 'rgba(255,255,255,0.7)')
+                      ? (isActive || isHov ? '#ffffff' : 'rgba(255,255,255,0.7)')
                       : (isActive ? '#047857' : (isHov ? '#059669' : '#64748b')),
-                    fontWeight: isActive ? 900 : 500
+                    fontWeight: isActive ? 900 : 600
                   }}
                 >
                   {/* Simple text hover indicator or just color shift */}
@@ -172,7 +173,7 @@ const Navbar = () => {
                   {isActive && (
                     <motion.div
                       layoutId="nav-active"
-                      className={`absolute bottom-1 left-1/2 -translate-x-1/2 w-1/2 h-0.5 rounded-full ${isTransparent ? 'bg-white' : 'bg-emerald-600'}`}
+                      className={`absolute bottom-0 left-3 right-3 h-0.5 rounded-full ${isTransparent ? 'bg-white' : 'bg-emerald-600'}`}
                       transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                     />
                   )}
@@ -199,11 +200,11 @@ const Navbar = () => {
             <AnimatePresence mode="wait">
               {isOpen ? (
                 <motion.span key="x" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.18 }}>
-                  <X size={18} color="#fff" />
+                  <X size={20} color="#fff" />
                 </motion.span>
               ) : (
                 <motion.span key="menu" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.18 }}>
-                  <Menu size={18} color={isTransparent ? '#fff' : P.emerald} />
+                  <Menu size={20} color={isTransparent ? '#ffffff' : P.emerald} />
                 </motion.span>
               )}
             </AnimatePresence>

@@ -74,7 +74,7 @@ const Home = () => {
   };
 
   return (
-    <main className="flex flex-col w-full min-h-screen bg-[#0a001a] selection:bg-emerald-100">
+    <main className="flex flex-col w-full min-h-screen bg-[#fdfcff] selection:bg-emerald-100">
       {/* Hero renders immediately — dark background so no white flash */}
       <Hero />
 

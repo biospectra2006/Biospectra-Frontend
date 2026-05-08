@@ -4,7 +4,7 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useGLTF, Environment, ContactShadows, PresentationControls, Float } from '@react-three/drei';
 
 // Preload the journal model to eliminate stutter on load
-const MODEL_PATH = '/assets/new-Landing/3d/Meshy_AI_Biospectra_Journal_Co_0419193327_texture.glb';
+const MODEL_PATH = '/assets/3d/Meshy_AI_Biospectra_Journal_Co_0419193327_texture.glb';
 useGLTF.preload(MODEL_PATH);
 
 /* ─── Journal Scene ────────────────────────────────────────── */
@@ -43,7 +43,7 @@ function JournalScene() {
     <primitive
       ref={journalRef}
       object={scene}
-      scale={[1.45, 1.45, 1.45]}
+      scale={[1.4, 1.4, 1.4]}
       position={[0, -0.1, 0]}
     />
   );

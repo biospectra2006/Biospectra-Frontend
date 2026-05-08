@@ -5,11 +5,11 @@ import { useGLTF, Environment, ContactShadows, PresentationControls } from '@rea
 
 // Preload the GLB as soon as the module imports so the file is cached in memory
 // before the Canvas even mounts — eliminates the load-on-view stutter.
-useGLTF.preload('/assets/new-Landing/3d/tree3d.glb');
+useGLTF.preload('/assets/3d/tree3d.glb');
 
 /* ─── Animated tree mesh ─────────────────────────────────────── */
 function TreeScene() {
-  const { scene } = useGLTF('/assets/new-Landing/3d/tree3d.glb');
+  const { scene } = useGLTF('/assets/3d/tree3d.glb');
   const treeRef = useRef();
   const { invalidate } = useThree();
 
