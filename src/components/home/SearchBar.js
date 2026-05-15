@@ -111,9 +111,11 @@ const SearchBar = ({ colors }) => {
                           rel="noreferrer"
                           className="block px-4 py-3.5 hover:bg-white/10 rounded-xl transition-all duration-300 group hover:pl-5 border border-transparent hover:border-white/5"
                         >
-                          <h4 className="text-white font-semibold text-sm leading-tight mb-1 group-hover:text-emerald-400 transition-colors line-clamp-2">
-                            {article.title}
-                          </h4>
+                          <h4 
+                            style={{ color: '#ffffff' }}
+                            className="font-semibold text-sm leading-tight mb-1 group-hover:text-emerald-400 transition-colors line-clamp-2"
+                            dangerouslySetInnerHTML={{ __html: article.title }}
+                          />
                           <p className="text-white/70 text-[11px] font-medium truncate">
                             {article.authors}
                           </p>
@@ -135,7 +137,10 @@ const SearchBar = ({ colors }) => {
                           onClick={() => setIsOpen(false)}
                           className="block px-4 py-3.5 hover:bg-white/10 rounded-xl transition-all duration-300 group hover:pl-5 border border-transparent hover:border-white/5"
                         >
-                          <h4 className="text-white/90 text-sm font-medium leading-tight mb-0.5 group-hover:text-[#9e9eff] transition-colors">
+                          <h4 
+                            style={{ color: '#ffffff' }}
+                            className="text-sm font-medium leading-tight mb-0.5 group-hover:text-[#9e9eff] transition-colors"
+                          >
                             {member.name}
                           </h4>
                           <p className="text-white/70 text-[11px] font-medium truncate">

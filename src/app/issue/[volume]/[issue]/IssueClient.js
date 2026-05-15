@@ -82,9 +82,7 @@ const IssueClient = ({ params }) => {
     <div 
       className="pt-20 pb-24 min-h-screen relative overflow-hidden"
       style={{ 
-        background: '#fdfcff',
-        backgroundImage: 'radial-gradient(#e0d4ff 0.5px, transparent 0.5px)',
-        backgroundSize: '24px 24px'
+        background: '#F9FBF7',
       }}
     >
       <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
@@ -189,14 +187,13 @@ const IssueClient = ({ params }) => {
                                       </span>
                                       <div>
                                         <h3 
-                                          style={{ fontFamily: 'var(--font-playfair), serif' }}
-                                          className="text-base font-normal text-slate-900 leading-snug group-hover:underline decoration-slate-400 underline-offset-2"
-                                        >
-                                          {article.title}
-                                        </h3>
+                                          style={{ fontFamily: 'var(--font-inter), sans-serif' }}
+                                          className="text-base font-semibold text-slate-900 leading-snug group-hover:underline decoration-slate-400 underline-offset-2"
+                                          dangerouslySetInnerHTML={{ __html: article.title }}
+                                        />
                                         <p 
-                                          style={{ fontFamily: 'var(--font-playfair), serif' }}
-                                          className="text-sm font-bold italic text-slate-700 mt-1"
+                                          style={{ fontFamily: 'var(--font-inter), sans-serif' }}
+                                          className="text-[13px] font-medium italic text-slate-500 mt-1"
                                         >
                                           {article.authors}
                                         </p>

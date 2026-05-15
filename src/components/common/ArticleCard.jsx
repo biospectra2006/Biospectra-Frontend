@@ -120,9 +120,8 @@ const ArticleCard = ({ article }) => {
           marginBottom: 10,
         }}
         className="line-clamp-2"
-      >
-        {article.title}
-      </h3>
+        dangerouslySetInnerHTML={{ __html: article.title }}
+      />
 
       {/* Authors */}
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: 16 }}>
@@ -150,9 +149,8 @@ const ArticleCard = ({ article }) => {
       <p
         style={{ fontSize: '12px', color: '#1e293b', lineHeight: 1.7, marginBottom: 20, flex: 1, opacity: 0.75 }}
         className="line-clamp-3"
-      >
-        {article.abstract}
-      </p>
+        dangerouslySetInnerHTML={{ __html: article.abstract }}
+      />
 
       {/* Footer */}
       <div

@@ -137,9 +137,10 @@ const ArchiveIndex = () => {
                                 key={art._id}
                                 className="block group/art"
                               >
-                                <p className="text-[10px] font-bold text-slate-600 group-hover/art:text-emerald-700 leading-tight line-clamp-1">
-                                  • {art.title}
-                                </p>
+                                <p 
+                                  className="text-[10px] font-bold text-slate-600 group-hover/art:text-emerald-700 leading-tight line-clamp-1"
+                                  dangerouslySetInnerHTML={{ __html: `• ${art.title}` }}
+                                />
                               </Link>
                             ))}
                           </div>

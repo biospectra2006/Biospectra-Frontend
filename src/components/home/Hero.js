@@ -45,6 +45,23 @@ const Hero = () => {
     revealSize.set(0);
   };
 
+  const [impactFactor, setImpactFactor] = React.useState('SJIF 8.546');
+
+  React.useEffect(() => {
+    const fetchMetrics = async () => {
+      try {
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+        const res = await fetch(`${API_URL}/about`);
+        const data = await res.json();
+        const metrics = data.find(s => s.sectionType === 'metrics');
+        if (metrics) setImpactFactor(metrics.content);
+      } catch (err) {
+        console.error('Fetch error:', err);
+      }
+    };
+    fetchMetrics();
+  }, []);
+
   return (
     <section
       className="relative min-h-[100svh] w-full flex flex-col justify-center"
@@ -171,7 +188,7 @@ const Hero = () => {
               <div className="flex flex-col justify-center bg-white/5 backdrop-blur-md border border-white/20 rounded-md px-3.5 lg:px-4 shadow-[0_0_20px_rgba(255,255,255,0.02)] h-full">
                 <span className="text-[#F3E8D3]/70 font-mono tracking-[0.2em] text-[6px] sm:text-[7px] uppercase mb-0.5">IMPACT FACTOR</span>
                 <div className="flex items-center gap-2">
-                  <span className="text-white font-black tracking-widest drop-shadow-[0_0_10px_rgba(255,255,255,0.3)] text-xs sm:text-sm leading-none">SJIF 8.546</span>
+                  <span className="text-white font-black tracking-widest drop-shadow-[0_0_10px_rgba(255,255,255,0.3)] text-xs sm:text-sm leading-none">{impactFactor}</span>
                   <div className="w-1.5 h-1.5 rounded-full bg-[#92B775] animate-pulse shadow-[0_0_10px_rgba(146,183,117,0.6)]" />
                 </div>
               </div>

@@ -6,9 +6,24 @@ import { Instagram, Twitter, Linkedin, Youtube, Mail, MapPin, BookOpen, ArrowUpR
 
 const Footer = () => {
   const [mounted, setMounted] = useState(false);
+  const [impactFactor, setImpactFactor] = useState('SJIF 8.546');
   const pathname = usePathname();
 
-  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => { 
+    setMounted(true); 
+    const fetchMetrics = async () => {
+      try {
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+        const res = await fetch(`${API_URL}/about`);
+        const data = await res.json();
+        const metrics = data.find(s => s.sectionType === 'metrics');
+        if (metrics) setImpactFactor(metrics.content);
+      } catch (err) {
+        console.error('Fetch error:', err);
+      }
+    };
+    fetchMetrics();
+  }, []);
 
   if (pathname !== '/') return null;
 
@@ -139,7 +154,7 @@ const Footer = () => {
               <div className="flex items-center gap-2.5 px-3.5 py-2 rounded-lg" style={{ background: '#133215' }}>
                 <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: '#92B775', boxShadow: '0 0 8px rgba(146,183,117,0.6)' }} />
                 <span className="text-[11px] font-black uppercase tracking-[0.2em] text-[#92B775]">
-                  SJIF Impact Factor 8.546
+                  Impact Factor {impactFactor}
                 </span>
               </div>
               <div className="flex items-center gap-2">

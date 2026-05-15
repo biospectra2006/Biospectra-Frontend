@@ -208,3 +208,9 @@ code {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Fix for scientific names in titles - italic but not bold */
+h1 i, h2 i, h3 i, h4 i, h5 i, h6 i, .font-bold i {
+  font-weight: 400 !important;
+  font-style: italic !important;
+}

@@ -27,9 +27,9 @@ const ArticleClient = ({ article }) => {
   const date = mounted ? new Date(article.date || article.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '...';
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-serif selection:bg-blue-100">
+    <div className="min-h-screen bg-[#F9FBF7] text-slate-900 font-serif selection:bg-green-100">
       {/* Top Navbar Simulation / Back Button */}
-      <div className="border-b border-slate-200 bg-slate-50/50">
+      <div className="border-b border-slate-200 bg-white/50 backdrop-blur-md sticky top-0 z-30">
         <div className="container mx-auto px-4 max-w-5xl py-4 flex items-center justify-between">
           <Link 
             href="/archive" 
@@ -53,9 +53,10 @@ const ArticleClient = ({ article }) => {
         >
           {/* Article Header */}
           <header className="mb-10 text-left border-b border-slate-100 pb-10">
-            <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 leading-tight">
-              {title}
-            </h1>
+            <h1 
+              className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 leading-tight"
+              dangerouslySetInnerHTML={{ __html: title }}
+            />
             <div className="text-xs text-slate-400 font-sans font-bold uppercase tracking-widest mb-8">
               {date}
             </div>
@@ -65,7 +66,7 @@ const ArticleClient = ({ article }) => {
                 {authors}
               </p>
               <p className="text-sm text-slate-500 italic">
-                Biospectra Contributor, Madhawi Shyam Educational Trust
+                {article.affiliation || 'Biospectra Contributor, Madhawi Shyam Educational Trust'}
               </p>
             </div>
 
@@ -78,9 +79,9 @@ const ArticleClient = ({ article }) => {
           </header>
 
           {/* Abstract Section */}
-          <section className="mb-12">
+          <section className="mb-12 bg-white/40 p-8 rounded-2xl border border-slate-200/50 shadow-sm">
             <div className="text-base leading-relaxed text-slate-800">
-              <span className="font-bold">Abstract&ndash;</span> {abstract}
+              <span className="font-bold text-[#133215]">Abstract&ndash;</span> <span dangerouslySetInnerHTML={{ __html: abstract }} />
             </div>
           </section>
 
