@@ -111,7 +111,7 @@ const ArticleCard = ({ article }) => {
       {/* Title */}
       <h3
         style={{
-          fontFamily: 'var(--font-crimson-pro), serif',
+          fontFamily: 'var(--font-playfair), serif',
           fontSize: 'clamp(16px, 2vw, 19px)',
           fontWeight: 800,
           color: '#064e3b',

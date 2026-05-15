@@ -2,9 +2,9 @@
 
 :root {
   --text: #1e293b;           /* slate-900 */
-  --text-h: #064e3b;         /* Deep Emerald Header */
-  --bg: #fdfcff;             /* Very light lavender tint */
-  --border: #e2e8f0;         /* slate-200 */
+  --text-h: #133215;         /* Biospectra Dark Green */
+  --bg: #eef4ec;             /* Biospectra Light Green */
+  --border: rgba(19, 50, 21, 0.1);
   --accent: #9e9eff;         /* Primary Lavender */
   --accent-mid: #7c3aed;     /* Keeping a bit of violet for depth */
   --accent-green: #19674b;    /* Deep Emerald Green */
@@ -15,7 +15,7 @@
   --green-light: #f0fdf4;    /* emerald-50 */
 
   /* Typography Tokens */
-  --font-display: var(--font-crimson-pro), serif;
+  --font-display: var(--font-playfair), serif;
   --font-body:    var(--font-inter), sans-serif;
 
   /* Semi-Fluid Typography Scale */
@@ -113,7 +113,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-crimson-pro), serif;
+  font-family: var(--font-playfair), serif;
   color: var(--text-h);
   margin: 0;
 }

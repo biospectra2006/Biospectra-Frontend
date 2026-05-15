@@ -50,7 +50,7 @@ const Submit = () => {
           >
             <CheckCircle size={40} />
           </div>
-          <h2 style={{ fontFamily: 'var(--font-crimson-pro), serif', color: P.deepPurple }} className="text-3xl font-black mb-4 uppercase">Submission Received</h2>
+          <h2 style={{ fontFamily: 'var(--font-playfair), serif', color: P.deepPurple }} className="text-3xl font-black mb-4 uppercase">Submission Received</h2>
           <p style={{ color: P.textBody }} className="text-sm mb-10 leading-relaxed opacity-80">
             Thank you for your submission to Biospectra Journal. Our editorial board will review your manuscript and get back to you via email within 45 days.
           </p>
@@ -94,7 +94,7 @@ const Submit = () => {
               
               <div className="mb-12">
                 <h1 
-                  style={{ fontFamily: 'var(--font-crimson-pro), serif', color: P.deepPurple }}
+                  style={{ fontFamily: 'var(--font-playfair), serif', color: P.deepPurple }}
                   className="text-3xl md:text-5xl font-black tracking-tight mb-4 uppercase"
                 >
                   Submit Article
@@ -163,7 +163,7 @@ const Submit = () => {
                 style={{ position: 'absolute', bottom: -50, right: -50, width: 200, height: 200, background: P.magenta, opacity: 0.1, borderRadius: '50%' }}
               />
               <h3 
-                style={{ fontFamily: 'var(--font-crimson-pro), serif' }}
+                style={{ fontFamily: 'var(--font-playfair), serif' }}
                 className="text-2xl font-bold mb-10 flex items-center italic"
               >
                 Guidelines for Authors
@@ -193,7 +193,7 @@ const Submit = () => {
               className="p-8 shadow-xl shadow-emerald-900/5 group"
             >
               <h4 
-                style={{ fontFamily: 'var(--font-crimson-pro), serif', color: P.deepPurple }}
+                style={{ fontFamily: 'var(--font-playfair), serif', color: P.deepPurple }}
                 className="text-xl font-bold mb-4 flex items-center uppercase tracking-tight"
               >
                 <Info size={18} style={{ color: P.magenta }} className="mr-3" /> Need Help?

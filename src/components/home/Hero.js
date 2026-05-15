@@ -55,7 +55,7 @@ const Hero = () => {
       <div className="relative w-full h-full flex-grow overflow-hidden flex flex-col justify-center">
         <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
             <Image
-              src="/assets/landing-bg/og-green.png"
+              src="/assets/landing-bg/green-pallet.png"
               alt="Green DNA"
               fill
               className="object-cover object-[25%_center] md:object-center"
@@ -93,14 +93,6 @@ const Hero = () => {
 
         {/* Blueprint Markers */}
         <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
-          {/* Top Left Marker */}
-          <div className="absolute top-[10%] left-[5%] flex flex-col gap-2">
-            <div className="flex gap-2 items-center">
-              <div className="w-4 h-px bg-white/20" />
-              <div className="w-px h-4 bg-white/20" />
-            </div>
-            <span className="text-[7px] font-mono text-white/20 uppercase tracking-widest">COORD_A1</span>
-          </div>
 
           {/* Center Vertical Axis */}
           <div className="absolute top-0 bottom-0 left-[50%] w-px bg-linear-to-b from-transparent via-white/10 to-transparent" />
@@ -112,7 +104,7 @@ const Hero = () => {
           </div>
 
           {/* Large Background Text */}
-          <div className="absolute top-[12%] left-[4%] pointer-events-none" style={{ fontSize: 'clamp(100px, 18vw, 280px)', fontWeight: 900, lineHeight: 0.8, color: '#fff', letterSpacing: '-0.05em', opacity: 0.04 }}>
+          <div className="absolute top-[22%] left-[4%] pointer-events-none" style={{ fontSize: 'clamp(100px, 18vw, 280px)', fontWeight: 900, lineHeight: 0.8, color: '#fff', letterSpacing: '-0.05em', opacity: 0.04 }}>
              BIO
           </div>
           <div className="absolute bottom-[5%] right-[4%] pointer-events-none" style={{ fontSize: 'clamp(100px, 18vw, 280px)', fontWeight: 900, lineHeight: 0.8, color: '#fff', letterSpacing: '-0.05em', opacity: 0.04 }}>
@@ -121,35 +113,66 @@ const Hero = () => {
         </div>
 
         <div className="relative w-full min-h-[100svh] flex flex-row items-stretch z-10">
-          <div className="flex flex-col justify-center flex-1 w-full px-6 lg:pl-[5%] lg:pr-8 z-20 py-12 pb-80 lg:py-24 lg:pb-60 relative -mt-29 lg:mt-0">
+          <div className="flex flex-col justify-center flex-1 w-full px-6 lg:pl-[5%] lg:pr-8 z-20 pt-32 pb-80 lg:py-24 lg:pb-60 relative mt-12 lg:mt-16">
             {/* Structural corner decorations */}
             <div className="absolute top-10 left-10 w-8 h-8 border-t border-l border-white/10 rounded-tl-lg pointer-events-none" />
             <div className="absolute bottom-10 right-10 w-8 h-8 border-b border-r border-white/10 rounded-br-lg pointer-events-none" />
             
-            <span className="text-white/60 font-mono tracking-[0.2em] text-[9px] lg:text-[10px] uppercase mb-4 animate-pulse">VOL. 17 / ISS. 2</span>
-            <h1 className="font-medium leading-none mb-4 drop-shadow-2xl" style={{ fontSize: 'clamp(55px, 11vw, 100px)', color: '#ffffff', letterSpacing: '0.05em', textShadow: '0 4px 60px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.4)', fontFamily: 'var(--font-crimson-pro), Georgia, serif' }}>
-              BIOSPECTRA
+           
+            <h1 className="font-normal leading-none mb-5 flex overflow-hidden" style={{ 
+              fontSize: 'clamp(40px, 8vw, 75px)', 
+              background: 'linear-gradient(180deg, #ffffff 0%, #e2e2e2 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              letterSpacing: '0.12em', 
+              filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.5)) drop-shadow(0 0 15px rgba(255,255,255,0.1))', 
+              fontFamily: 'var(--font-playfair), var(--font-playfair), Georgia, serif' 
+            }}>
+              {"BIOSPECTRA".split("").map((char, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ y: "100%", opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ 
+                    duration: 1, 
+                    delay: i * 0.08, 
+                    ease: [0.215, 0.61, 0.355, 1] 
+                  }}
+                  className="inline-block"
+                >
+                  {char}
+                </motion.span>
+              ))}
             </h1>
-            <div className="flex flex-col pl-3 lg:pl-4 border-l border-white/40 ml-1 mb-8">
-              <span className="text-white/80 font-medium tracking-[0.15em] lg:tracking-[0.3em] text-[10px] sm:text-[11px] lg:text-[12px] leading-relaxed uppercase block" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>INTERNATIONAL BIANNUAL REFEREED</span>
-              <span className="text-white font-bold tracking-[0.1em] lg:tracking-[0.2em] text-[13px] sm:text-[14px] lg:text-[16px] leading-tight uppercase mt-1" style={{fontFamily: 'var(--font-inter), sans-serif', textShadow: '0 2px 10px rgba(0,0,0,0.5)'}}>JOURNAL OF LIFE SCIENCES</span>
-            </div>
-            <div className="flex flex-row items-center gap-5 lg:gap-6">
-              <Link href="/archive">
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, delay: 1, ease: "easeOut" }}
+              className="flex flex-col pl-4 lg:pl-5 border-l-[1.5px] border-[#92B775] ml-1 mb-10"
+            >
+              <span className="text-[#F3E8D3]/90 font-medium tracking-[0.25em] lg:tracking-[0.35em] text-[9px] sm:text-[10px] lg:text-[11px] leading-relaxed uppercase block" style={{ fontFamily: 'var(--font-playfair), serif' }}>
+                International Biannual Refereed
+              </span>
+              <span className="text-white font-bold tracking-[0.15em] lg:tracking-[0.2em] text-[12px] sm:text-[14px] lg:text-[18px] leading-tight uppercase mt-1.5" style={{ fontFamily: 'var(--font-playfair), serif' }}>
+                Journal of Life Sciences
+              </span>
+            </motion.div>
+            <div className="flex flex-row items-stretch gap-3 lg:gap-4 h-[40px] lg:h-[44px]">
+              <Link href="/archive" className="flex-1 sm:flex-none">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-white/5 text-white border border-white/20 backdrop-blur-md font-bold tracking-[0.2em] text-[9px] sm:text-[10px] uppercase py-3.5 px-7 lg:py-4 lg:px-8 rounded-md shadow-[0_0_20px_rgba(255,255,255,0.05)] hover:bg-white hover:text-black transition-all flex items-center gap-3 group"
+                  className="w-full h-full bg-white/5 text-white border border-white/20 backdrop-blur-md font-bold tracking-[0.2em] text-[8px] sm:text-[9px] uppercase px-4 lg:px-6 rounded-md shadow-[0_0_20px_rgba(255,255,255,0.05)] hover:bg-white hover:text-[#133215] transition-all flex items-center justify-center gap-2 group"
                 >
                   <span>Explore Issues</span>
-                  <ArrowRight size={12} className="opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+                  <ArrowRight size={10} className="opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
                 </motion.button>
               </Link>
-              <div className="flex flex-col bg-white/5 backdrop-blur-md border border-white/20 rounded-md px-4 py-2 sm:px-5 sm:py-2.5 shadow-[0_0_20px_rgba(255,255,255,0.02)]">
-                <span className="text-white/50 font-mono tracking-[0.2em] text-[7px] sm:text-[8px] uppercase mb-1">IMPACT FACTOR</span>
-                <div className="flex items-center gap-2.5">
-                  <span className="text-white font-black tracking-widest text-[#e8d5ff] drop-shadow-[0_0_10px_rgba(255,255,255,0.3)] text-sm sm:text-base leading-none">SJIF 8.546</span>
-                  <div className="w-2 h-2 rounded-full bg-[#00ff88] animate-pulse shadow-[0_0_10px_rgba(0,255,136,0.6)]" />
+              <div className="flex flex-col justify-center bg-white/5 backdrop-blur-md border border-white/20 rounded-md px-3.5 lg:px-4 shadow-[0_0_20px_rgba(255,255,255,0.02)] h-full">
+                <span className="text-[#F3E8D3]/70 font-mono tracking-[0.2em] text-[6px] sm:text-[7px] uppercase mb-0.5">IMPACT FACTOR</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-white font-black tracking-widest drop-shadow-[0_0_10px_rgba(255,255,255,0.3)] text-xs sm:text-sm leading-none">SJIF 8.546</span>
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#92B775] animate-pulse shadow-[0_0_10px_rgba(146,183,117,0.6)]" />
                 </div>
               </div>
             </div>
@@ -159,12 +182,17 @@ const Hero = () => {
                <SearchBar />
             </div>
 
-            <div className="hidden sm:block mt-8 lg:mt-10 border-l border-white/20 pl-4 relative z-0">
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 1.4, ease: "easeOut" }}
+              className="hidden sm:block mt-8 lg:mt-10 border-l border-white/20 pl-4 relative z-0"
+            >
               <p className="text-white/45 text-[11px] lg:text-[12px] leading-[2] max-w-[380px] font-medium tracking-[0.04em]">
                 An International Biannual Refereed Journal of Life Sciences dedicated to the advancement of biological scientific knowledge since 2006.
               </p>
               <span className="text-white/50 font-mono text-[10px] mt-1 block">(ISSN: 0973-7057)</span>
-            </div>
+            </motion.div>
           </div>
           <div className="hidden lg:flex relative flex-col items-center justify-center w-[42%] shrink-0 z-10 pointer-events-none">
             <motion.div

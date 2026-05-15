@@ -76,7 +76,7 @@ const ArchiveIndex = () => {
                   <ArrowLeft size={16} />
                 </button>
               </Link>
-              <h1 className="text-lg md:text-xl font-black text-slate-900 tracking-tight flex items-center gap-2" style={{ fontFamily: 'var(--font-crimson-pro), serif' }}>
+              <h1 className="text-lg md:text-xl font-black text-slate-900 tracking-tight flex items-center gap-2" style={{ fontFamily: 'var(--font-playfair), serif' }}>
                 <Library className="text-emerald-600" size={20} />
                 Master Index
               </h1>
@@ -106,7 +106,7 @@ const ArchiveIndex = () => {
                 <div className="bg-slate-50/80 px-4 py-3 border-b border-slate-100 flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <span className="bg-emerald-600 text-white text-[8px] font-black px-1.5 py-0.5 rounded">V.{volume.year - 2005}</span>
-                    <h2 className="text-sm font-black text-slate-800" style={{ fontFamily: 'var(--font-crimson-pro), serif' }}>
+                    <h2 className="text-sm font-black text-slate-800" style={{ fontFamily: 'var(--font-playfair), serif' }}>
                       {volume.year}
                     </h2>
                   </div>

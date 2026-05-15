@@ -1,4 +1,4 @@
-import { Inter, Crimson_Pro } from 'next/font/google';
+import { Inter, Crimson_Pro, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/common/Navbar';
 import Footer from '@/components/common/Footer';
@@ -16,8 +16,16 @@ const inter = Inter({
 
 const crimsonPro = Crimson_Pro({
   subsets: ['latin'],
-  variable: '--font-crimson-pro',
+  variable: '--font-playfair',
   weight: ['300', '400', '500', '600', '700', '800', '900'],
+  style: ['normal', 'italic'],
+  display: 'swap',
+});
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  variable: '--font-playfair',
+  weight: ['400', '500', '600', '700', '800', '900'],
   style: ['normal', 'italic'],
   display: 'swap',
 });
@@ -70,7 +78,7 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${inter.variable} ${crimsonPro.variable}`} style={{ background: '#fdfcff' }}>
+    <html lang="en" className={`${inter.variable} ${crimsonPro.variable} ${playfair.variable}`} style={{ background: '#eef4ec' }}>
       <head>
         <script
           type="application/ld+json"
@@ -94,7 +102,7 @@ export default function RootLayout({ children }) {
           }}
         />
       </head>
-      <body className="antialiased" style={{ background: '#fdfcff' }}>
+      <body className="antialiased" style={{ background: '#eef4ec' }}>
         <ScrollToTop />
         <Suspense fallback={null}>
           <LoadingBar />

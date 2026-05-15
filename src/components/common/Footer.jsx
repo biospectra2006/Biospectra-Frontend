@@ -1,11 +1,16 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Instagram, Twitter, Linkedin, Youtube } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { Instagram, Twitter, Linkedin, Youtube, Mail, MapPin, BookOpen, ArrowUpRight } from 'lucide-react';
 
 const Footer = () => {
   const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
+
   useEffect(() => { setMounted(true); }, []);
+
+  if (pathname !== '/') return null;
 
   const navLinks = [
     { name: 'Home',            path: '/' },
@@ -26,93 +31,122 @@ const Footer = () => {
   return (
     <footer
       className="relative overflow-hidden"
-      style={{ background: '#080015', fontFamily: 'var(--font-inter), sans-serif' }}
+      style={{ 
+        background: 'linear-gradient(to bottom, #eef4ec 0%, #c8ddb8 120px, #b5d1a0 100%)', 
+        fontFamily: 'var(--font-inter), sans-serif' 
+      }}
     >
+      {/* Decorative top accent line */}
+      <div className="w-full h-[3px]" style={{ background: 'linear-gradient(90deg, transparent 0%, #133215 20%, #92B775 50%, #133215 80%, transparent 100%)' }} />
+
       {/* subtle dot grid */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none opacity-30"
         style={{
-          backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(62,180,137,0.07) 1px, transparent 0)',
-          backgroundSize: '36px 36px',
+          backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(19,50,21,0.15) 1px, transparent 0)',
+          backgroundSize: '32px 32px',
         }}
       />
 
-      {/* ── MAIN GRID ── */}
-      <div className="relative z-10 max-w-[1400px] mx-auto px-8 md:px-14 pt-20 pb-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8 pb-14 border-b border-white/[0.06]">
+      {/* ── MAIN CONTENT ── */}
+      <div className="relative z-10 max-w-[1400px] mx-auto px-8 md:px-14 pt-16 pb-10">
+        
+        {/* ── TOP SECTION: Brand + CTA ── */}
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-14">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ background: '#133215' }}>
+              <BookOpen size={22} className="text-[#92B775]" />
+            </div>
+            <div>
+              <h3 className="text-[#133215] text-lg font-bold tracking-wide" style={{ fontFamily: 'var(--font-playfair), Georgia, serif' }}>
+                BIOSPECTRA
+              </h3>
+              <p className="text-[#133215]/60 text-[11px] font-medium tracking-wider uppercase">
+                Journal of Life Sciences
+              </p>
+            </div>
+          </div>
+          <Link href="/archive" className="group flex items-center gap-2 px-6 py-3 rounded-full border-2 border-[#133215]/30 text-[#133215] text-[12px] font-bold uppercase tracking-widest hover:bg-[#133215] hover:text-[#92B775] hover:border-[#133215] transition-all duration-300">
+            <span>Explore Issues</span>
+            <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </Link>
+        </div>
 
-          {/* COL 1 — Nav */}
-          <nav className="flex flex-col gap-2.5">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.path}
-                className="text-white/40 hover:text-white text-[15px] font-medium transition-colors duration-150 w-fit"
-              >
-                {link.name}
-              </Link>
-            ))}
-          </nav>
+        {/* ── GRID ── */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-14 md:gap-8 pb-12 border-b border-[#133215]/12">
 
-          {/* COL 2 — Follow us */}
-          <div className="flex flex-col gap-6">
-            <p className="text-[10px] font-black uppercase tracking-[0.45em] text-white/25">
-              Follow us
+          {/* COL 1 — Quick Links */}
+          <div className="flex flex-col gap-4">
+            <p className="text-[10px] font-black uppercase tracking-[0.5em] text-[#133215]/60 mb-1">
+              Quick Links
             </p>
-            <div className="flex flex-col gap-1">
+            <nav className="grid grid-cols-2 gap-x-6 gap-y-2.5">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.path}
+                  className="text-[#133215] hover:text-[#133215]/70 text-[14px] font-semibold transition-colors duration-200 w-fit hover:translate-x-1 transform inline-block"
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          {/* COL 2 — Connect */}
+          <div className="flex flex-col gap-5">
+            <p className="text-[10px] font-black uppercase tracking-[0.5em] text-[#133215]/60 mb-1">
+              Connect
+            </p>
+            <div className="flex flex-col gap-3">
               <a
                 href="mailto:biospectra@yahoo.com"
-                className="text-white/50 hover:text-white text-[14px] font-medium transition-colors"
+                className="flex items-center gap-2.5 text-[#133215] hover:text-[#133215]/70 text-[14px] font-semibold transition-colors group"
               >
+                <Mail size={14} className="text-[#133215]/60 group-hover:text-[#133215] transition-colors" />
                 biospectra@yahoo.com
               </a>
-              <span className="text-white/25 text-[14px] font-medium">ISSN: 0973-7057</span>
+              <span className="text-[#133215]/70 text-[13px] font-mono font-medium ml-[26px]">ISSN: 0973-7057</span>
             </div>
-            {/* Social circles */}
-            <div className="flex items-center gap-2.5">
+            {/* Social icons */}
+            <div className="flex items-center gap-2.5 mt-1">
               {socials.map(({ Icon, href, label }) => (
                 <a
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-white/30 hover:bg-white/5 transition-all duration-200 group"
+                  className="w-10 h-10 rounded-lg border border-[#133215]/20 flex items-center justify-center hover:border-[#133215]/60 hover:bg-[#133215] transition-all duration-300 group"
                 >
-                  <Icon size={15} className="text-white/35 group-hover:text-white transition-colors" />
+                  <Icon size={16} className="text-[#133215]/70 group-hover:text-[#92B775] transition-colors" />
                 </a>
               ))}
             </div>
           </div>
 
-          {/* COL 3 — Address */}
-          <div className="flex flex-col gap-6">
-            <p className="text-[10px] font-black uppercase tracking-[0.45em] text-white/25">
+          {/* COL 3 — Address + Badges */}
+          <div className="flex flex-col gap-5">
+            <p className="text-[10px] font-black uppercase tracking-[0.5em] text-[#133215]/60 mb-1">
               Address
             </p>
-            <div>
-              <p className="text-white/55 text-[14px] font-medium leading-relaxed">
+            <div className="flex items-start gap-2.5">
+              <MapPin size={14} className="text-[#133215]/60 mt-1 shrink-0" />
+              <p className="text-[#133215] text-[14px] font-medium leading-relaxed">
                 Madhawi Shyam Educational Trust,<br />
-                Ranchi,<br />
-                Jharkhand, India.
+                Ranchi, Jharkhand, India.
               </p>
             </div>
-            <div className="flex flex-col gap-2 pt-2">
-              <div className="flex items-center gap-2">
-                <div
-                  className="w-1.5 h-1.5 rounded-full animate-pulse"
-                  style={{ background: '#3eb489' }}
-                />
-                <span
-                  className="text-[10px] font-black uppercase tracking-[0.2em]"
-                  style={{ color: '#3eb489' }}
-                >
+            <div className="flex flex-col gap-3 mt-1">
+              <div className="flex items-center gap-2.5 px-3.5 py-2 rounded-lg" style={{ background: '#133215' }}>
+                <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: '#92B775', boxShadow: '0 0 8px rgba(146,183,117,0.6)' }} />
+                <span className="text-[11px] font-black uppercase tracking-[0.2em] text-[#92B775]">
                   SJIF Impact Factor 8.546
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-widest border border-white/8 text-white/20">
+                <span className="px-3 py-1.5 rounded-md text-[9px] font-black uppercase tracking-widest border border-[#133215]/25 text-[#133215]/80 hover:bg-[#133215]/5 transition-colors">
                   ESTD. 2006
                 </span>
-                <span className="px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-widest border border-white/8 text-white/20">
+                <span className="px-3 py-1.5 rounded-md text-[9px] font-black uppercase tracking-widest border border-[#133215]/25 text-[#133215]/80 hover:bg-[#133215]/5 transition-colors">
                   PEER REVIEWED
                 </span>
               </div>
@@ -122,15 +156,16 @@ const Footer = () => {
         </div>
 
         {/* ── BOTTOM BAR ── */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-6">
-          <span className="text-[11px] font-medium tracking-widest uppercase text-white/20">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6">
+          <span className="text-[11px] font-semibold tracking-widest uppercase text-[#133215]/60">
             © {mounted ? new Date().getFullYear() : '2025'} Biospectra Journal. All Rights Reserved.
           </span>
-          <div className="flex items-center gap-8">
-            <Link href="/guidelines" className="text-[11px] font-medium tracking-widest uppercase text-white/20 hover:text-white/50 transition-colors">
+          <div className="flex items-center gap-6">
+            <Link href="/guidelines" className="text-[11px] font-semibold tracking-widest uppercase text-[#133215]/60 hover:text-[#133215] transition-colors">
               Author Guidelines
             </Link>
-            <Link href="/contact" className="text-[11px] font-medium tracking-widest uppercase text-white/20 hover:text-white/50 transition-colors">
+            <span className="w-1 h-1 rounded-full bg-[#133215]/30" />
+            <Link href="/contact" className="text-[11px] font-semibold tracking-widest uppercase text-[#133215]/60 hover:text-[#133215] transition-colors">
               Privacy Policy
             </Link>
           </div>
@@ -140,16 +175,16 @@ const Footer = () => {
       {/* ── GIANT BLEED WORDMARK ── */}
       <div className="relative z-10 overflow-hidden" aria-hidden="true">
         <p
-          className="font-black text-center whitespace-nowrap"
+          className="font-black text-center whitespace-nowrap select-none"
           style={{
-            fontFamily: 'var(--font-crimson-pro), Georgia, serif',
-            fontSize: 'clamp(80px, 19.5vw, 280px)',
+            fontFamily: 'var(--font-playfair), Georgia, serif',
+            fontSize: 'clamp(50px, 12vw, 150px)',
             lineHeight: 0.82,
-            letterSpacing: '-0.03em',
+            letterSpacing: '-0.02em',
             color: 'transparent',
-            WebkitTextStroke: '1px rgba(255,255,255,0.08)',
-            marginBottom: '-0.1em',
-            paddingTop: '0.5rem',
+            WebkitTextStroke: '1.5px rgba(19,50,21,0.12)',
+            marginBottom: '0',
+            marginTop: '-1rem',
           }}
         >
           BIOSPECTRA

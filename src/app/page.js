@@ -14,18 +14,18 @@ const Recognition        = dynamic(() => import('@/components/home/Recognition')
 
 // ── Palette ───────────────────────────────────────────────────────────────────
 const P = {
-  deepPurple:   '#064e3b',
-  richPurple:   '#19674b',
-  vivid:        '#9e9eff',
-  magenta:      '#3eb489',
+  deepPurple:   '#133215',
+  richPurple:   '#133215',
+  vivid:        '#92B775',
+  magenta:      '#92B775',
   white:        '#ffffff',
-  neutral:      '#fdfcff',
-  offWhite:     '#fdfcff',
+  neutral:      '#eef4ec',
+  offWhite:     '#F3E8D3',
   lavenderMist: '#e6e6fa',
   lavenderSoft: '#e0e0ff',
-  borderSoft:   'rgba(25,103,75,0.1)',
-  textBody:     '#1e293b',
-  textMuted:    '#64748b',
+  borderSoft:   'rgba(19,50,21,0.1)',
+  textBody:     '#133215',
+  textMuted:    '#92B775',
 };
 
 // ── Shared Assets ─────────────────────────────────────────────────────────────
@@ -74,7 +74,7 @@ const Home = () => {
   };
 
   return (
-    <main className="flex flex-col w-full min-h-screen bg-[#fdfcff] selection:bg-emerald-100">
+    <main className="flex flex-col w-full min-h-screen bg-[#eef4ec] selection:bg-[#92B775]">
       {/* Hero renders immediately — dark background so no white flash */}
       <Hero />
 

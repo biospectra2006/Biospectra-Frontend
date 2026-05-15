@@ -14,11 +14,12 @@ const Gallery = () => {
   const [query, setQuery] = useState('');
 
   const P = {
-    deepPurple: '#064e3b',    // Emerald
-    magenta:    '#3eb489',    // Mint
+    darkGreen:  '#133215',    // Primary Brand Green
+    limeGreen:  '#92B775',    // Accent Green
+    softGreen:  '#eef4ec',    // Background Green
     textBody:   '#1e293b',
-    textMuted:  '#64748b',
-    border:     'rgba(25, 103, 75, 0.1)',
+    textMuted:  'rgba(19, 50, 21, 0.6)',
+    border:     'rgba(19, 50, 21, 0.1)',
   };
 
   useEffect(() => {
@@ -47,7 +48,7 @@ const Gallery = () => {
   }, [query, images]);
 
   return (
-    <div className="relative min-h-screen selection:bg-emerald-200 overflow-hidden" style={{ background: '#fdfbf7' }}>
+    <div className="relative min-h-screen selection:bg-[#92B775]/30 overflow-hidden" style={{ background: '#eef4ec' }}>
       {/* Background Lines */}
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
         <div className="absolute inset-0 flex justify-between px-[5%] opacity-[0.03]">
@@ -61,34 +62,34 @@ const Gallery = () => {
       <div className="container mx-auto px-4 md:px-6">
         
         {/* Compact Header */}
-        <div className="text-center mb-8 max-w-lg mx-auto">
+        <div className="text-center mb-10 max-w-lg mx-auto">
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col items-center">
-            <div style={{ width: 30, height: 2, background: P.magenta, marginBottom: 12 }} />
+            <div style={{ width: 40, height: 1, background: P.limeGreen, marginBottom: 16 }} />
             <h1 
-              style={{ fontFamily: 'var(--font-crimson-pro), serif', color: P.deepPurple }}
-              className="text-2xl md:text-3xl font-black mb-2 tracking-tight uppercase"
+              style={{ fontFamily: 'var(--font-playfair), serif', color: P.darkGreen }}
+              className="text-3xl md:text-5xl font-black mb-3 tracking-tight"
             >
               Scientific Gallery
             </h1>
-            <p style={{ color: P.textBody }} className="text-xs leading-relaxed opacity-70">
-              Research discoveries, award ceremonies, and life science observations.
+            <p style={{ color: P.darkGreen }} className="text-[11px] font-medium leading-relaxed opacity-60 uppercase tracking-[0.2em]">
+              Research discoveries • Award ceremonies • Life science observations
             </p>
           </motion.div>
         </div>
 
         {/* Compact Search */}
-        <div className="max-w-md mx-auto mb-8 relative">
-          <Search size={14} style={{ color: P.textMuted }} className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
+        <div className="max-w-md mx-auto mb-12 relative">
+          <Search size={14} style={{ color: P.darkGreen }} className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none opacity-40" />
           <input
             type="text"
             value={query}
             onChange={e => setQuery(e.target.value)}
-            placeholder="Search by title, category or date…"
+            placeholder="Search our scientific archives..."
             style={{ border: `1px solid ${P.border}` }}
-            className="w-full pl-10 pr-4 py-2.5 bg-white text-xs text-slate-800 placeholder-slate-300 shadow-lg shadow-emerald-900/5 focus:outline-none focus:ring-2 focus:ring-emerald-200 transition-all rounded-lg"
+            className="w-full pl-11 pr-4 py-3 bg-white/50 backdrop-blur-sm text-xs text-[#133215] placeholder-[#133215]/30 shadow-xl shadow-[#133215]/[0.02] focus:outline-none focus:ring-2 focus:ring-[#92B775]/20 transition-all rounded-xl"
           />
           {query && (
-            <button onClick={() => setQuery('')} style={{ color: P.textMuted }} className="absolute right-3 top-1/2 -translate-y-1/2">
+            <button onClick={() => setQuery('')} style={{ color: P.darkGreen }} className="absolute right-3 top-1/2 -translate-y-1/2 opacity-40 hover:opacity-100">
               <X size={14} />
             </button>
           )}
@@ -96,14 +97,14 @@ const Gallery = () => {
 
         {query && (
           <p className="text-center text-[10px] font-bold uppercase tracking-widest mb-6" style={{ color: P.textMuted }}>
-            Found <span style={{ color: P.magenta }}>{filtered.length}</span> result{filtered.length !== 1 ? 's' : ''}
+            Found <span style={{ color: P.limeGreen }}>{filtered.length}</span> result{filtered.length !== 1 ? 's' : ''}
           </p>
         )}
 
         {/* Content */}
         {loading ? (
           <div className="text-center py-16">
-            <Loader2 size={24} className="animate-spin mx-auto" style={{ color: P.magenta }} />
+            <Loader2 size={24} className="animate-spin mx-auto" style={{ color: P.limeGreen }} />
           </div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
@@ -128,10 +129,10 @@ const Gallery = () => {
                 />
                 {/* Overlay */}
                 <div 
-                  style={{ background: 'linear-gradient(to top, rgba(6,78,59,0.85), transparent 60%)' }}
+                  style={{ background: 'linear-gradient(to top, rgba(19,50,21,0.9), transparent 70%)' }}
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-3"
                 >
-                  <span style={{ color: P.magenta }} className="text-[8px] font-black uppercase tracking-[0.15em] mb-0.5">{item.category}</span>
+                  <span style={{ color: P.limeGreen }} className="text-[8px] font-black uppercase tracking-[0.15em] mb-0.5">{item.category}</span>
                   <p className="text-white font-bold text-[10px] line-clamp-2 leading-snug">{item.title}</p>
                 </div>
                 <div 
@@ -175,7 +176,7 @@ const Gallery = () => {
               </div>
               <div className="p-6">
                 <div className="flex items-center gap-3 mb-3">
-                  <span style={{ color: P.magenta }} className="text-[9px] font-black uppercase tracking-[0.2em]">{selectedImg.category}</span>
+                  <span style={{ color: P.limeGreen }} className="text-[9px] font-black uppercase tracking-[0.2em]">{selectedImg.category}</span>
                   <div className="flex-grow h-[1px]" style={{ background: P.border }} />
                   {selectedImg.createdAt && (
                     <span style={{ color: P.textMuted }} className="flex items-center text-[9px] font-bold uppercase">
@@ -184,7 +185,7 @@ const Gallery = () => {
                   )}
                 </div>
                 <h3 
-                  style={{ fontFamily: 'var(--font-crimson-pro), serif', color: P.deepPurple }}
+                  style={{ fontFamily: 'var(--font-playfair), serif', color: P.darkGreen }}
                   className="text-xl font-bold mb-2"
                 >
                   {selectedImg.title}

@@ -47,16 +47,14 @@ const EditorialBoard = () => {
   }, [members]);
 
   const P = {
-    deepPurple: '#064e3b',    // Emerald
-    richPurple: '#19674b',
-    magenta:    '#3eb489',    // Mint
-    gold:       '#c5a059',
+    darkGreen:  '#133215',    // Primary Brand Green
+    limeGreen:  '#92B775',    // Accent Green
+    softGreen:  '#eef4ec',    // Background Green
     textBody:   '#1e293b',
-    textMuted:  '#64748b',
-    lavender:   '#f0fff4',
+    textMuted:  'rgba(19, 50, 21, 0.6)',
     white:      '#ffffff',
-    border:     'rgba(25, 103, 75, 0.08)',
-    glass:      'rgba(255, 255, 255, 0.7)',
+    border:     'rgba(19, 50, 21, 0.1)',
+    glass:      'rgba(255, 255, 255, 0.8)',
   };
 
   const itemVariants = {
@@ -65,7 +63,7 @@ const EditorialBoard = () => {
   };
 
   return (
-    <div className="relative min-h-screen selection:bg-emerald-200 overflow-hidden" style={{ background: '#fdfbf7' }}>
+    <div className="relative min-h-screen selection:bg-[#92B775]/30 overflow-hidden" style={{ background: P.softGreen }}>
       {/* Background Lines */}
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
         <div className="absolute inset-0 flex justify-between px-[5%] opacity-[0.03]">
@@ -85,16 +83,16 @@ const EditorialBoard = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <span className="inline-block px-4 py-1.5 rounded-full bg-emerald-50 text-[10px] font-bold uppercase tracking-[0.25em] text-emerald-600 mb-6 border border-emerald-100">
+              <span className="inline-block px-4 py-1.5 rounded-full bg-white/50 text-[10px] font-bold uppercase tracking-[0.25em] text-[#92B775] mb-6 border border-[#92B775]/20">
                 Scientific Directory
               </span>
               <h1 
-                style={{ fontFamily: 'var(--font-crimson-pro), serif', color: P.deepPurple }}
+                style={{ fontFamily: 'var(--font-playfair), serif', color: P.darkGreen }}
                 className="text-4xl md:text-6xl font-black mb-6 tracking-tight"
               >
                 Editorial Board
               </h1>
-              <p className="text-sm md:text-base text-gray-500 max-w-2xl mx-auto font-medium leading-relaxed uppercase tracking-widest opacity-80">
+              <p className="text-sm md:text-base text-[#133215]/60 max-w-2xl mx-auto font-medium leading-relaxed uppercase tracking-widest opacity-80" style={{ fontFamily: 'var(--font-inter), sans-serif' }}>
                 Biospectra Journal Global Team • Shaping the Future of Biological Sciences
               </p>
               <div className="mt-10 flex justify-center items-center gap-4">
@@ -110,10 +108,10 @@ const EditorialBoard = () => {
             {/* Executive Editorial Team */}
             <section>
               <div className="flex items-center gap-6 mb-12 px-4">
-                <h2 style={{ fontFamily: 'var(--font-crimson-pro), serif', color: P.deepPurple }} className="text-2xl font-black uppercase tracking-wider shrink-0">
+                <h2 style={{ fontFamily: 'var(--font-playfair), serif', color: P.darkGreen }} className="text-2xl font-black uppercase tracking-wider shrink-0">
                   Executive Leadership
                 </h2>
-                <div className="h-[1px] flex-grow bg-gradient-to-r from-emerald-100 to-transparent" />
+                <div className="h-[1px] flex-grow bg-gradient-to-r from-[#92B775]/30 to-transparent" />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 px-4">
@@ -124,14 +122,14 @@ const EditorialBoard = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: idx * 0.1 }}
-                    className="group relative bg-white p-8 rounded-2xl shadow-sm border border-emerald-50 hover:shadow-xl hover:shadow-emerald-900/5 hover:-translate-y-1 transition-all duration-500"
+                    className="group relative bg-white p-8 rounded-2xl shadow-sm border border-[#92B775]/20 hover:shadow-xl hover:shadow-emerald-900/5 hover:-translate-y-1 transition-all duration-500"
                   >
                     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-600 to-magenta rounded-t-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
                     
-                    <span style={{ color: P.magenta }} className="text-[10px] font-bold uppercase tracking-[0.2em] mb-4 block">
+                    <span style={{ color: P.limeGreen }} className="text-[10px] font-bold uppercase tracking-[0.2em] mb-4 block">
                       {member.role}
                     </span>
-                    <h3 style={{ fontFamily: 'var(--font-crimson-pro), serif', color: P.deepPurple }} className="text-2xl font-bold mb-4 leading-tight">
+                    <h3 style={{ fontFamily: 'var(--font-playfair), serif', color: P.darkGreen }} className="text-2xl font-bold mb-4 leading-tight">
                       {member.name}
                     </h3>
                     
@@ -152,7 +150,7 @@ const EditorialBoard = () => {
             {/* National Advisory Board Section */}
             <section className="px-4">
               <div className="flex items-center gap-6 mb-10">
-                <h2 style={{ fontFamily: 'var(--font-crimson-pro), serif', color: P.deepPurple }} className="text-xl font-bold uppercase tracking-widest shrink-0">
+                <h2 style={{ fontFamily: 'var(--font-playfair), serif', color: P.darkGreen }} className="text-xl font-bold uppercase tracking-widest shrink-0">
                   National Advisory Board
                 </h2>
                 <div className="h-[1px] flex-grow bg-emerald-100/50" />
@@ -166,12 +164,12 @@ const EditorialBoard = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: (idx % 3) * 0.1 }}
-                    className="flex flex-col p-5 bg-white rounded-xl border border-emerald-50/50 hover:bg-emerald-50/30 transition-colors group"
+                    className="flex flex-col p-5 bg-white rounded-xl border border-[#92B775]/20/50 hover:bg-[#eef4ec]/30 transition-colors group"
                   >
-                    <h4 style={{ color: P.deepPurple }} className="font-bold text-sm mb-1 group-hover:text-emerald-700 transition-colors">{member.name}</h4>
+                    <h4 style={{ color: P.darkGreen }} className="font-bold text-sm mb-1 group-hover:text-emerald-600 transition-colors">{member.name}</h4>
                     <div className="flex items-center gap-2">
                       {member.department && (
-                        <span className="text-[10px] font-bold text-magenta uppercase tracking-tight">{member.department}</span>
+                        <span className="text-[10px] font-bold text-[#92B775] uppercase tracking-tight">{member.department}</span>
                       )}
                       {member.location && (
                         <>
@@ -188,7 +186,7 @@ const EditorialBoard = () => {
             {/* National Editors Section */}
             <section className="px-4">
               <div className="flex items-center gap-6 mb-10">
-                <h2 style={{ fontFamily: 'var(--font-crimson-pro), serif', color: P.deepPurple }} className="text-xl font-bold uppercase tracking-widest shrink-0">
+                <h2 style={{ fontFamily: 'var(--font-playfair), serif', color: P.darkGreen }} className="text-xl font-bold uppercase tracking-widest shrink-0">
                   National Editorial Panel
                 </h2>
                 <div className="h-[1px] flex-grow bg-emerald-100/50" />
@@ -202,9 +200,9 @@ const EditorialBoard = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: (idx % 4) * 0.1 }}
-                    className="p-4 bg-white/60 backdrop-blur-sm rounded-lg border border-emerald-50/40 hover:border-emerald-200 transition-all group"
+                    className="p-4 bg-white/60 backdrop-blur-sm rounded-lg border border-[#92B775]/20/40 hover:border-emerald-200 transition-all group"
                   >
-                    <h4 className="text-xs font-bold text-gray-800 mb-1 group-hover:text-emerald-700 transition-colors">{member.name}</h4>
+                    <h4 className="text-xs font-bold text-gray-800 mb-1 group-hover:text-emerald-600 transition-colors">{member.name}</h4>
                     <p className="text-[10px] text-gray-400 leading-tight">
                       {member.department && <span className="text-emerald-400 font-semibold">{member.department}</span>}
                       {member.location && <span> • {member.location}</span>}
@@ -221,7 +219,7 @@ const EditorialBoard = () => {
               {/* Foreign Editors */}
               <section>
                 <div className="flex items-center gap-4 mb-10">
-                  <h2 style={{ fontFamily: 'var(--font-crimson-pro), serif', color: P.deepPurple }} className="text-xl font-bold uppercase tracking-widest">
+                  <h2 style={{ fontFamily: 'var(--font-playfair), serif', color: P.darkGreen }} className="text-xl font-bold uppercase tracking-widest">
                     International Correspondents
                   </h2>
                 </div>
@@ -249,7 +247,7 @@ const EditorialBoard = () => {
               {/* Strategic Team */}
               <section>
                 <div className="flex items-center gap-4 mb-10">
-                  <h2 style={{ fontFamily: 'var(--font-crimson-pro), serif', color: P.deepPurple }} className="text-xl font-bold uppercase tracking-widest">
+                  <h2 style={{ fontFamily: 'var(--font-playfair), serif', color: P.darkGreen }} className="text-xl font-bold uppercase tracking-widest">
                     Strategic Resourcing
                   </h2>
                 </div>
@@ -260,10 +258,12 @@ const EditorialBoard = () => {
                       initial={{ opacity: 0, x: 10 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
-                      className="group p-5 bg-white rounded-xl border border-emerald-50 hover:bg-emerald-900 hover:border-emerald-900 transition-all duration-300"
+                      className="p-5 bg-white rounded-xl border border-[#eef4ec]"
                     >
-                      <h4 className="text-sm font-bold text-gray-800 group-hover:text-white transition-colors mb-1">{member.name}</h4>
-                      <span className="text-[9px] font-black tracking-widest uppercase text-magenta group-hover:text-emerald-200 transition-colors">
+                      <h4 className="text-sm font-bold text-[#133215] mb-1">
+                        {member.name}
+                      </h4>
+                      <span className="text-[9px] font-black tracking-widest uppercase text-[#92B775]">
                         {member.role}
                       </span>
                     </motion.div>

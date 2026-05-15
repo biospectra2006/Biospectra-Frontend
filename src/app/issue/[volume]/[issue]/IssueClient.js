@@ -117,7 +117,7 @@ const IssueClient = ({ params }) => {
                     Scholarly Repository
                   </span>
                   <h1 
-                    style={{ fontFamily: 'var(--font-crimson-pro), serif', color: P.deepPurple }}
+                    style={{ fontFamily: 'var(--font-playfair), serif', color: P.deepPurple }}
                     className="text-4xl md:text-5xl font-black mb-4 tracking-tight leading-none"
                   >
                     Biospectra
@@ -165,7 +165,7 @@ const IssueClient = ({ params }) => {
                       <section key={category._id} id={category.title.replace(/\s+/g, '-').toLowerCase()}>
                         <div className="bg-emerald-900 px-3 py-1 mb-6">
                           <h2 
-                            style={{ fontFamily: 'var(--font-crimson-pro), serif', color: '#ffffff' }}
+                            style={{ fontFamily: 'var(--font-playfair), serif', color: '#ffffff' }}
                             className="text-lg font-bold uppercase tracking-wider"
                           >
                             {category.title}
@@ -183,19 +183,19 @@ const IssueClient = ({ params }) => {
                                     <div className="flex items-start gap-3 flex-grow">
                                       <span 
                                         className="text-base font-bold text-slate-800 shrink-0 min-w-[24px]"
-                                        style={{ fontFamily: 'var(--font-crimson-pro), serif' }}
+                                        style={{ fontFamily: 'var(--font-playfair), serif' }}
                                       >
                                         {currentIndex}.
                                       </span>
                                       <div>
                                         <h3 
-                                          style={{ fontFamily: 'var(--font-crimson-pro), serif' }}
+                                          style={{ fontFamily: 'var(--font-playfair), serif' }}
                                           className="text-base font-normal text-slate-900 leading-snug group-hover:underline decoration-slate-400 underline-offset-2"
                                         >
                                           {article.title}
                                         </h3>
                                         <p 
-                                          style={{ fontFamily: 'var(--font-crimson-pro), serif' }}
+                                          style={{ fontFamily: 'var(--font-playfair), serif' }}
                                           className="text-sm font-bold italic text-slate-700 mt-1"
                                         >
                                           {article.authors}
@@ -206,7 +206,7 @@ const IssueClient = ({ params }) => {
                                     {/* Pages */}
                                     <div className="shrink-0 text-right mt-1">
                                       <span 
-                                        style={{ fontFamily: 'var(--font-crimson-pro), serif' }}
+                                        style={{ fontFamily: 'var(--font-playfair), serif' }}
                                         className="text-sm text-slate-600"
                                       >
                                         {article.pages || ''}
@@ -226,7 +226,7 @@ const IssueClient = ({ params }) => {
               ) : (
                 <div className="text-center py-24 bg-white/50 backdrop-blur-sm border-2 border-dashed border-purple-100 rounded-xl">
                   <BookOpen size={48} style={{ color: P.border }} className="mx-auto mb-6 opacity-30" />
-                  <h2 style={{ fontFamily: 'var(--font-crimson-pro), serif', color: P.deepPurple }} className="text-2xl font-bold mb-3">No Articles Found</h2>
+                  <h2 style={{ fontFamily: 'var(--font-playfair), serif', color: P.deepPurple }} className="text-2xl font-bold mb-3">No Articles Found</h2>
                   <p style={{ color: P.textMuted }} className="text-sm max-w-sm mx-auto opacity-70">
                     {localSearch ? "Try searching for a different keyword or author." : `The articles for Volume ${volume}, Issue ${issue} are currently available in physical format.`}
                   </p>

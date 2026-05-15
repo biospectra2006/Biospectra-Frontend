@@ -2,9 +2,14 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, Clock, ShieldCheck, UploadCloud, ArrowRight, Loader2 } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 
-const Contact = () => {
-  const [inquiryType, setInquiryType] = useState('general');
+const ContactContent = () => {
+  const searchParams = useSearchParams();
+  const typeParam = searchParams.get('type');
+  
+  const [inquiryType, setInquiryType] = useState(typeParam === 'submission' ? 'submission' : 'general');
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -61,7 +66,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden pt-20 pb-12 px-4 md:px-8 flex flex-col justify-center" style={{ background: '#fdfbf7' }}>
+    <div className="relative min-h-screen overflow-hidden pt-32 pb-12 px-4 md:px-8 flex flex-col justify-center" style={{ background: '#eef4ec' }}>
       {/* Background Lines */}
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
         <div className="absolute inset-0 flex justify-between px-[5%] opacity-[0.03]">
@@ -79,11 +84,11 @@ const Contact = () => {
           className="w-full bg-white rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.08)] overflow-hidden flex flex-col lg:flex-row border border-slate-200"
         >
           {/* LEFT PANEL - CONTACT INFO */}
-          <div className="lg:w-5/12 bg-emerald-900 p-6 md:p-10 relative overflow-hidden text-white flex flex-col justify-between">
+          <div className="lg:w-5/12 bg-[#133215] p-6 md:p-10 relative overflow-hidden text-white flex flex-col justify-between">
             <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: 'linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
             
             <div className="relative z-10 mb-12">
-              <h2 className="text-2xl md:text-3xl font-black mb-3 tracking-tight" style={{ color: '#ffffff', fontFamily: 'var(--font-crimson-pro), serif' }}>
+              <h2 className="text-2xl md:text-3xl font-black mb-3 tracking-tight" style={{ color: '#ffffff', fontFamily: 'var(--font-playfair), serif' }}>
                 Contact Us
               </h2>
               <p className="text-emerald-100/90 text-sm leading-relaxed max-w-sm font-medium">
@@ -142,7 +147,7 @@ const Contact = () => {
           {/* RIGHT PANEL - FORM */}
           <div className="lg:w-7/12 p-6 md:p-10 bg-white">
             <div className="flex items-center justify-between mb-8">
-              <h3 className="text-xl font-black text-slate-900" style={{ fontFamily: 'var(--font-crimson-pro), serif' }}>
+              <h3 className="text-xl font-black text-slate-900" style={{ fontFamily: 'var(--font-playfair), serif' }}>
                 Send Us a Message
               </h3>
               <div className="flex items-center space-x-2 px-3 py-1.5 bg-emerald-50 text-emerald-900 rounded-full border border-emerald-100 shadow-sm">
@@ -171,7 +176,7 @@ const Contact = () => {
                       onClick={() => setInquiryType(type.id)}
                       className={`px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
                         inquiryType === type.id 
-                          ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-900/10 border border-emerald-500' 
+                          ? 'bg-[#133215] text-white shadow-lg shadow-[#133215]/10 border border-[#133215]' 
                           : 'bg-slate-50 text-slate-600 hover:bg-slate-100 border border-slate-200'
                       }`}
                     >
@@ -258,7 +263,7 @@ const Contact = () => {
                 <button 
                   type="submit" 
                   disabled={loading}
-                  className="flex-grow group bg-emerald-900 text-white px-6 py-3 rounded-xl flex items-center justify-center space-x-3 text-[11px] font-black uppercase tracking-[0.2em] shadow-xl shadow-emerald-900/10 hover:bg-emerald-800 hover:shadow-emerald-900/20 transition-all active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
+                  className="flex-grow group bg-[#133215] text-white px-6 py-3 rounded-xl flex items-center justify-center space-x-3 text-[11px] font-black uppercase tracking-[0.2em] shadow-xl shadow-[#133215]/10 hover:bg-[#133215]/90 hover:shadow-[#133215]/20 transition-all active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
                 >
                   {loading ? (
                     <><Loader2 size={16} className="animate-spin" /> <span>Sending...</span></>
@@ -273,6 +278,14 @@ const Contact = () => {
         </motion.div>
       </div>
     </div>
+  );
+};
+
+const Contact = () => {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#eef4ec]" />}>
+      <ContactContent />
+    </Suspense>
   );
 };
 
