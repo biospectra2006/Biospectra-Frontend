@@ -7,6 +7,7 @@ import Button from '@/components/ui/Button';
 
 const Submit = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [file, setFile] = useState(null);
   const P = {
     deepPurple: '#064e3b',    // Emerald
     richPurple: '#19674b',
@@ -131,12 +132,22 @@ const Submit = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label style={{ color: P.deepPurple }} className="text-[10px] font-black uppercase tracking-[0.1em]">Upload Manuscript (Doc/PDF) *</label>
+                  <label style={{ color: P.deepPurple }} className="text-[10px] font-black uppercase tracking-[0.1em]">Upload Manuscript (Word Document) *</label>
                   <label className="block border-2 border-dashed border-emerald-100 p-12 text-center hover:border-emerald-400 hover:bg-emerald-50 transition-all cursor-pointer group">
-                    <input type="file" className="hidden" />
+                    <input 
+                      type="file" 
+                      required
+                      className="hidden" 
+                      accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" 
+                      onChange={(e) => setFile(e.target.files[0] || null)}
+                    />
                     <Upload className="mx-auto text-emerald-300 group-hover:text-emerald-600 mb-4 transition-colors" size={32} />
-                    <p style={{ color: P.textBody }} className="font-bold text-sm">Click to upload or drag and drop</p>
-                    <p style={{ color: P.textMuted }} className="text-[10px] mt-2 uppercase tracking-widest">Maximum file size 10MB</p>
+                    <p style={{ color: P.textBody }} className="font-bold text-sm">
+                      {file ? `Selected: ${file.name}` : 'Click to upload or drag and drop'}
+                    </p>
+                    <p style={{ color: P.textMuted }} className="text-[10px] mt-2 uppercase tracking-widest">
+                      {file ? `${(file.size / (1024 * 1024)).toFixed(2)} MB` : 'Word (.doc, .docx) files only • Max 10MB'}
+                    </p>
                   </label>
                 </div>
 

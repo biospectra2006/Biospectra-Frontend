@@ -4,6 +4,35 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Download, ArrowLeft, ExternalLink, FileText } from 'lucide-react';
 
+/**
+ * Parses academic text notation into HTML with superscripts.
+ * Converts ^a, ^b, ^ab, ^a*, ^1, ^1* etc. into <sup> tags.
+ * The * after a marker denotes the corresponding author.
+ * Examples:
+ *   "Rajendra Prasad Singh^a*" → "Rajendra Prasad Singh<sup>a</sup>*"
+ *   "Umapati Sahay^b"          → "Umapati Sahay<sup>b</sup>"
+ *   "^a Department of Zoology" → "<sup>a</sup>Department of Zoology"
+ */
+const parseAcademicText = (text) => {
+  if (!text) return '';
+  // Match ^{markers}[optional *] — markers can be letters, digits, or comma-separated
+  return text.replace(/\^([a-zA-Z0-9,]+)(\*?)/g, (match, markers, asterisk) => {
+    return `<sup>${markers}</sup>${asterisk}`;
+  });
+};
+
+/**
+ * Parses the affiliation string into individual lines with superscripts.
+ * Affiliations can be separated by | (pipe), ; (semicolon followed by ^), or newlines.
+ * Each line is expected to start with ^a, ^b, etc.
+ */
+const parseAffiliations = (text) => {
+  if (!text) return '';
+  // Split by pipe, semicolon-before-caret, or newline
+  const parts = text.split(/\s*\|\s*|\n|(?:;\s*(?=\^))/).filter(s => s.trim());
+  return parts.map(part => parseAcademicText(part.trim())).join('<br/>');
+};
+
 const ArticleClient = ({ article }) => {
   const [mounted, setMounted] = useState(false);
 
@@ -21,7 +50,9 @@ const ArticleClient = ({ article }) => {
   const cleanText = (text) => (text || '').replace(/\s+/g, ' ').trim();
   
   const title = cleanText(article.title);
-  const authors = cleanText(Array.isArray(article.authors) ? article.authors.join(', ') : article.authors);
+  const authorsRaw = cleanText(Array.isArray(article.authors) ? article.authors.join(', ') : article.authors);
+  const authorsParsed = parseAcademicText(authorsRaw);
+  const affiliationParsed = parseAffiliations(article.affiliation);
   const abstract = cleanText(article.abstract);
   const keywords = Array.isArray(article.keywords) ? article.keywords.join(', ') : (article.keywords || '');
   const date = mounted ? new Date(article.date || article.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '...';
@@ -62,13 +93,9 @@ const ArticleClient = ({ article }) => {
             </div>
 
             <div className="mb-6">
-              <p className="text-lg font-bold text-slate-800 mb-2">
-                {authors}
-              </p>
-              <p className="text-sm text-slate-500 italic">
-                {article.affiliation || 'Biospectra Contributor, Madhawi Shyam Educational Trust'}
-              </p>
-            </div>
+            <p className="text-lg font-bold text-slate-800 mb-2" dangerouslySetInnerHTML={{ __html: authorsParsed }} />
+            <p className="text-sm text-slate-500 italic" dangerouslySetInnerHTML={{ __html: affiliationParsed || 'Biospectra Contributor, Madhawi Shyam Educational Trust' }} />
+          </div>
 
             <div className="flex flex-col space-y-2 text-sm text-slate-600 italic">
               {article.doi && article.doi !== "#" && (

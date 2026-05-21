@@ -2,50 +2,65 @@
 import { useRef, useEffect, useState, Suspense } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useGLTF, Environment, ContactShadows, PresentationControls, Float } from '@react-three/drei';
+import * as THREE from 'three';
 
 // Preload the journal model to eliminate stutter on load
-const MODEL_PATH = '/assets/3d/biospec-book.glb';
+const MODEL_PATH = '/assets/3d/og-bio-model.glb';
 useGLTF.preload(MODEL_PATH);
 
 /* ─── Journal Scene ────────────────────────────────────────── */
 function JournalScene() {
   const { scene } = useGLTF(MODEL_PATH);
-  const journalRef = useRef();
+  const groupRef = useRef();
   const { invalidate } = useThree();
 
   useEffect(() => {
     if (!scene) return;
+    
+    // Calculate bounding box of the scene to center and scale mathematically
+    const box = new THREE.Box3().setFromObject(scene);
+    const size = box.getSize(new THREE.Vector3());
+    const center = box.getCenter(new THREE.Vector3());
+    
+    // Shift model so its center of mass/bounds is at the parent's [0, 0, 0]
+    scene.position.set(-center.x, -center.y, -center.z);
+    
+    // Scale model so its maximum dimension fits our target visual bounds
+    const maxDim = Math.max(size.x, size.y, size.z);
+    const targetSize = 2.7; // optimal rendering bounds
+    const scaleFactor = targetSize / maxDim;
+    scene.scale.set(scaleFactor, scaleFactor, scaleFactor);
+
     scene.traverse((child) => {
       if (child.isMesh) {
         child.castShadow = true;
         child.receiveShadow = true;
         
-        // Enhance material for a more "Elite" look
+        // Enhance materials for high fidelity
         if (child.material) {
-          child.material.roughness = 0.4;
+          child.material.roughness = 0.45;
           child.material.metalness = 0.2;
         }
       }
     });
   }, [scene]);
 
-  // Slow auto-rotation loop
+  // Smooth rotation & gentle vertical bobbing
   useFrame((state) => {
-    if (journalRef.current) {
+    if (groupRef.current) {
       const time = performance.now() / 1000;
-      // Very slow rotation
-      journalRef.current.rotation.y = time * 0.15;
+      // Rotation
+      groupRef.current.rotation.y = time * 0.15;
+      // Bobbing
+      groupRef.current.position.y = Math.sin(time * 0.8) * 0.08;
       invalidate(); // request next frame
     }
   });
 
   return (
-    <primitive
-      ref={journalRef}
-      object={scene}
-      scale={[1.4, 1.4, 1.4]}
-      position={[0, -0.1, 0]}
-    />
+    <group ref={groupRef} position={[0, 0, 0]}>
+      <primitive object={scene} />
+    </group>
   );
 }
 

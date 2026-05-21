@@ -150,54 +150,7 @@ const IssueClient = ({ params }) => {
 
             {/* Contents List */}
             <main className="max-w-4xl mx-auto">
-              {/* Merged PDFs Section */}
-              {currentIssueData?.pdfs && currentIssueData.pdfs.length > 0 && (
-                <div className="mb-10 bg-white border border-[#92B775]/20 shadow-xl shadow-slate-900/5 rounded-2xl p-6 md:p-8">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-10 h-10 rounded-xl bg-[#eef4ec] flex items-center justify-center text-[#133215]">
-                      <BookOpen size={20} />
-                    </div>
-                    <div>
-                      <span className="text-[8px] font-black text-[#92B775] uppercase tracking-[0.3em] mb-0.5 block">Download Options</span>
-                      <h2 className="text-lg font-black text-[#133215] uppercase tracking-tight" style={{ fontFamily: 'var(--font-playfair), serif' }}>
-                        Complete Issue Documents
-                      </h2>
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {currentIssueData.pdfs.map((pdf, idx) => (
-                      <a
-                        key={pdf._id || idx}
-                        href={pdf.pdfUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group flex items-center justify-between p-4 bg-[#eef4ec]/50 hover:bg-[#133215] border border-[#92B775]/10 rounded-xl transition-all duration-300 shadow-sm"
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-lg bg-white/80 group-hover:bg-[#92B775] flex items-center justify-center text-[#133215] group-hover:text-white transition-all duration-300">
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                            </svg>
-                          </div>
-                          <div>
-                            <span className="text-xs font-black text-[#133215] group-hover:text-white transition-colors duration-300 block">
-                              {pdf.title}
-                            </span>
-                            <span className="text-[9px] text-[#133215]/60 group-hover:text-white/60 transition-colors duration-300 font-medium">
-                              PDF Document
-                            </span>
-                          </div>
-                        </div>
-                        <div className="w-8 h-8 rounded-full bg-[#133215]/5 group-hover:bg-white/10 flex items-center justify-center text-[#133215] group-hover:text-white transition-all duration-300">
-                          <svg className="w-4 h-4 transform group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                          </svg>
-                        </div>
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              )}
+              {/* Merged PDFs Section removed as requested */}
 
               {hasArticles ? (
                 <motion.div 
@@ -273,14 +226,12 @@ const IssueClient = ({ params }) => {
                 <div className="text-center py-24 bg-white/50 backdrop-blur-sm border-2 border-dashed border-purple-100 rounded-xl">
                   <BookOpen size={48} style={{ color: P.border }} className="mx-auto mb-6 opacity-30" />
                   <h2 style={{ fontFamily: 'var(--font-playfair), serif', color: P.deepPurple }} className="text-2xl font-bold mb-3">
-                    {currentIssueData?.pdfs && currentIssueData.pdfs.length > 0 ? "Digital Journal Issue" : "No Articles Found"}
+                    No Articles Found
                   </h2>
                   <p style={{ color: P.textMuted }} className="text-sm max-w-sm mx-auto opacity-70">
                     {localSearch 
                       ? "Try searching for a different keyword or author." 
-                      : currentIssueData?.pdfs && currentIssueData.pdfs.length > 0 
-                        ? `The complete issue PDF is available for download above.` 
-                        : `The articles for Volume ${volume}, Issue ${issue} are currently available in physical format.`}
+                      : `The articles for Volume ${volume}, Issue ${issue} are currently available in physical format.`}
                   </p>
                 </div>
               )}

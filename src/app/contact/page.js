@@ -252,12 +252,12 @@ const ContactContent = () => {
 
               <div className={`pt-3 flex ${inquiryType === 'submission' ? 'gap-3' : ''}`}>
                 {inquiryType === 'submission' && (
-                  <label className="group flex items-center gap-2.5 px-5 py-3 rounded-xl bg-emerald-50 border border-emerald-200 cursor-pointer hover:bg-emerald-100 hover:border-emerald-400 transition-all shrink-0">
+                  <label className="group flex items-center gap-2.5 px-5 py-3 rounded-xl bg-emerald-50 border border-emerald-200 cursor-pointer hover:bg-emerald-100 hover:border-emerald-400 transition-all shrink-0" title="Upload Word (.doc, .docx) documents only">
                     <UploadCloud size={16} className="text-emerald-600" />
                     <span className="text-[11px] font-black uppercase tracking-[0.15em] text-emerald-800">
-                      {file ? file.name.slice(0, 15) + '...' : 'Upload Paper'}
+                      {file ? file.name.slice(0, 15) + '...' : 'Upload Word Doc'}
                     </span>
-                    <input type="file" className="hidden" accept=".pdf,.doc,.docx" onChange={(e) => setFile(e.target.files[0])} />
+                    <input type="file" className="hidden" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" onChange={(e) => setFile(e.target.files[0])} />
                   </label>
                 )}
                 <button 

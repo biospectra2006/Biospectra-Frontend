@@ -1,4 +1,4 @@
-import { Inter, Crimson_Pro, Playfair_Display } from 'next/font/google';
+import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/common/Navbar';
 import Footer from '@/components/common/Footer';
@@ -11,14 +11,6 @@ const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
   weight: ['300', '400', '500', '600', '700', '800', '900'],
-  display: 'swap',
-});
-
-const crimsonPro = Crimson_Pro({
-  subsets: ['latin'],
-  variable: '--font-playfair',
-  weight: ['300', '400', '500', '600', '700', '800', '900'],
-  style: ['normal', 'italic'],
   display: 'swap',
 });
 
@@ -66,10 +58,6 @@ export const metadata = {
     description: 'An International Biannual Refereed Journal of Life Sciences.',
     images: ['/assets/biospectra.jpg'],
   },
-  icons: {
-    icon: '/icon.jpg',
-    apple: '/icon.jpg',
-  },
 };
 
 export const viewport = {
@@ -78,7 +66,7 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${inter.variable} ${crimsonPro.variable} ${playfair.variable}`} style={{ background: '#eef4ec' }}>
+    <html lang="en" className={`${inter.variable} ${playfair.variable}`} style={{ background: '#eef4ec' }}>
       <head>
         <script
           type="application/ld+json"

@@ -1,12 +1,48 @@
 'use client';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, BookOpen, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import ArticleCard from '@/components/common/ArticleCard';
+import { getLatestArticles } from '@/services/api';
 
-const LatestArticles = ({ colors, articles, loading, onScroll }) => {
+const LatestArticles = ({ colors }) => {
   const P = colors;
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        const data = await getLatestArticles(6);
+        const transformed = data.map(art => ({
+          id: art._id,
+          title: art.title,
+          authors: art.authors.includes(',') ? art.authors.split(',').map(a => a.trim()) : [art.authors],
+          abstract: art.abstract || 'No abstract available.',
+          category: art.category?.title || 'Research',
+          date: art.createdAt,
+          volume: art.category?.issue?.year?.year ? art.category.issue.year.year - 2005 : '?',
+          issue: art.category?.issue?.order || '?'
+        }));
+        setArticles(transformed);
+      } catch (error) {
+        console.error('Error fetching latest articles:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchArticles();
+  }, []);
+
+  const handleScroll = (direction) => {
+    const container = document.getElementById('article-scroll-container');
+    if (container) {
+      const amount = window.innerWidth < 768 ? 320 : 380;
+      container.scrollBy({ left: direction === 'left' ? -amount : amount, behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="relative overflow-hidden" style={{ background: '#eef4ec', borderTop: `1px solid ${P.borderSoft}`, padding: 'clamp(40px, 5vw, 60px) 0' }}>
       {/* Background Lines */}
@@ -46,7 +82,7 @@ const LatestArticles = ({ colors, articles, loading, onScroll }) => {
 
         <div className="relative group/carousel -mx-6 px-6">
           <div className="absolute left-6 top-1/2 -translate-y-1/2 z-20 opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300 hidden xl:block">
-            <button onClick={() => onScroll('left')} className="p-3 bg-white border border-[#133215]/10 text-[#133215] hover:bg-[#133215] hover:text-white transition-all shadow-lg rounded-full"><ChevronLeft size={20} /></button>
+            <button onClick={() => handleScroll('left')} className="p-3 bg-white border border-[#133215]/10 text-[#133215] hover:bg-[#133215] hover:text-white transition-all shadow-lg rounded-full"><ChevronLeft size={20} /></button>
           </div>
 
           <div id="article-scroll-container" className="flex items-stretch gap-4 sm:gap-5 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-8 px-1">
@@ -66,7 +102,7 @@ const LatestArticles = ({ colors, articles, loading, onScroll }) => {
           </div>
 
           <div className="absolute right-6 top-1/2 -translate-y-1/2 z-20 opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300 hidden xl:block">
-            <button onClick={() => onScroll('right')} className="p-3 bg-white border border-[#133215]/10 text-[#133215] hover:bg-[#133215] hover:text-white transition-all shadow-lg rounded-full"><ChevronRight size={20} /></button>
+            <button onClick={() => handleScroll('right')} className="p-3 bg-white border border-[#133215]/10 text-[#133215] hover:bg-[#133215] hover:text-white transition-all shadow-lg rounded-full"><ChevronRight size={20} /></button>
           </div>
         </div>
 
