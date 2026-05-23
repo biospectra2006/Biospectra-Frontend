@@ -2,10 +2,17 @@ import dynamic from 'next/dynamic';
 
 import Hero from '@/components/home/Hero';
 
-const GoverningBodies    = dynamic(() => import('@/components/home/GoverningBodies'));
-const LatestArticles     = dynamic(() => import('@/components/home/LatestArticles'));
-const EditorialHighlights = dynamic(() => import('@/components/home/EditorialHighlights'));
-const Recognition        = dynamic(() => import('@/components/home/Recognition'));
+const SectionSkeleton = ({ height = 'min-h-[400px]' }) => (
+  <div className={`w-full ${height} bg-[#eef4ec] animate-pulse flex flex-col justify-center items-center py-24 px-6`}>
+    <div className="w-64 h-10 bg-[#92B775]/20 rounded-md mb-12"></div>
+    <div className="w-full max-w-6xl h-64 bg-[#133215]/5 rounded-xl"></div>
+  </div>
+);
+
+const GoverningBodies    = dynamic(() => import('@/components/home/GoverningBodies'), { loading: () => <SectionSkeleton height="min-h-[500px]" /> });
+const LatestArticles     = dynamic(() => import('@/components/home/LatestArticles'), { loading: () => <SectionSkeleton height="min-h-[800px]" /> });
+const EditorialHighlights = dynamic(() => import('@/components/home/EditorialHighlights'), { loading: () => <SectionSkeleton height="min-h-[600px]" /> });
+const Recognition        = dynamic(() => import('@/components/home/Recognition'), { loading: () => <SectionSkeleton height="min-h-[400px]" /> });
 
 const P = {
   deepPurple:   '#133215',

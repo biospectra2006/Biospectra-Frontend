@@ -22,8 +22,16 @@ const playfair = Playfair_Display({
   display: 'swap',
 });
 
+export const viewport = {
+  themeColor: '#133215',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 export const metadata = {
   metadataBase: new URL('https://mset-biospectra.org'),
+  manifest: '/manifest.json',
   title: {
     default: 'BIOSPECTRA | MSET International Journal of Life Sciences',
     template: '%s | BIOSPECTRA',
@@ -58,10 +66,6 @@ export const metadata = {
     description: 'An International Biannual Refereed Journal of Life Sciences.',
     images: ['/assets/biospectra.jpg'],
   },
-};
-
-export const viewport = {
-  themeColor: '#fdfcff',
 };
 
 export default function RootLayout({ children }) {

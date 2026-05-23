@@ -7,7 +7,16 @@ import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import SearchBar from './SearchBar';
 
-const JournalModel3D = dynamic(() => import('@/components/common/JournalModel3D'), { ssr: false });
+const ModelSkeleton = () => (
+  <div className="w-full h-[380px] lg:h-[520px] bg-white/5 border border-white/10 rounded-2xl animate-pulse backdrop-blur-sm flex items-center justify-center">
+    <div className="w-12 h-12 rounded-full border-t-2 border-white/30 animate-spin"></div>
+  </div>
+);
+
+const JournalModel3D = dynamic(() => import('@/components/common/JournalModel3D'), { 
+  ssr: false,
+  loading: () => <ModelSkeleton />
+});
 
 const Hero = () => {
   const x = useMotionValue(0);
