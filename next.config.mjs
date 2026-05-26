@@ -32,6 +32,7 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion', '@react-three/fiber', '@react-three/drei'],
   },
+  turbopack: {},
 };
 
 export default withBundleAnalyzer(withSerwist(nextConfig));
