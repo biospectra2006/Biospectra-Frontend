@@ -97,20 +97,21 @@ const Navbar = () => {
               whileHover={{ scale: 1.05 }}
               className="relative w-7 h-7 sm:w-9 sm:h-9 flex-shrink-0 rounded-lg overflow-hidden"
               style={{
-                background: 'rgba(255, 255, 255, 0.85)',
+                background: '#ffffff',
                 backdropFilter: 'blur(8px)',
                 WebkitBackdropFilter: 'blur(8px)',
-                border: '1px solid rgba(255,255,255,0.5)',
+                border: '1px solid rgba(19,50,21,0.15)',
                 boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
                 padding: 3,
               }}
             >
               <Image
-                src="/assets/logo/biospec-logo.png"
-                alt="Biospectra Logo"
+                src="/assets/logo/iccb.png"
+                alt="ICCB Logo"
                 fill
                 className="object-contain"
                 priority
+                unoptimized
               />
             </motion.div>
 
