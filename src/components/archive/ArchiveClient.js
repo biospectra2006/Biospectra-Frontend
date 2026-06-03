@@ -44,7 +44,7 @@ const IssueCard = ({ issue, volume, year }) => {
         <div>
           <span className="text-[7px] font-black text-[#92B775] uppercase tracking-[0.3em] mb-1 block">Issue Portfolio</span>
           <h3 className="text-base font-black text-[#133215] uppercase tracking-tight" style={{ fontFamily: 'var(--font-playfair), serif' }}>
-            Vol. {volume}, Issue {issue.order}
+            {issue.title || `Vol. ${volume}, Issue ${issue.order}`}
           </h3>
         </div>
       </div>

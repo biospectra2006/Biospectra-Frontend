@@ -83,31 +83,30 @@ const ArticleClient = ({ article }) => {
           transition={{ duration: 0.5 }}
         >
           {/* Article Header */}
-          <header className="mb-10 text-left border-b border-slate-100 pb-10">
+          <header className="mb-10 text-center border-b border-slate-100 pb-10">
             <h1 
-              className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 leading-tight"
+              className="text-3xl md:text-4xl font-bold text-slate-900 mb-10 leading-tight"
               dangerouslySetInnerHTML={{ __html: title }}
             />
-            <div className="text-xs text-slate-400 font-sans font-bold uppercase tracking-widest mb-8">
-              {date}
+
+            <div className="mb-8 mt-10 flex flex-col items-center pt-2">
+              <p className="text-lg font-bold text-slate-800 mb-2" dangerouslySetInnerHTML={{ __html: authorsParsed }} />
+              {affiliationParsed && (
+                <p className="text-sm text-slate-500 italic leading-relaxed text-center" dangerouslySetInnerHTML={{ __html: affiliationParsed }} />
+              )}
             </div>
 
-            <div className="mb-6">
-            <p className="text-lg font-bold text-slate-800 mb-2" dangerouslySetInnerHTML={{ __html: authorsParsed }} />
-            <p className="text-sm text-slate-500 italic" dangerouslySetInnerHTML={{ __html: affiliationParsed || 'Biospectra Contributor, Madhawi Shyam Educational Trust' }} />
-          </div>
-
-            <div className="flex flex-col space-y-2 text-sm text-slate-600 italic">
+            <div className="flex flex-col items-center space-y-2 text-sm text-slate-500 font-medium">
+              <p>Published: {date}</p>
               {article.doi && article.doi !== "#" && (
-                <p>DOI: <a href={`https://doi.org/${article.doi}`} className="text-blue-600 hover:underline">{article.doi}</a></p>
+                <p>DOI: <a href={article.doi.startsWith('http') ? article.doi : `https://doi.org/${article.doi}`} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{article.doi}</a></p>
               )}
-              <p>Received : 11th October, 2024 ; Revised : 10th November, 2024</p>
             </div>
           </header>
 
           {/* Abstract Section */}
           <section className="mb-12 bg-white/40 p-8 rounded-2xl border border-slate-200/50 shadow-sm">
-            <div className="text-base leading-relaxed text-slate-800">
+            <div className="text-base leading-relaxed text-slate-800 text-justify">
               <span className="font-bold text-[#133215]">Abstract&ndash;</span> <span dangerouslySetInnerHTML={{ __html: abstract }} />
             </div>
           </section>
@@ -134,7 +133,7 @@ const ArticleClient = ({ article }) => {
           {/* Full Text Section */}
           <section className="mt-16">
             <h2 className="text-xl font-bold text-slate-900 mb-6 border-b border-slate-100 pb-2">Full Text</h2>
-            <div className="text-base leading-relaxed text-slate-800 space-y-6">
+            <div className="text-base leading-relaxed text-slate-800 space-y-6 text-justify">
               {article.content ? (
                 article.content.split('\n').map((para, i) => (
                   para.trim() && <p key={i}>{para.trim()}</p>

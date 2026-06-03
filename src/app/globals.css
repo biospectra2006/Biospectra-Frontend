@@ -209,8 +209,8 @@ code {
   scrollbar-width: none;
 }
 
-/* Fix for scientific names in titles - italic but not bold */
-h1 i, h2 i, h3 i, h4 i, h5 i, h6 i, .font-bold i {
-  font-weight: 400 !important;
-  font-style: italic !important;
+/* Ensure italics in titles appear bold enough */
+h1 i, h2 i, h3 i, h4 i, h5 i, h6 i, .font-bold i, .font-semibold i,
+h1 em, h2 em, h3 em, h4 em, h5 em, h6 em, .font-bold em, .font-semibold em {
+  font-weight: 800 !important;
 }

@@ -1,27 +1,16 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
-let journalTreeCache = null;
-const issueCache = {}; // keyed by "year-order"
-
-export const getCachedJournalTree = () => journalTreeCache;
-
 export const getJournalTree = async () => {
-    if (journalTreeCache) return journalTreeCache;
-    const response = await fetch(`${API_URL}/journal/tree`);
+    const response = await fetch(`${API_URL}/journal/tree`, { cache: 'no-store' });
     if (!response.ok) throw new Error('Failed to fetch journal tree');
-    journalTreeCache = await response.json();
-    return journalTreeCache;
+    return response.json();
 };
 
 // Fetch only a single issue — much faster than loading the entire tree
 export const getIssueData = async (year, order) => {
-    const cacheKey = `${year}-${order}`;
-    if (issueCache[cacheKey]) return issueCache[cacheKey];
-    const response = await fetch(`${API_URL}/journal/issue/${year}/${order}`);
+    const response = await fetch(`${API_URL}/journal/issue/${year}/${order}`, { cache: 'no-store' });
     if (!response.ok) throw new Error('Failed to fetch issue data');
-    const data = await response.json();
-    issueCache[cacheKey] = data;
-    return data;
+    return response.json();
 };
 
 export const getArticleById = async (id) => {

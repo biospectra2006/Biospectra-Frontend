@@ -5,6 +5,14 @@ import { motion } from 'framer-motion';
 import { BookOpen, ArrowLeft, Loader2, Search } from 'lucide-react';
 import { getIssueData } from '@/services/api';
 
+// Parse ^a, ^b, ^ab, ^a* etc. into <sup> tags for authors
+const parseAcademicText = (text) => {
+  if (!text) return '';
+  return text.replace(/\^([a-zA-Z0-9,]+)(\*?)/g, (match, markers, asterisk) => {
+    return `<sup>${markers}</sup>${asterisk}`;
+  });
+};
+
 const IssueClient = ({ params }) => {
   const unwrappedParams = React.use(params);
   const volume = parseInt(unwrappedParams.volume);
@@ -126,7 +134,7 @@ const IssueClient = ({ params }) => {
                   >
                     <span>Volume {volume}</span>
                     <div style={{ width: 4, height: 4, borderRadius: '50%', background: P.magenta }} />
-                    <span>Issue {issue}</span>
+                    <span>{currentIssueData?.title || `Issue ${issue}`}</span>
                     <div style={{ width: 4, height: 4, borderRadius: '50%', background: P.magenta }} />
                     <span className="text-magenta">{targetYear}</span>
                   </div>
@@ -196,9 +204,10 @@ const IssueClient = ({ params }) => {
                                         <p 
                                           style={{ fontFamily: 'var(--font-inter), sans-serif' }}
                                           className="text-[13px] font-medium italic text-slate-500 mt-1"
-                                        >
-                                          {article.authors}
-                                        </p>
+                                          dangerouslySetInnerHTML={{ __html: parseAcademicText(
+                                            Array.isArray(article.authors) ? article.authors.join(', ') : (article.authors || '')
+                                          ) }}
+                                        />
                                       </div>
                                     </div>
 

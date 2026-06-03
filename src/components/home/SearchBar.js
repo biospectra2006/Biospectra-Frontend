@@ -5,6 +5,14 @@ import { Search, FileText, Users, Loader2, X } from 'lucide-react';
 import { globalSearch } from '@/services/api';
 import Link from 'next/link';
 
+// Parse ^a, ^b, ^ab, ^a* etc. into <sup> tags for authors
+const parseAcademicText = (text) => {
+  if (!text) return '';
+  return text.replace(/\^([a-zA-Z0-9,]+)(\*?)/g, (match, markers, asterisk) => {
+    return `<sup>${markers}</sup>${asterisk}`;
+  });
+};
+
 const SearchBar = ({ colors }) => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState({ articles: [], editorial: [] });
@@ -116,9 +124,10 @@ const SearchBar = ({ colors }) => {
                             className="font-semibold text-sm leading-tight mb-1 group-hover:text-emerald-400 transition-colors line-clamp-2"
                             dangerouslySetInnerHTML={{ __html: article.title }}
                           />
-                          <p className="text-white/70 text-[11px] font-medium truncate">
-                            {article.authors}
-                          </p>
+                          <p 
+                            className="text-white/70 text-[11px] font-medium truncate"
+                            dangerouslySetInnerHTML={{ __html: parseAcademicText(article.authors) }}
+                          />
                         </a>
                       ))}
                     </div>
