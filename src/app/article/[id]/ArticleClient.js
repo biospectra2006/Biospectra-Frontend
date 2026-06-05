@@ -83,13 +83,13 @@ const ArticleClient = ({ article }) => {
           transition={{ duration: 0.5 }}
         >
           {/* Article Header */}
-          <header className="mb-10 text-center border-b border-slate-100 pb-10">
+          <header className="mb-6 text-center border-b border-slate-100 pb-6">
             <h1 
-              className="text-3xl md:text-4xl font-bold text-slate-900 mb-10 leading-tight"
+              className="text-3xl md:text-4xl font-bold text-slate-900 mb-6 leading-tight"
               dangerouslySetInnerHTML={{ __html: title }}
             />
 
-            <div className="mb-8 mt-10 flex flex-col items-center pt-2">
+            <div className="mb-6 mt-4 flex flex-col items-center pt-2">
               <p className="text-lg font-bold text-slate-800 mb-2" dangerouslySetInnerHTML={{ __html: authorsParsed }} />
               {affiliationParsed && (
                 <p className="text-sm text-slate-500 italic leading-relaxed text-center" dangerouslySetInnerHTML={{ __html: affiliationParsed }} />
