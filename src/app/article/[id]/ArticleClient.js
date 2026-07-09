@@ -15,9 +15,10 @@ import { Download, ArrowLeft, ExternalLink, FileText } from 'lucide-react';
  */
 const parseAcademicText = (text) => {
   if (!text) return '';
-  // Match ^{markers}[optional *] — markers can be letters, digits, or comma-separated
-  return text.replace(/\^([a-zA-Z0-9,]+)(\*?)/g, (match, markers, asterisk) => {
-    return `<sup>${markers}</sup>${asterisk}`;
+  // Match optional * then ^{markers} then optional *
+  return text.replace(/(\*?)\^([a-zA-Z0-9,]+)(\*?)/g, (match, starBefore, markers, starAfter) => {
+    const hasStar = starBefore || starAfter ? '*' : '';
+    return `<sup>${markers}</sup>${hasStar}`;
   });
 };
 

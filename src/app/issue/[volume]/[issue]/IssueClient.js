@@ -5,11 +5,12 @@ import { motion } from 'framer-motion';
 import { BookOpen, ArrowLeft, Loader2, Search } from 'lucide-react';
 import { getIssueData } from '@/services/api';
 
-// Parse ^a, ^b, ^ab, ^a* etc. into <sup> tags for authors
+// Parse ^a, ^b, ^ab, ^a*, *^a etc. into <sup> tags for authors
 const parseAcademicText = (text) => {
   if (!text) return '';
-  return text.replace(/\^([a-zA-Z0-9,]+)(\*?)/g, (match, markers, asterisk) => {
-    return `<sup>${markers}</sup>${asterisk}`;
+  return text.replace(/(\*?)\^([a-zA-Z0-9,]+)(\*?)/g, (match, starBefore, markers, starAfter) => {
+    const hasStar = starBefore || starAfter ? '*' : '';
+    return `<sup>${markers}</sup>${hasStar}`;
   });
 };
 
