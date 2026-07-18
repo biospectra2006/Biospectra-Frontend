@@ -129,6 +129,11 @@ const SearchBar = ({ colors }) => {
                             className="text-white/70 text-[11px] font-medium truncate"
                             dangerouslySetInnerHTML={{ __html: parseAcademicText(article.authors) }}
                           />
+                          {(article.issue || article.category?.issue) && (
+                            <p className="text-emerald-400/80 text-[10px] mt-1.5 font-medium tracking-wide">
+                              {article.issue?.year?.year || article.category?.issue?.year?.year} • {article.issue?.title || article.category?.issue?.title}
+                            </p>
+                          )}
                         </a>
                       ))}
                     </div>
