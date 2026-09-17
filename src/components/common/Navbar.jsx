@@ -20,7 +20,24 @@ const Navbar = () => {
   const [isOpen,   setIsOpen]   = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [hovered,  setHovered]  = useState(null);
+  const [sjifNumber, setSjifNumber] = useState('8.546');
   const pathname = usePathname();
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+        const res = await fetch(`${API_URL}/settings`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.sjifNumber) setSjifNumber(data.sjifNumber);
+        }
+      } catch (err) {
+        console.error('Navbar settings fetch error:', err);
+      }
+    };
+    fetchSettings();
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -327,7 +344,7 @@ const Navbar = () => {
                   <div className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-[#92B775] animate-pulse" />
                     <span style={{ fontSize: 9, color: '#133215', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', fontFamily: 'var(--font-inter), sans-serif' }}>
-                      SJIF 8.546
+                      SJIF {sjifNumber}
                     </span>
                   </div>
                   <p style={{ textAlign: 'center', fontSize: 9, color: 'rgba(19,50,21,0.4)', letterSpacing: '0.1em', textTransform: 'uppercase', fontFamily: 'var(--font-inter), sans-serif' }}>

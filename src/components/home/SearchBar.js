@@ -9,8 +9,7 @@ import Link from 'next/link';
 const parseAcademicText = (text) => {
   if (!text) return '';
   return text.replace(/(\*?)\^([a-zA-Z0-9,]+)(\*?)/g, (match, starBefore, markers, starAfter) => {
-    const hasStar = starBefore || starAfter ? '*' : '';
-    return `<sup>${markers}</sup>${hasStar}`;
+    return `<sup>${starBefore}${markers}${starAfter}</sup>`;
   });
 };
 

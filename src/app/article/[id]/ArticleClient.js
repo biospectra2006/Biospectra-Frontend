@@ -9,7 +9,7 @@ import { Download, ArrowLeft, ExternalLink, FileText } from 'lucide-react';
  * Converts ^a, ^b, ^ab, ^a*, ^1, ^1* etc. into <sup> tags.
  * The * after a marker denotes the corresponding author.
  * Examples:
- *   "Rajendra Prasad Singh^a*" → "Rajendra Prasad Singh<sup>a</sup>*"
+ *   "Rajendra Prasad Singh^a*" → "Rajendra Prasad Singh<sup>a*</sup>"
  *   "Umapati Sahay^b"          → "Umapati Sahay<sup>b</sup>"
  *   "^a Department of Zoology" → "<sup>a</sup>Department of Zoology"
  */
@@ -17,8 +17,7 @@ const parseAcademicText = (text) => {
   if (!text) return '';
   // Match optional * then ^{markers} then optional *
   return text.replace(/(\*?)\^([a-zA-Z0-9,]+)(\*?)/g, (match, starBefore, markers, starAfter) => {
-    const hasStar = starBefore || starAfter ? '*' : '';
-    return `<sup>${markers}</sup>${hasStar}`;
+    return `<sup>${starBefore}${markers}${starAfter}</sup>`;
   });
 };
 

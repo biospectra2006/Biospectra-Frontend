@@ -56,3 +56,8 @@ export const globalSearch = async (query) => {
     return response.json();
 };
 
+export const getSettings = async () => {
+    const response = await fetch(`${API_URL}/settings`, { cache: 'no-store' });
+    if (!response.ok) throw new Error('Failed to fetch settings');
+    return response.json();
+};

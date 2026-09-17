@@ -1,10 +1,29 @@
 'use client';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
 const Recognition = ({ colors, assets }) => {
   const P = colors;
+  const [sjifNumber, setSjifNumber] = useState('8.546');
+  const [certificateImage, setCertificateImage] = useState(assets.certificateImg);
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+        const res = await fetch(`${API_URL}/settings`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.sjifNumber) setSjifNumber(data.sjifNumber);
+          if (data.certificateImageUrl) setCertificateImage(data.certificateImageUrl);
+        }
+      } catch (err) {
+        console.error('Recognition settings fetch error:', err);
+      }
+    };
+    fetchSettings();
+  }, []);
   return (
     <section className="relative overflow-hidden" style={{ background: '#eef4ec', color: '#133215', borderTop: `1px solid ${P.borderSoft}`, padding: 'clamp(40px, 6vw, 80px) 0' }}>
       {/* Background Lines */}
@@ -36,7 +55,7 @@ const Recognition = ({ colors, assets }) => {
                 <motion.div whileHover={{ scale: 1.03 }} style={{ display: 'inline-flex', flexDirection: 'column', background: 'rgba(19,50,21,0.04)', border: '1px solid rgba(19,50,21,0.1)', padding: '20px 32px', borderRadius: '8px' }}>
                   <span style={{ fontSize: 9, letterSpacing: '0.25em', textTransform: 'uppercase', fontWeight: 800, color: '#133215', marginBottom: 8, fontFamily: 'var(--font-inter), sans-serif' }}>SJIF Impact Factor</span>
                   <div className="flex items-baseline gap-2">
-                    <span style={{ fontFamily: 'var(--font-playfair), serif', fontSize: 'clamp(36px, 5vw, 48px)', fontWeight: 900, background: `linear-gradient(135deg, #133215, #92B775)`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', lineHeight: 1 }}>8.546</span>
+                    <span style={{ fontFamily: 'var(--font-playfair), serif', fontSize: 'clamp(36px, 5vw, 48px)', fontWeight: 900, background: `linear-gradient(135deg, #133215, #92B775)`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', lineHeight: 1 }}>{sjifNumber}</span>
                     <span style={{ fontSize: 11, color: 'rgba(19,50,21,0.45)', fontWeight: 600, fontFamily: 'var(--font-inter), sans-serif' }}>(2023)</span>
                   </div>
                 </motion.div>
@@ -59,7 +78,7 @@ const Recognition = ({ colors, assets }) => {
             <motion.div initial={{ opacity: 0, scale: 0.85, rotate: 6 }} whileInView={{ opacity: 1, scale: 1, rotate: 0 }} viewport={{ once: true }} transition={{ duration: 1, ease: 'easeOut' }} className="relative group">
               <div className="absolute inset-0 bg-[#92B775]/20 blur-[60px] rounded-full scale-125 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
               <div style={{ background: '#ffffff', border: '1px solid rgba(19,50,21,0.08)', padding: 14, borderRadius: 6, boxShadow: '0 25px 50px rgba(19,50,21,0.08), 0 8px 20px rgba(19,50,21,0.04)' }}>
-                <Image src={assets.certificateImg} alt="SJIF Certificate" width={450} height={600} style={{ width: '100%', maxWidth: 380, height: 'auto', display: 'block', borderRadius: 2 }} className="shadow-lg border border-black/5" />
+                <Image src={certificateImage} alt="SJIF Certificate" width={450} height={600} style={{ width: '100%', maxWidth: 380, height: 'auto', display: 'block', borderRadius: 2 }} className="shadow-lg border border-black/5" />
               </div>
             </motion.div>
           </div>

@@ -11,18 +11,19 @@ const Footer = () => {
 
   useEffect(() => { 
     setMounted(true); 
-    const fetchMetrics = async () => {
+    const fetchSettings = async () => {
       try {
         const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
-        const res = await fetch(`${API_URL}/about`);
-        const data = await res.json();
-        const metrics = data.find(s => s.sectionType === 'metrics');
-        if (metrics) setImpactFactor(metrics.content);
+        const res = await fetch(`${API_URL}/settings`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.sjifNumber) setImpactFactor(`SJIF ${data.sjifNumber}`);
+        }
       } catch (err) {
-        console.error('Fetch error:', err);
+        console.error('Footer settings fetch error:', err);
       }
     };
-    fetchMetrics();
+    fetchSettings();
   }, []);
 
   if (pathname !== '/') return null;

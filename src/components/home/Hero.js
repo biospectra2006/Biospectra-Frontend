@@ -54,21 +54,24 @@ const Hero = () => {
     revealSize.set(0);
   };
 
-  const [impactFactor, setImpactFactor] = React.useState('SJIF 8.546');
+  const [sjifNumber, setSjifNumber] = React.useState('8.546');
+  const [heroImageUrl, setHeroImageUrl] = React.useState(null);
 
   React.useEffect(() => {
-    const fetchMetrics = async () => {
+    const fetchSettingsData = async () => {
       try {
         const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
-        const res = await fetch(`${API_URL}/about`);
-        const data = await res.json();
-        const metrics = data.find(s => s.sectionType === 'metrics');
-        if (metrics) setImpactFactor(metrics.content);
+        const res = await fetch(`${API_URL}/settings`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.sjifNumber) setSjifNumber(data.sjifNumber);
+          if (data.heroImageUrl) setHeroImageUrl(data.heroImageUrl);
+        }
       } catch (err) {
-        console.error('Fetch error:', err);
+        console.error('Settings fetch error:', err);
       }
     };
-    fetchMetrics();
+    fetchSettingsData();
   }, []);
 
   return (
@@ -197,7 +200,7 @@ const Hero = () => {
               <div className="flex flex-col justify-center bg-white/5 backdrop-blur-md border border-white/20 rounded-md px-3.5 lg:px-4 shadow-[0_0_20px_rgba(255,255,255,0.02)] h-full">
                 <span className="text-[#F3E8D3]/70 font-mono tracking-[0.2em] text-[6px] sm:text-[7px] uppercase mb-0.5">IMPACT FACTOR</span>
                 <div className="flex items-center gap-2">
-                  <span className="text-white font-black tracking-widest drop-shadow-[0_0_10px_rgba(255,255,255,0.3)] text-xs sm:text-sm leading-none">{impactFactor}</span>
+                  <span className="text-white font-black tracking-widest drop-shadow-[0_0_10px_rgba(255,255,255,0.3)] text-xs sm:text-sm leading-none">SJIF {sjifNumber}</span>
                   <div className="w-1.5 h-1.5 rounded-full bg-[#92B775] animate-pulse shadow-[0_0_10px_rgba(146,183,117,0.6)]" />
                 </div>
               </div>
@@ -231,8 +234,16 @@ const Hero = () => {
                 zIndex: 0,
               }}
             />
-            <div className="relative z-10 w-[260px] sm:w-[320px] lg:w-[400px] h-[380px] lg:h-[520px] pointer-events-auto">
-              <JournalModel3D />
+            <div className="relative z-10 w-[260px] sm:w-[320px] lg:w-[400px] h-[380px] lg:h-[520px] pointer-events-auto flex items-center justify-center">
+              {heroImageUrl ? (
+                <img 
+                  src={heroImageUrl} 
+                  alt="Hero Visual" 
+                  className="w-[85%] sm:w-[80%] max-h-[85%] object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-md border border-white/10"
+                />
+              ) : (
+                <JournalModel3D />
+              )}
             </div>
           </div>
         </div>
