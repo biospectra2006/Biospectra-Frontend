@@ -63,7 +63,7 @@ const EditorialBoard = () => {
   };
 
   return (
-    <div className="relative min-h-screen selection:bg-[#92B775]/30 overflow-hidden" style={{ background: P.softGreen }}>
+    <div className="relative min-h-screen overflow-hidden" style={{ background: P.softGreen }}>
       {/* Background Lines */}
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
         <div className="absolute inset-0 flex justify-between px-[5%] opacity-[0.03]">

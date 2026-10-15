@@ -163,7 +163,7 @@ const ArchiveClient = () => {
   }
 
   return (
-    <div className="relative min-h-screen selection:bg-[#92B775]/30 overflow-hidden" style={{ background: '#eef4ec' }}>
+    <div className="relative min-h-screen overflow-hidden" style={{ background: '#eef4ec' }}>
       {/* Background Lines & Watermark */}
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
         {/* Dynamic Watermark */}

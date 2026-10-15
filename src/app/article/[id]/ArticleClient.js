@@ -2,20 +2,14 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Download, ArrowLeft, ExternalLink, FileText } from 'lucide-react';
+import { Download, ArrowLeft } from 'lucide-react';
 
 /**
  * Parses academic text notation into HTML with superscripts.
  * Converts ^a, ^b, ^ab, ^a*, ^1, ^1* etc. into <sup> tags.
- * The * after a marker denotes the corresponding author.
- * Examples:
- *   "Rajendra Prasad Singh^a*" → "Rajendra Prasad Singh<sup>a*</sup>"
- *   "Umapati Sahay^b"          → "Umapati Sahay<sup>b</sup>"
- *   "^a Department of Zoology" → "<sup>a</sup>Department of Zoology"
  */
 const parseAcademicText = (text) => {
   if (!text) return '';
-  // Match optional * then ^{markers} then optional *
   return text.replace(/(\*?)\^([a-zA-Z0-9,]+)(\*?)/g, (match, starBefore, markers, starAfter) => {
     return `<sup>${starBefore}${markers}${starAfter}</sup>`;
   });
@@ -23,12 +17,9 @@ const parseAcademicText = (text) => {
 
 /**
  * Parses the affiliation string into individual lines with superscripts.
- * Affiliations can be separated by | (pipe), ; (semicolon followed by ^), or newlines.
- * Each line is expected to start with ^a, ^b, etc.
  */
 const parseAffiliations = (text) => {
   if (!text) return '';
-  // Split by pipe, semicolon-before-caret, or newline
   const parts = text.split(/\s*\|\s*|\n|(?:;\s*(?=\^))/).filter(s => s.trim());
   return parts.map(part => parseAcademicText(part.trim())).join('<br/>');
 };
@@ -55,106 +46,105 @@ const ArticleClient = ({ article }) => {
   const affiliationParsed = parseAffiliations(article.affiliation);
   const abstract = cleanText(article.abstract);
   const keywords = Array.isArray(article.keywords) ? article.keywords.join(', ') : (article.keywords || '');
-  const date = mounted ? new Date(article.date || article.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '...';
+
+  // Published in calculation: [Journal Name, Volume, Issue, Year]
+  const issueYear = article.category?.issue?.year?.year || article.year;
+  const volume = issueYear ? (issueYear - 2005) : article.volume;
+  const issueTitle = article.category?.issue?.title || (article.issue ? `Issue ${article.issue}` : '');
+  
+  const publishedParts = ['Biospectra'];
+  if (volume) publishedParts.push(`Volume ${volume}`);
+  if (issueTitle) publishedParts.push(issueTitle);
+  if (issueYear) publishedParts.push(`${issueYear}`);
+  const publishedIn = publishedParts.join(', ');
 
   return (
-    <div className="min-h-screen bg-[#F9FBF7] text-slate-900 font-serif selection:bg-green-100">
+    <div className="min-h-screen bg-[#F9FBF7] text-slate-900 font-serif selection:bg-[#133215] selection:text-white">
       {/* Top Navbar Simulation / Back Button */}
-      <div className="border-b border-slate-200 bg-white/50 backdrop-blur-md sticky top-0 z-30">
-        <div className="container mx-auto px-4 max-w-5xl py-4 flex items-center justify-between">
+      <div className="border-b border-slate-200 bg-white/70 backdrop-blur-md sticky top-0 z-30">
+        <div className="container mx-auto px-4 max-w-4xl py-3 flex items-center justify-between">
           <Link 
             href="/archive" 
-            className="inline-flex items-center text-xs font-sans font-bold text-slate-500 hover:text-blue-600 transition-colors"
+            className="inline-flex items-center text-xs font-sans font-bold text-slate-600 hover:text-emerald-700 transition-colors"
           >
-            <ArrowLeft size={14} className="mr-2" /> BACK TO ARCHIVE
+            <ArrowLeft size={14} className="mr-1.5" /> BACK TO ARCHIVE
           </Link>
-          <div className="hidden md:flex space-x-6 text-[11px] font-sans font-bold text-slate-600 uppercase tracking-wider">
-            <Link href="/" className="hover:text-blue-600">Home</Link>
-            <Link href="/archive" className="hover:text-blue-600">Issues</Link>
-            <Link href="/about" className="hover:text-blue-600">About us</Link>
+          <div className="flex space-x-5 text-xs font-sans font-bold text-slate-600 uppercase tracking-wider">
+            <Link href="/" className="hover:text-emerald-700">Home</Link>
+            <Link href="/archive" className="hover:text-emerald-700">Issues</Link>
+            <Link href="/about" className="hover:text-emerald-700">About us</Link>
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-12 max-w-4xl">
+      <div className="container mx-auto px-4 py-6 md:py-8 max-w-4xl">
         <motion.article
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.4 }}
+          className="bg-white/80 p-6 md:p-8 rounded-2xl border border-slate-200/60 shadow-sm"
         >
-          {/* Article Header */}
-          <header className="mb-6 text-center border-b border-slate-100 pb-6">
-            <h1 
-              className="text-3xl md:text-4xl font-bold text-slate-900 mb-6 leading-tight"
-              dangerouslySetInnerHTML={{ __html: title }}
-            />
+          {/* 1. Title */}
+          <h1 
+            className="text-2xl md:text-3xl font-bold text-slate-900 mb-3 leading-snug"
+            dangerouslySetInnerHTML={{ __html: title }}
+          />
 
-            <div className="mb-6 mt-4 flex flex-col items-center pt-2">
-              <p className="text-lg font-bold text-slate-800 mb-2" dangerouslySetInnerHTML={{ __html: authorsParsed }} />
-              {affiliationParsed && (
-                <p className="text-sm text-slate-500 italic leading-relaxed text-center" dangerouslySetInnerHTML={{ __html: affiliationParsed }} />
-              )}
+          {/* 2. Author Name */}
+          <div className="mb-2">
+            <p className="text-base md:text-lg font-bold text-slate-800" dangerouslySetInnerHTML={{ __html: authorsParsed }} />
+          </div>
+
+          {/* 3. Designation */}
+          {affiliationParsed && (
+            <div className="mb-4">
+              <p className="text-sm text-slate-600 italic leading-relaxed" dangerouslySetInnerHTML={{ __html: affiliationParsed }} />
             </div>
+          )}
 
-            <div className="flex flex-col items-center space-y-2 text-sm text-slate-500 font-medium">
-              <p>Published: {date}</p>
-              {article.doi && article.doi !== "#" && (
-                <p>DOI: <a href={article.doi.startsWith('http') ? article.doi : `https://doi.org/${article.doi}`} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{article.doi}</a></p>
-              )}
+          {/* 4. Published in: [Journal Name, Volume, Issue, Year] */}
+          <div className="mb-5">
+            <div className="text-xs md:text-sm text-emerald-900 bg-emerald-50 border border-emerald-200/70 rounded-lg px-3.5 py-1.5 inline-block font-sans">
+              <span className="font-semibold text-emerald-950/70">Published in: </span>
+              <span className="font-bold">{publishedIn}</span>
             </div>
-          </header>
+          </div>
 
-          {/* Abstract Section */}
-          <section className="mb-12 bg-white/40 p-8 rounded-2xl border border-slate-200/50 shadow-sm">
-            <div className="text-base leading-relaxed text-slate-800 text-justify">
-              <span className="font-bold text-[#133215]">Abstract&ndash;</span> <span dangerouslySetInnerHTML={{ __html: abstract }} />
-            </div>
-          </section>
-
-          {/* Keywords Section */}
-          {keywords && (
-            <section className="mb-12 text-sm">
-              <span className="font-bold">Keywords:</span> {keywords}
+          {/* 5. Abstract */}
+          {abstract && (
+            <section className="mb-5 bg-[#F9FBF7] p-5 md:p-6 rounded-xl border border-slate-200/70">
+              <div className="text-sm md:text-[15px] leading-relaxed text-slate-800 text-justify">
+                <span className="font-bold text-[#133215]">Abstract&ndash; </span>
+                <span dangerouslySetInnerHTML={{ __html: abstract }} />
+              </div>
             </section>
           )}
 
-          {/* Download Link */}
-          <section className="mb-12 border-t border-slate-100 pt-8">
-            <a 
-              href={article.pdfUrl} 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="inline-flex items-center text-blue-600 font-bold hover:underline"
-            >
-              <Download size={18} className="mr-2" /> Download Pdf
-            </a>
-          </section>
+          {/* 6. Keywords */}
+          {keywords && (
+            <section className="mb-6 text-xs md:text-sm text-slate-700 bg-slate-50/80 px-4 py-2.5 rounded-lg border border-slate-200/60">
+              <span className="font-bold text-slate-900">Keywords: </span>
+              <span className="italic">{keywords}</span>
+            </section>
+          )}
 
-          {/* Full Text Section */}
-          <section className="mt-16">
-            <h2 className="text-xl font-bold text-slate-900 mb-6 border-b border-slate-100 pb-2">Full Text</h2>
-            <div className="text-base leading-relaxed text-slate-800 space-y-6 text-justify">
-              {article.content ? (
-                article.content.split('\n').map((para, i) => (
-                  para.trim() && <p key={i}>{para.trim()}</p>
-                ))
-              ) : (
-                <div className="bg-slate-50 p-8 rounded-lg border border-slate-100 text-center italic text-slate-500">
-                  The full digital version of this research paper is currently being processed. Please refer to the official PDF for complete data, figures, and methodology.
-                </div>
-              )}
-            </div>
-          </section>
-
-          {/* Published Info */}
-          <footer className="mt-20 pt-10 border-t border-slate-200 text-sm text-slate-500">
-            <p className="italic">
-              Published in <Link href="/archive" className="text-blue-600 hover:underline font-bold">Biospectra</Link> ({article.category?.issue?.year?.year || '2024'}) {article.category?.title || 'Scientific Paper'}
-            </p>
-            <div className="mt-8 flex items-center space-x-4 grayscale opacity-50">
-              <span className="text-[10px] font-sans font-bold uppercase tracking-widest">ISSN: 0973-7057</span>
-            </div>
-          </footer>
+          {/* 7. Download PDF button */}
+          {article.pdfUrl ? (
+            <section className="pt-2 border-t border-slate-100 flex items-center justify-between">
+              <a 
+                href={article.pdfUrl} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#133215] hover:bg-[#1a441d] text-white font-sans text-xs md:text-sm font-bold rounded-xl shadow-sm hover:shadow transition-all duration-200 hover:-translate-y-0.5"
+              >
+                <Download size={16} />
+                <span>Download PDF</span>
+              </a>
+              <span className="text-[11px] font-sans font-bold uppercase tracking-widest text-slate-400">
+                ISSN: 0973-7057
+              </span>
+            </section>
+          ) : null}
         </motion.article>
       </div>
     </div>

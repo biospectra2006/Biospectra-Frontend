@@ -12,7 +12,7 @@ const Recognition = ({ colors, assets }) => {
     const fetchSettings = async () => {
       try {
         const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
-        const res = await fetch(`${API_URL}/settings`);
+        const res = await fetch(`${API_URL}/settings`, { cache: 'no-store' });
         if (res.ok) {
           const data = await res.json();
           if (data.sjifNumber) setSjifNumber(data.sjifNumber);
@@ -78,7 +78,15 @@ const Recognition = ({ colors, assets }) => {
             <motion.div initial={{ opacity: 0, scale: 0.85, rotate: 6 }} whileInView={{ opacity: 1, scale: 1, rotate: 0 }} viewport={{ once: true }} transition={{ duration: 1, ease: 'easeOut' }} className="relative group">
               <div className="absolute inset-0 bg-[#92B775]/20 blur-[60px] rounded-full scale-125 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
               <div style={{ background: '#ffffff', border: '1px solid rgba(19,50,21,0.08)', padding: 14, borderRadius: 6, boxShadow: '0 25px 50px rgba(19,50,21,0.08), 0 8px 20px rgba(19,50,21,0.04)' }}>
-                <Image src={certificateImage} alt="SJIF Certificate" width={450} height={600} style={{ width: '100%', maxWidth: 380, height: 'auto', display: 'block', borderRadius: 2 }} className="shadow-lg border border-black/5" />
+                <Image 
+                  src={certificateImage} 
+                  alt="SJIF Certificate" 
+                  width={450} 
+                  height={600} 
+                  style={{ width: '100%', maxWidth: 380, height: 'auto', display: 'block', borderRadius: 2 }} 
+                  className="shadow-lg border border-black/5" 
+                  unoptimized={typeof certificateImage === 'string' && certificateImage.startsWith('http')}
+                />
               </div>
             </motion.div>
           </div>

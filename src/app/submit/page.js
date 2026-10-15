@@ -70,7 +70,7 @@ const Submit = () => {
 
   return (
     <div 
-      className="relative min-h-screen selection:bg-emerald-200 overflow-hidden" 
+      className="relative min-h-screen overflow-hidden" 
       style={{ background: '#fdfbf7' }}
     >
       {/* Background Lines */}

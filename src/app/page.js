@@ -39,7 +39,7 @@ const assets = {
 
 const Home = () => {
   return (
-    <main className="flex flex-col w-full min-h-screen bg-[#eef4ec] selection:bg-[#92B775]">
+    <main className="flex flex-col w-full min-h-screen bg-[#eef4ec]">
       <Hero />
       <GoverningBodies colors={P} assets={assets} />
       <LatestArticles colors={P} />

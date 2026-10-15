@@ -112,11 +112,10 @@ const SearchBar = ({ colors }) => {
                         <FileText size={12} /> Articles
                       </div>
                       {results.articles.map(article => (
-                        <a 
+                        <Link 
                           key={article._id} 
-                          href={article.pdfUrl || '#'} 
-                          target="_blank" 
-                          rel="noreferrer"
+                          href={`/article/${article._id}`}
+                          onClick={() => setIsOpen(false)}
                           className="block px-4 py-3.5 hover:bg-white/10 rounded-xl transition-all duration-300 group hover:pl-5 border border-transparent hover:border-white/5"
                         >
                           <h4 
@@ -133,7 +132,7 @@ const SearchBar = ({ colors }) => {
                               {article.issue?.year?.year || article.category?.issue?.year?.year} • {article.issue?.title || article.category?.issue?.title}
                             </p>
                           )}
-                        </a>
+                        </Link>
                       ))}
                     </div>
                   )}

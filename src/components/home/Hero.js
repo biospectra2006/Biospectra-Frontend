@@ -61,7 +61,7 @@ const Hero = () => {
     const fetchSettingsData = async () => {
       try {
         const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
-        const res = await fetch(`${API_URL}/settings`);
+        const res = await fetch(`${API_URL}/settings`, { cache: 'no-store' });
         if (res.ok) {
           const data = await res.json();
           if (data.sjifNumber) setSjifNumber(data.sjifNumber);
