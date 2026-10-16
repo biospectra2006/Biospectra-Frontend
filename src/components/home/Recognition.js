@@ -2,11 +2,15 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { Eye, ZoomIn } from 'lucide-react';
+import ImageLightboxModal from '@/components/common/ImageLightboxModal';
 
 const Recognition = ({ colors, assets }) => {
   const P = colors;
-  const [sjifNumber, setSjifNumber] = useState('8.546');
+  const [sjifNumber, setSjifNumber] = useState('8.592');
+  const [sjifYear, setSjifYear] = useState('2023');
   const [certificateImage, setCertificateImage] = useState(assets.certificateImg);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -16,6 +20,7 @@ const Recognition = ({ colors, assets }) => {
         if (res.ok) {
           const data = await res.json();
           if (data.sjifNumber) setSjifNumber(data.sjifNumber);
+          if (data.sjifYear) setSjifYear(data.sjifYear);
           if (data.certificateImageUrl) setCertificateImage(data.certificateImageUrl);
         }
       } catch (err) {
@@ -24,6 +29,9 @@ const Recognition = ({ colors, assets }) => {
     };
     fetchSettings();
   }, []);
+
+  const certSrc = typeof certificateImage === 'string' ? certificateImage : certificateImage?.src || '';
+
   return (
     <section className="relative overflow-hidden" style={{ background: '#eef4ec', color: '#133215', borderTop: `1px solid ${P.borderSoft}`, padding: 'clamp(40px, 6vw, 80px) 0' }}>
       {/* Background Lines */}
@@ -52,11 +60,69 @@ const Recognition = ({ colors, assets }) => {
               </p>
               
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-8">
-                <motion.div whileHover={{ scale: 1.03 }} style={{ display: 'inline-flex', flexDirection: 'column', background: 'rgba(19,50,21,0.04)', border: '1px solid rgba(19,50,21,0.1)', padding: '20px 32px', borderRadius: '8px' }}>
-                  <span style={{ fontSize: 9, letterSpacing: '0.25em', textTransform: 'uppercase', fontWeight: 800, color: '#133215', marginBottom: 8, fontFamily: 'var(--font-inter), sans-serif' }}>SJIF Impact Factor</span>
-                  <div className="flex items-baseline gap-2">
-                    <span style={{ fontFamily: 'var(--font-playfair), serif', fontSize: 'clamp(36px, 5vw, 48px)', fontWeight: 900, background: `linear-gradient(135deg, #133215, #92B775)`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', lineHeight: 1 }}>{sjifNumber}</span>
-                    <span style={{ fontSize: 11, color: 'rgba(19,50,21,0.45)', fontWeight: 600, fontFamily: 'var(--font-inter), sans-serif' }}>(2023)</span>
+                {/* Clickable SJIF Card with modern sans-serif font */}
+                <motion.div 
+                  whileHover={{ scale: 1.03, translateY: -2 }} 
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setIsModalOpen(true)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setIsModalOpen(true);
+                    }
+                  }}
+                  title="Click to view and download official SJIF Certificate"
+                  className="group cursor-pointer select-none transition-all duration-300"
+                  style={{ 
+                    display: 'inline-flex', 
+                    flexDirection: 'column', 
+                    background: 'rgba(19,50,21,0.05)', 
+                    border: '1.5px solid rgba(19,50,21,0.12)', 
+                    padding: '20px 30px', 
+                    borderRadius: '12px',
+                    boxShadow: '0 4px 15px rgba(19,50,21,0.04)'
+                  }}
+                >
+                  <span style={{ fontSize: 9.5, letterSpacing: '0.25em', textTransform: 'uppercase', fontWeight: 800, color: '#133215', marginBottom: 6, fontFamily: 'var(--font-inter), sans-serif' }}>
+                    SJIF Impact Factor
+                  </span>
+                  
+                  <div className="flex items-baseline gap-2.5">
+                    {/* Modern, bold, clean numerical font */}
+                    <span 
+                      style={{ 
+                        fontFamily: 'var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                        fontSize: 'clamp(42px, 5.5vw, 54px)', 
+                        fontWeight: 900, 
+                        fontVariantNumeric: 'tabular-nums',
+                        letterSpacing: '-0.03em',
+                        lineHeight: 1,
+                        background: 'linear-gradient(135deg, #133215 0%, #235427 50%, #92B775 100%)', 
+                        WebkitBackgroundClip: 'text', 
+                        WebkitTextFillColor: 'transparent', 
+                        backgroundClip: 'text' 
+                      }}
+                    >
+                      {sjifNumber}
+                    </span>
+                    <span 
+                      style={{ 
+                        fontSize: 'clamp(13px, 1.3vw, 15px)', 
+                        color: 'rgba(19,50,21,0.55)', 
+                        fontWeight: 700, 
+                        fontFamily: 'var(--font-inter), sans-serif',
+                        letterSpacing: '0.01em'
+                      }}
+                    >
+                      ({sjifYear})
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-1.5 mt-2.5 pt-2 border-t border-[#133215]/10 text-[#133215]/60 group-hover:text-[#133215] text-[10px] font-bold uppercase tracking-wider transition-colors">
+                    <Eye size={12} className="text-[#92B775]" />
+                    <span>View Certificate</span>
                   </div>
                 </motion.div>
                 
@@ -74,24 +140,60 @@ const Recognition = ({ colors, assets }) => {
             </motion.div>
           </div>
 
+          {/* Certificate on Right - Clickable with Hover Zoom */}
           <div className="w-full lg:w-[40%] flex justify-center">
-            <motion.div initial={{ opacity: 0, scale: 0.85, rotate: 6 }} whileInView={{ opacity: 1, scale: 1, rotate: 0 }} viewport={{ once: true }} transition={{ duration: 1, ease: 'easeOut' }} className="relative group">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.85, rotate: 6 }} 
+              whileInView={{ opacity: 1, scale: 1, rotate: 0 }} 
+              viewport={{ once: true }} 
+              transition={{ duration: 1, ease: 'easeOut' }} 
+              onClick={() => setIsModalOpen(true)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setIsModalOpen(true);
+                }
+              }}
+              className="relative group cursor-pointer"
+              title="Click to view and download full certificate"
+            >
               <div className="absolute inset-0 bg-[#92B775]/20 blur-[60px] rounded-full scale-125 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-              <div style={{ background: '#ffffff', border: '1px solid rgba(19,50,21,0.08)', padding: 14, borderRadius: 6, boxShadow: '0 25px 50px rgba(19,50,21,0.08), 0 8px 20px rgba(19,50,21,0.04)' }}>
+              
+              <div style={{ background: '#ffffff', border: '1px solid rgba(19,50,21,0.08)', padding: 14, borderRadius: 8, boxShadow: '0 25px 50px rgba(19,50,21,0.08), 0 8px 20px rgba(19,50,21,0.04)' }} className="transition-transform duration-300 group-hover:scale-[1.02] relative overflow-hidden">
                 <Image 
                   src={certificateImage} 
                   alt="SJIF Certificate" 
                   width={450} 
                   height={600} 
-                  style={{ width: '100%', maxWidth: 380, height: 'auto', display: 'block', borderRadius: 2 }} 
+                  style={{ width: '100%', maxWidth: 380, height: 'auto', display: 'block', borderRadius: 4 }} 
                   className="shadow-lg border border-black/5" 
                   unoptimized={typeof certificateImage === 'string' && certificateImage.startsWith('http')}
                 />
+                
+                {/* Floating pill indicator on hover */}
+                <div className="absolute inset-0 bg-black/30 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4 rounded-lg">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white text-[#133215] text-xs font-black uppercase tracking-wider shadow-xl transform translate-y-2 group-hover:translate-y-0 transition-transform">
+                    <ZoomIn size={14} className="text-[#92B775]" />
+                    <span>View & Download</span>
+                  </div>
+                </div>
               </div>
             </motion.div>
           </div>
         </div>
       </div>
+
+      {/* Certificate Lightbox / Download Modal mounted to document.body */}
+      <ImageLightboxModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        src={certSrc}
+        title="Official SJIF Accreditation Certificate"
+        subtitle={`Scientific Journal Impact Factor: ${sjifNumber} · (${sjifYear})`}
+        filename={`SJIF_Certificate_${sjifYear}.jpg`}
+      />
     </section>
   );
 };

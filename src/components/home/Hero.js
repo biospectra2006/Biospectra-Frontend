@@ -1,11 +1,12 @@
 'use client';
 import React from 'react';
 import { motion, useMotionValue, useSpring, useMotionTemplate } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ZoomIn } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import SearchBar from './SearchBar';
+import ImageLightboxModal from '@/components/common/ImageLightboxModal';
 
 const ModelSkeleton = () => (
   <div className="w-full h-[380px] lg:h-[520px] bg-white/5 border border-white/10 rounded-2xl animate-pulse backdrop-blur-sm flex items-center justify-center">
@@ -56,6 +57,9 @@ const Hero = () => {
 
   const [sjifNumber, setSjifNumber] = React.useState('8.546');
   const [heroImageUrl, setHeroImageUrl] = React.useState(null);
+  const [certificateImageUrl, setCertificateImageUrl] = React.useState('/assets/content/certificate_of_indexing.jpg');
+  const [isCoverModalOpen, setIsCoverModalOpen] = React.useState(false);
+  const [isCertModalOpen, setIsCertModalOpen] = React.useState(false);
 
   React.useEffect(() => {
     const fetchSettingsData = async () => {
@@ -66,6 +70,7 @@ const Hero = () => {
           const data = await res.json();
           if (data.sjifNumber) setSjifNumber(data.sjifNumber);
           if (data.heroImageUrl) setHeroImageUrl(data.heroImageUrl);
+          if (data.certificateImageUrl) setCertificateImageUrl(data.certificateImageUrl);
         }
       } catch (err) {
         console.error('Settings fetch error:', err);
@@ -197,10 +202,14 @@ const Hero = () => {
                   <ArrowRight size={10} className="opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
                 </motion.button>
               </Link>
-              <div className="flex flex-col justify-center bg-white/5 backdrop-blur-md border border-white/20 rounded-md px-3.5 lg:px-4 shadow-[0_0_20px_rgba(255,255,255,0.02)] h-full">
+              <div 
+                onClick={() => setIsCertModalOpen(true)}
+                className="flex flex-col justify-center bg-white/5 backdrop-blur-md border border-white/20 rounded-md px-3.5 lg:px-4 shadow-[0_0_20px_rgba(255,255,255,0.02)] h-full cursor-pointer hover:bg-white/15 transition-all group"
+                title="Click to view and download official SJIF Certificate"
+              >
                 <span className="text-[#F3E8D3]/70 font-mono tracking-[0.2em] text-[6px] sm:text-[7px] uppercase mb-0.5">IMPACT FACTOR</span>
                 <div className="flex items-center gap-2">
-                  <span className="text-white font-black tracking-widest drop-shadow-[0_0_10px_rgba(255,255,255,0.3)] text-xs sm:text-sm leading-none">SJIF {sjifNumber}</span>
+                  <span className="text-white font-black tracking-widest drop-shadow-[0_0_10px_rgba(255,255,255,0.3)] text-xs sm:text-sm leading-none group-hover:text-emerald-300 transition-colors">SJIF {sjifNumber}</span>
                   <div className="w-1.5 h-1.5 rounded-full bg-[#92B775] animate-pulse shadow-[0_0_10px_rgba(146,183,117,0.6)]" />
                 </div>
               </div>
@@ -236,13 +245,30 @@ const Hero = () => {
             />
             <div className="relative z-10 w-[260px] sm:w-[320px] lg:w-[400px] h-[380px] lg:h-[520px] pointer-events-auto flex items-center justify-center">
               {heroImageUrl ? (
-                <img 
-                  src={heroImageUrl} 
-                  alt="Hero Visual" 
-                  className="w-[85%] sm:w-[80%] max-h-[85%] object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-md border border-white/10"
-                />
+                <div 
+                  onClick={() => setIsCoverModalOpen(true)}
+                  className="group relative cursor-pointer select-none transition-transform duration-300 hover:scale-[1.03]"
+                  title="Click to view and download full journal cover"
+                >
+                  <img 
+                    src={heroImageUrl} 
+                    alt="Hero Visual" 
+                    className="w-[85%] sm:w-[80%] max-h-[85%] object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-md border border-white/10 mx-auto block"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40 rounded-md p-2">
+                    <span className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-white text-[#133215] text-[11px] font-black uppercase tracking-wider rounded-full shadow-2xl transform translate-y-1 group-hover:translate-y-0 transition-transform">
+                      <ZoomIn size={14} className="text-[#92B775]" /> View & Download
+                    </span>
+                  </div>
+                </div>
               ) : (
-                <JournalModel3D />
+                <div 
+                  onClick={() => setIsCoverModalOpen(true)}
+                  className="cursor-pointer"
+                  title="Click to view and download journal cover"
+                >
+                  <JournalModel3D />
+                </div>
               )}
             </div>
           </div>
@@ -261,6 +287,26 @@ const Hero = () => {
           />
         </motion.div>
       </div>
+
+      {/* Hero Cover Modal */}
+      <ImageLightboxModal
+        isOpen={isCoverModalOpen}
+        onClose={() => setIsCoverModalOpen(false)}
+        src={heroImageUrl || '/assets/content/biospectra.jpg'}
+        title="Biospectra Journal Cover"
+        subtitle="An International Biannual Refereed Journal of Life Sciences (ISSN: 0973-7057)"
+        filename="Biospectra_Journal_Cover.jpg"
+      />
+
+      {/* SJIF Certificate Modal */}
+      <ImageLightboxModal
+        isOpen={isCertModalOpen}
+        onClose={() => setIsCertModalOpen(false)}
+        src={certificateImageUrl}
+        title="Official SJIF Accreditation Certificate"
+        subtitle={`Scientific Journal Impact Factor: ${sjifNumber}`}
+        filename="SJIF_Certificate.jpg"
+      />
     </section>
   );
 };

@@ -16,12 +16,22 @@ const parseAcademicText = (text) => {
 };
 
 /**
+ * Decodes HTML entities for supported formatting tags (i, sub, sup, b, strong, em).
+ */
+const decodeFormattingTags = (text) => {
+  if (!text) return '';
+  return text
+    .replace(/&lt;(\/?(i|em|b|strong|sub|sup|span))&gt;/gi, '<$1>')
+    .replace(/&lt;(\/?(i|em|b|strong|sub|sup|span))\s+([^&]*)&gt;/gi, '<$1 $3>');
+};
+
+/**
  * Parses the affiliation string into individual lines with superscripts.
  */
 const parseAffiliations = (text) => {
   if (!text) return '';
   const parts = text.split(/\s*\|\s*|\n|(?:;\s*(?=\^))/).filter(s => s.trim());
-  return parts.map(part => parseAcademicText(part.trim())).join('<br/>');
+  return parts.map(part => parseAcademicText(decodeFormattingTags(part.trim()))).join('<br/>');
 };
 
 const ArticleClient = ({ article }) => {
@@ -40,12 +50,13 @@ const ArticleClient = ({ article }) => {
 
   const cleanText = (text) => (text || '').replace(/\s+/g, ' ').trim();
   
-  const title = cleanText(article.title);
+  const title = decodeFormattingTags(cleanText(article.title));
   const authorsRaw = cleanText(Array.isArray(article.authors) ? article.authors.join(', ') : article.authors);
-  const authorsParsed = parseAcademicText(authorsRaw);
+  const authorsParsed = parseAcademicText(decodeFormattingTags(authorsRaw));
   const affiliationParsed = parseAffiliations(article.affiliation);
-  const abstract = cleanText(article.abstract);
-  const keywords = Array.isArray(article.keywords) ? article.keywords.join(', ') : (article.keywords || '');
+  const abstract = decodeFormattingTags(cleanText(article.abstract));
+  const keywordsRaw = Array.isArray(article.keywords) ? article.keywords.join(', ') : (article.keywords || '');
+  const keywords = decodeFormattingTags(cleanText(keywordsRaw));
 
   // Published in calculation: [Journal Name, Volume, Issue, Year]
   const issueYear = article.category?.issue?.year?.year || article.year;
@@ -122,9 +133,9 @@ const ArticleClient = ({ article }) => {
 
           {/* 6. Keywords */}
           {keywords && (
-            <section className="mb-6 text-xs md:text-sm text-slate-700 bg-slate-50/80 px-4 py-2.5 rounded-lg border border-slate-200/60">
+            <section className="mb-6 text-xs md:text-sm text-slate-700 bg-slate-50/80 px-4 py-2.5 rounded-lg border border-slate-200/60 leading-relaxed">
               <span className="font-bold text-slate-900">Keywords: </span>
-              <span className="italic">{keywords}</span>
+              <span dangerouslySetInnerHTML={{ __html: keywords }} />
             </section>
           )}
 
